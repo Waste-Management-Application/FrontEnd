@@ -2,7 +2,7 @@ import { BiMenu } from "react-icons/bi";
 import { useState } from "react";
 
 function SideBar() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const toggle = () => {
     setOpen(!open);
   };
