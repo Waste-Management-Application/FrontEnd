@@ -2,30 +2,19 @@ import { BiMenu } from "react-icons/bi";
 import { TbSortAscending } from "react-icons/tb";
 import Bar from "./Bar";
 import imgnews from "./assets/news.jpeg";
+import { useEffect, useState } from "react";
 
 function News() {
-  const news = [
-    {
-      title: "News1",
-      text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, laboriosam!",
-    },
-    {
-      title: "News2",
-      text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, laboriosam!",
-    },
-    {
-      title: "News3",
-      text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, laboriosam!",
-    },
-    {
-      title: "News4",
-      text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, laboriosam!",
-    },
-    {
-      title: "News5",
-      text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, laboriosam!",
-    },
-  ];
+  const [news, setNews] = useState(null);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((json) => {
+        // console.log(json);
+        setNews(json);
+      });
+  }, []);
 
   return (
     <div>
@@ -48,16 +37,20 @@ function News() {
             </div>
 
             <ul>
-              {news.map((info, i) => (
-                <div key={i} className="flex h-20 border  w-fill m-4 shadow-md">
-                  <div className="h-fill w-[30%] border ">
-                    <img src={imgnews} className="fill" />
+              {news &&
+                news.map((info, i) => (
+                  <div
+                    key={i}
+                    className="flex h-20 border  w-fill m-4 shadow-md overflow-hidden"
+                  >
+                    <div className="h-fill w-[30%] border ">
+                      <img src={imgnews} className="fill" />
+                    </div>
+                    <div className="h-fill w-[70%] border ">
+                      <p>{info.body}</p>
+                    </div>
                   </div>
-                  <div className="h-fill w-[70%] border ">
-                    <p>{info.text}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
             </ul>
 
             <Bar />

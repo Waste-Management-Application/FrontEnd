@@ -169,7 +169,7 @@ function MainPage() {
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
             <SideBar />
           </div>
-          <div className=" h-[600px]">
+          <div className=" h-[600px] z-10">
             {map && (
               <div>
                 <div ref={mapElement} className="h-[600px]" />
