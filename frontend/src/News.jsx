@@ -3,17 +3,22 @@ import { TbSortAscending } from "react-icons/tb";
 import Bar from "./Bar";
 import imgnews from "./assets/news.jpeg";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 function News() {
-  const [news, setNews] = useState(null);
+  const [news, setNews] = useState([]);
 
+  // const [articles, setArticles] = useState([]);
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((json) => {
-        // console.log(json);
-        setNews(json);
-      });
+    const getArticles = async () => {
+      const response = await axios.get(
+        `https://newsapi.org/v2/everything?q=waste&apiKey=2e365172c734402695bee95c8ffc6129`
+      );
+
+      setNews(response.data.articles);
+    };
+    getArticles();
   }, []);
 
   return (
@@ -44,10 +49,12 @@ function News() {
                     className="flex h-20 border  w-fill m-4 shadow-md overflow-hidden"
                   >
                     <div className="h-fill w-[30%] border ">
-                      <img src={imgnews} className="fill" />
+                      <img src={info.urlToImage} className="fill" />
                     </div>
                     <div className="h-fill w-[70%] border ">
-                      <p>{info.body}</p>
+                      <NavLink to={`/News/${info.id}`}>
+                        <p>{info.description}</p>
+                      </NavLink>
                     </div>
                   </div>
                 ))}
