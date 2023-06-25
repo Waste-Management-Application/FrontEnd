@@ -173,7 +173,6 @@ function MainPage() {
 
     map.on("click", (e) => {
       destinations.push(e.lngLat);
-      console.log(destinations);
       addDeliveryMarker(e.lngLat, map);
       recalculatedRoutes();
     });
