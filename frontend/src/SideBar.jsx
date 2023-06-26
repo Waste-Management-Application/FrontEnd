@@ -9,20 +9,13 @@ function SideBar() {
 
   return (
     <div>
-      <div className="h-screen flex items-start justify-end z-90 ">
+      <div className="h-screen flex items-start justify-end z-[1001] ">
         <BiMenu className={` h-10 w-auto   duration-300`} onClick={toggle} />
         <div
           className={`${
             open ? "w-48" : "w-0"
           }  bg-g2 h-screen relative duration-500 opacity-80`}
         >
-          {/* <h1
-            className={`text-white font-semibold text-center duration-300 ${
-              !open && `invisible`
-            }`}
-          >
-            BinBuddy
-          </h1> */}
           <div
             className={`flex flex-col justify-center items-center ${
               !open && `invisible`

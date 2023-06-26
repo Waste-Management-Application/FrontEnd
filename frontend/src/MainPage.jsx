@@ -43,29 +43,35 @@ function MainPage() {
     });
   };
 
-  const addDeliveryMarker = (lnglat, map) => {
-    const element = document.createElement("div");
-    element.classList.add(
-      "bg-cover",
-      "h-[8px]",
-      "w-[8px]",
-      "bg-[blue]",
-      "border",
-      "rounded-lg",
-      "border-solid-gray"
-    );
-    new tt.Marker({ element: element }).setLngLat(lnglat).addTo(map);
+  const addLocationMarkers = (destinations, map) => {
+    if (!destinations || destinations.length === 0) {
+      return; // Handle the case when destinations is undefined or empty
+    }
+
+    destinations.forEach((destination) => {
+      const { lng, lat } = destination;
+      const element = document.createElement("div");
+      element.classList.add(
+        "bg-cover",
+        "h-[8px]",
+        "w-[8px]",
+        "bg-[blue]",
+        "border",
+        "rounded-lg",
+        "border-solid-gray"
+      );
+      new tt.Marker({ element: element }).setLngLat([lng, lat]).addTo(map);
+    });
   };
 
   useEffect(() => {
     const destinations = [
-      { lng: -0.19089115399796697, lat: 5.605254367144667 },
-      { lng: -0.1941527201592237, lat: 5.606535670005371 },
-      { lng: -0.1970709635672847, lat: 5.606920060315559 },
-      { lng: -0.20054710645158025, lat: 5.605809598729792 },
-      { lng: -0.20153415936820807, lat: 5.60914097714803 },
-      { lng: -0.20342243451548825, lat: 5.61149001459691 },
-      { lng: -0.20470989484229563, lat: 5.614180718593346 },
+      { lng: -1.5665604513100675, lat: 6.668418037631255 },
+
+      { lng: -1.5666462819983735, lat: 6.666606471200865 },
+      { lng: -1.56760360405886, lat: 6.669446982230852 },
+      { lng: -1.566841291095102, lat: 6.672673497095971 },
+      { lng: -1.5655972313527116, lat: 6.674723454182086 },
     ];
 
     const origin = {
@@ -78,7 +84,8 @@ function MainPage() {
       container: mapElement.current,
       stylesVisibility: { trafficIncidents: true, trafficFlow: true },
       center: [longitude, latitude],
-      zoom: 14,
+      zoom: 16,
+      pitch: 45,
     });
 
     setMap(map);
@@ -116,6 +123,8 @@ function MainPage() {
     };
 
     addMarker();
+
+    addLocationMarkers(destinations, map);
 
     const sortDestinations = (locations) => {
       const pointsForDestinations = locations.map((destination) => {
@@ -173,8 +182,9 @@ function MainPage() {
 
     map.on("click", (e) => {
       destinations.push(e.lngLat);
-      addDeliveryMarker(e.lngLat, map);
+      addLocationMarkers(destinations, map);
       recalculatedRoutes();
+      console.log(destinations);
     });
     return () => map.remove();
   }, [latitude, longitude]);
@@ -189,7 +199,7 @@ function MainPage() {
           <div className=" h-[600px] z-10">
             {map && (
               <div>
-                <div ref={mapElement} className="h-[600px]" />
+                <div ref={mapElement} className="h-[600px] z-10" />
               </div>
             )}
             <div></div>
