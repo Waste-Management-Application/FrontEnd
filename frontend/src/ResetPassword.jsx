@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 
-function SignIn() {
+function ResetPassword() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   return (
@@ -18,7 +18,7 @@ function SignIn() {
             </div>
             <div className="flex flex-col scroll-smooth justify-center items-center p-4">
               <h1 className="text-black text-xl font-semibold">
-                Login in your account
+                Please Enter Your E-mail
               </h1>
             </div>
             <form className="flex flex-col items-center h-auto p-2 m-2 w-fill overflow-auto rounded-md">
@@ -34,16 +34,12 @@ function SignIn() {
                 placeholder="Password"
                 ref={passwordRef}
               />
-              <NavLink to="/ResetPassword" className="flex justify-end">
-                <h4 className="text-g2 ">Forgot Password?</h4>
-              </NavLink>
             </form>
-
             <NavLink
               to="/MainPage"
               className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center "
             >
-              <button>Login</button>
+              <button>Submit</button>
             </NavLink>
             <div className="m-8 flex w-fill items-center justify-center">
               <div className="border h-[1px] border-g1 w-[30%]"></div>
@@ -71,4 +67,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default ResetPassword;
