@@ -17,7 +17,7 @@ function SignUp() {
   return (
     <div className="flex  justify-center items-center h-screen w-fill overflow-auto ">
       <div className="  h-screen w-full overflow-auto ">
-        <div className="flex h-24 bg-g3 text-white text-2xl font-semibold justify-center items-center">
+        <div className="flex h-24 bg-gradient-to-r from-g2 to-g3 text-white text-2xl font-semibold justify-center items-center">
           <h1>BinBuddy</h1>
         </div>
         <div className="flex flex-row p-4 text-g2 shadow-lg justify-between">

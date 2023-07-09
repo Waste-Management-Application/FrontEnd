@@ -13,7 +13,7 @@ function News() {
   useEffect(() => {
     const getArticles = async () => {
       const response = await axios.get(
-        `https://newsapi.org/v2/everything?q=waste&apiKey=2e365172c734402695bee95c8ffc6129`
+        `https://newsapi.org/v2/everything?q=rubbish&apiKey=2e365172c734402695bee95c8ffc6129`
       );
 
       setNews(response.data.articles);
@@ -46,10 +46,10 @@ function News() {
                 news.map((info, i) => (
                   <div
                     key={i}
-                    className="flex h-20 border  w-fill m-4 shadow-md overflow-hidden"
+                    className="flex h-24 border  w-fill m-4 shadow-md overflow-hidden rounded-md"
                   >
                     <div className="h-fill w-[30%] border ">
-                      <img src={info.urlToImage} className="fill" />
+                      <img src={info.urlToImage} className="h-full w-full" />
                     </div>
                     <div className="h-fill w-[70%] border ">
                       <NavLink to={`/News/${info.id}`}>

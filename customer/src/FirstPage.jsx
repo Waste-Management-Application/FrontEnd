@@ -6,7 +6,7 @@ function FirstPage() {
     <div>
       <div className="flex  justify-center items-center h-screen w-full ">
         <div className=" overflow-hidden  h-screen w-full ">
-          <div className="flex flex-col h-[60%] bg-g3 w-full overflow-auto opacity-2">
+          <div className="flex flex-col h-[60%] bg-gradient-to-r from-g3 to-g2 w-full overflow-auto opacity-2">
             <h1 className=" text-white font-semibold p-4 ">BinBuddy</h1>
             <div>
               <img src={binImage2} className="" />
