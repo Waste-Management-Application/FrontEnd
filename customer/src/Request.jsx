@@ -2,6 +2,7 @@ import Bar from "./Bar";
 import SideBar from "./SideBar";
 import "./App.css";
 import help from "./assets/help.jpeg";
+
 import { BsTrash } from "react-icons/bs";
 import { TfiTruck, TfiAnnouncement } from "react-icons/tfi";
 import { RiFeedbackLine } from "react-icons/ri";
@@ -11,6 +12,9 @@ import Modal from "./Modal";
 
 function Request() {
   const [openModal, setOpenModal] = useState(false);
+  const [request, setRequest] = useState(false);
+  const [bin, setBin] = useState(false);
+
   return (
     <div>
       <div className="flex  justify-center items-center h-screen w-full ">
@@ -29,12 +33,28 @@ function Request() {
             <div className=" h-auto w-fill m-8  grid grid-cols-2 gap-4">
               <div className="flex flex-col h-24 shadow-lg justify-center items-center  bg-white">
                 <BsTrash className="text-g3 h-8 w-8" />
-                <button onClick={() => setOpenModal(true)}>New Bin</button>
+                <button
+                  onClick={() => {
+                    setRequest(false);
+                    setBin(true);
+                    setOpenModal(true);
+                  }}
+                >
+                  New Bin
+                </button>
               </div>
               <div className="flex flex-col h-24 shadow-lg justify-center items-center bg-white ">
                 <TfiTruck className="text-g3 h-8 w-8" />
 
-                <button>Request Pickup</button>
+                <button
+                  onClick={() => {
+                    setRequest(true);
+                    setBin(false);
+                    setOpenModal(true);
+                  }}
+                >
+                  Request Pickup
+                </button>
               </div>
               <div className="flex flex-col h-24 shadow-lg justify-center items-center  bg-white ">
                 <TfiAnnouncement className="text-g3 h-8 w-8" />
@@ -42,13 +62,15 @@ function Request() {
               </div>
               <div className="flex flex-col h-24 shadow-lg justify-center items-center  bg-white ">
                 <RiFeedbackLine className="text-g3 h-8 w-8" />
-                <button>Feedback</button>
+                <NavLink to="/Feedback">Feedback</NavLink>
               </div>
               <Modal
                 openModal={openModal}
+                request={request}
                 onClose={() => {
                   setOpenModal(false);
                 }}
+                bin={bin}
               />
             </div>
           </div>

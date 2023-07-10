@@ -8,6 +8,7 @@ import Complaint from "./Complaint";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NewsDetails from "./NewsDetails";
+import Feedback from "./Feedback";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/MainPage" element={<MainPage />} />
         <Route path="/Request" element={<Request />} />
         <Route path="/Complaint" element={<Complaint />} />
+        <Route path="/Feedback" element={<Feedback />} />
         <Route path="/News" element={<News />} />
         <Route path="News">
           <Route path=":id" element={<NewsDetails />} />
