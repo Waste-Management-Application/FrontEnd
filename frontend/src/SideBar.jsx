@@ -8,8 +8,8 @@ function SideBar() {
   };
 
   return (
-    <div>
-      <div className="h-screen flex items-start justify-end z-[1001] ">
+    <div className="z-[9999]">
+      <div className="h-screen flex items-start justify-end z-20 ">
         <BiMenu className={` h-10 w-auto   duration-300`} onClick={toggle} />
         <div
           className={`${
