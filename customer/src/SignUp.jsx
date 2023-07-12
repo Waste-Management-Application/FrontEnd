@@ -15,7 +15,7 @@ function SignUp() {
     console.log(phoneRef);
   };
   return (
-    <div className="flex  justify-center items-center h-screen w-fill overflow-auto ">
+    <div className="flex  justify-center items-center h-screen w-fill overflow-auto shadow- ">
       <div className="  h-screen w-full overflow-auto ">
         <div className="flex h-24 bg-gradient-to-r from-g2 to-g3 text-white text-2xl font-semibold justify-center items-center">
           <h1>BinBuddy</h1>

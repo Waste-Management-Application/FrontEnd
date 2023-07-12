@@ -3,8 +3,8 @@ import News from "./News";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import MainPage from "./MainPage";
-import Request from "./Request";
 import Complaint from "./Complaint";
+import PaymentPage from "./PaymentPage";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NewsDetails from "./NewsDetails";
@@ -18,9 +18,9 @@ function App() {
         <Route path="/SignUP" element={<SignUp />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/MainPage" element={<MainPage />} />
-        <Route path="/Request" element={<Request />} />
         <Route path="/Complaint" element={<Complaint />} />
         <Route path="/Feedback" element={<Feedback />} />
+        <Route path="/Payment" element={<PaymentPage />} />
         <Route path="/News" element={<News />} />
         <Route path="News">
           <Route path=":id" element={<NewsDetails />} />
