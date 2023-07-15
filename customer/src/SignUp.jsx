@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useRef } from "react";
 
+
+
 function SignUp() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -12,7 +14,7 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(phoneRef);
+   
   };
   return (
     <div className="flex  justify-center items-center h-screen w-fill overflow-auto shadow- ">
@@ -38,6 +40,7 @@ function SignUp() {
               type="text"
               className="h-9 shadow-md w-[90%] rounded-md text-center"
               placeholder="First Name"
+              name="firstName"
               ref={FnameRef}
               // required
             />
@@ -71,7 +74,7 @@ function SignUp() {
             ref={digitalRef}
             // required
           />
-          <input
+          <input 
             type="password"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Create Password"
@@ -95,12 +98,11 @@ function SignUp() {
             <option value="Female">Female</option>
           </select>
 
-          <NavLink
-            to="/MainPage"
+          <div
             className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "
           >
-            <button>Join The Community</button>
-          </NavLink>
+            <button >Join The Community</button>
+          </div>
         </form>
       </div>
     </div>
