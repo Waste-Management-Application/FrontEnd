@@ -6,7 +6,6 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MainPage from "./MainPage";
 import CheckList from "./CheckList";
 import NewsDetails from "./NewsDetails";
-import ResetPassword from "./ResetPassword";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Route path="News">
           <Route path=":id" element={<NewsDetails />} />
         </Route>
-        <Route path="/ResetPassword" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );

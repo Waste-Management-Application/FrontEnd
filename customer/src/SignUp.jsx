@@ -1,19 +1,35 @@
-import { NavLink } from "react-router-dom";
-import { useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 
 function SignUp() {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const CpasswordRef = useRef(null);
-  const FnameRef = useRef(null);
-  const LnameRef = useRef(null);
-  const digitalRef = useRef(null);
-  const phoneRef = useRef(null);
+  const [formInfo, setFormInfo] = useState({});
+  const form = useRef(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handle = (e) => {
     e.preventDefault();
-    console.log(phoneRef);
+    const formData = new FormData(form.current);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("ConfirmPassword");
+    const contact = formData.get("contact");
+    const gender = formData.get("gender");
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    setFormInfo({
+      email,
+      password,
+      confirmPassword,
+      contact,
+      gender,
+      firstName,
+      lastName,
+    });
+    navigate("/MainPage");
+
+    return false; // Prevent default form submission behavior
   };
+
   return (
     <div className="flex  justify-center items-center h-screen w-fill overflow-auto shadow- ">
       <div className="  h-screen w-full overflow-auto ">
@@ -30,7 +46,8 @@ function SignUp() {
           </h1>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handle}
+          ref={form}
           className=" flex flex-col items-center h-[80%] p-2 m-2 w-fill overflow-auto rounded-md"
         >
           <div className=" h-[8%] w-fill  grid grid-cols-2 gap-4">
@@ -38,14 +55,14 @@ function SignUp() {
               type="text"
               className="h-9 shadow-md w-[90%] rounded-md text-center"
               placeholder="First Name"
-              ref={FnameRef}
+
               // required
             />
             <input
               type="text"
               className="h-9 shadow-md w-[95%]  rounded-md text-center"
               placeholder="Last Name"
-              ref={LnameRef}
+              name=""
               // required
             />
           </div>
@@ -54,36 +71,30 @@ function SignUp() {
             type="email"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Email"
-            ref={emailRef}
             // required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Contact"
-            ref={phoneRef}
             // required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Digital Address"
-            ref={digitalRef}
             // required
           />
           <input
             type="password"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Create Password"
-            ref={passwordRef}
             // required
           />
           <input
             type="password"
             className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md "
             placeholder="Confirm Password"
-            ref={CpasswordRef}
-            // required
           />
 
           <select

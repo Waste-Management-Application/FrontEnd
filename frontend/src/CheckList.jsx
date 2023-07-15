@@ -2,7 +2,7 @@ import Bar from "./Bar";
 import SideBar from "./SideBar";
 
 function CheckList() {
-  const news = [
+  const task = [
     {
       title: "News1",
       text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id, laboriosam!",
@@ -38,7 +38,7 @@ function CheckList() {
           <div className="flex h-[70%] w-full ">
             <div className=" my-10 h-[60%] border  w-screen ">
               <ul>
-                {news.map((info, i) => (
+                {task.map((info, i) => (
                   <div
                     key={i}
                     className="flex h-20 border  w-fill m-4 shadow-md"
