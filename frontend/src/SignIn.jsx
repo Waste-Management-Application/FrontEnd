@@ -34,7 +34,7 @@ function SignIn() {
                 placeholder="Password"
                 ref={passwordRef}
               />
-              <NavLink to="/ResetPassword" className="flex justify-end">
+              <NavLink to="/ForgotPassword" className="flex justify-end">
                 <h4 className="text-g2 ">Forgot Password?</h4>
               </NavLink>
             </form>

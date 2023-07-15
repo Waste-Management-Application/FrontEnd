@@ -1,9 +1,23 @@
-import { useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { useRef, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function SignIn() {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const [formInfo, setFormInfo] = useState({});
+  const form = useRef(null);
+  const navigate = useNavigate();
+
+  const handle = (e) => {
+    e.preventDefault();
+    const formData = new FormData(form.current);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    setFormInfo({ email, password });
+    navigate("/MainPage");
+
+    return false; // Prevent default form submission behavior
+  };
+
   return (
     <div>
       <div className="flex  justify-center items-center h-screen  overflow-auto ">
@@ -21,30 +35,31 @@ function SignIn() {
                 Login in your account
               </h1>
             </div>
-            <form className="flex flex-col items-center h-auto p-2 m-2 w-fill overflow-auto rounded-md">
+            <form
+              ref={form}
+              onSubmit={handle}
+              className="flex flex-col items-center h-auto p-2 m-2 w-fill overflow-auto rounded-md"
+            >
               <input
                 type="email"
+                name="email"
                 className="h-12 shadow-md w-[90%] my-4 rounded-md text-center"
                 placeholder="E-mail"
-                ref={emailRef}
               />
               <input
                 type="Password"
+                name="password"
                 className="h-12 shadow-md w-[90%] my-4 rounded-md text-center"
                 placeholder="Password"
-                ref={passwordRef}
               />
-              <NavLink to="/ResetPassword" className="flex justify-end">
+              <NavLink to="/ForgotPassword" className="flex justify-end">
                 <h4 className="text-g2 ">Forgot Password?</h4>
               </NavLink>
+              <div className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center ">
+                <input type="submit" name="send" />
+              </div>
             </form>
 
-            <NavLink
-              to="/MainPage"
-              className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center "
-            >
-              <button>Login</button>
-            </NavLink>
             <div className="m-8 flex w-fill items-center justify-center">
               <div className="border h-[1px] border-g1 w-[30%]"></div>
               <p>or</p>

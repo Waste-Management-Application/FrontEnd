@@ -3,8 +3,7 @@ import { useRef } from "react";
 
 function SignUp() {
   const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const CpasswordRef = useRef(null);
+
   const FnameRef = useRef(null);
   const LnameRef = useRef(null);
   const digitalRef = useRef(null);
