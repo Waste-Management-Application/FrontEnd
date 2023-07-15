@@ -33,20 +33,23 @@ function SignUp() {
           onSubmit={handleSubmit}
           className=" flex flex-col items-center h-[80%] p-2 m-2 w-fill overflow-auto rounded-md"
         >
-          <input
-            type="text"
-            className="h-[8%] shadow-md w-[90%] rounded-md text-center"
-            placeholder="First Name"
-            ref={FnameRef}
-            // required
-          />
-          <input
-            type="text"
-            className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Last Name"
-            ref={LnameRef}
-            // required
-          />
+          <div className=" h-[8%] w-fill  grid grid-cols-2 gap-4">
+            <input
+              type="text"
+              className="h-9 shadow-md w-[90%] rounded-md text-center"
+              placeholder="First Name"
+              ref={FnameRef}
+              // required
+            />
+            <input
+              type="text"
+              className="h-9 shadow-md w-[95%]  rounded-md text-center"
+              placeholder="Last Name"
+              ref={LnameRef}
+              // required
+            />
+          </div>
+
           <input
             type="email"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
@@ -57,7 +60,7 @@ function SignUp() {
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Phone"
+            placeholder="Contact"
             ref={phoneRef}
             // required
           />
@@ -82,6 +85,16 @@ function SignUp() {
             ref={CpasswordRef}
             // required
           />
+
+          <select
+            name="Gender"
+            id="cars "
+            className="border h-[8%] shadow-md text-center w-[90%] my-2 rounded-md  "
+          >
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+
           <NavLink
             to="/MainPage"
             className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "

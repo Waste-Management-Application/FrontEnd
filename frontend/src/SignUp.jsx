@@ -57,31 +57,18 @@ function SignUp() {
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Phone"
+            placeholder="Contact"
             ref={phoneRef}
             // required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Digital Address"
+            placeholder="Location"
             ref={digitalRef}
             // required
           />
-          <input
-            type="password"
-            className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Create Password"
-            ref={passwordRef}
-            // required
-          />
-          <input
-            type="password"
-            className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md "
-            placeholder="Confirm Password"
-            ref={CpasswordRef}
-            // required
-          />
+
           <NavLink
             to="/MainPage"
             className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "

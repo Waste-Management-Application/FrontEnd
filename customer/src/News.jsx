@@ -8,6 +8,9 @@ import axios from "axios";
 
 function News() {
   const [news, setNews] = useState([]);
+  const handleclick = (info) => {
+    console.log(info.id);
+  };
 
   // const [articles, setArticles] = useState([]);
   useEffect(() => {
@@ -51,8 +54,11 @@ function News() {
                       <div className="h-fill w-[30%] border ">
                         <img src={info.urlToImage} className="h-full w-full" />
                       </div>
-                      <div className="h-fill w-[70%] border ">
-                        <NavLink to={`/News/${info.id}`}>
+                      <div
+                        className="h-fill w-[70%] border "
+                        onClick={handleclick}
+                      >
+                        <NavLink to={`/News/${info.id}`} key={info.id}>
                           <p>{info.description}</p>
                         </NavLink>
                       </div>

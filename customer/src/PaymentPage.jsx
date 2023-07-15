@@ -6,14 +6,14 @@ import { PaystackButton } from "react-paystack";
 
 function PaymentPage() {
   const publicKey = "pk_test_903f9806310dd4a90c6af1011df4ae984fbc84e8";
-  const amount = 1000000; // Remember, set in kobo!
+  const amount = 100; // Remember, set in kobo!
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
   const componentProps = {
     email,
-    amount,
+    amount: amount * 100,
     metadata: {
       name,
       phone,
@@ -66,7 +66,7 @@ function PaymentPage() {
           </div>
           <div className=" h-[600px]">
             <div className="m-4">
-              <h1>Please select your network</h1>
+              <h1>Please fill out the following fields</h1>
             </div>
             <form className="flex flex-col items-center justify-start h-full p-2 my-4 w-fill overflow-auto rounded-md">
               <label>Name</label>

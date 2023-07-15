@@ -1,9 +1,30 @@
 import SideBar from "./SideBar";
 import Bar from "./Bar";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function NewsDetails() {
   const { id } = useParams();
+  const [article, setArticle] = useState(null);
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await axios.get(
+          `https://newsapi.org/v2/everything/${id}?apiKey=2e365172c734402695bee95c8ffc6129`
+        );
+
+        setArticle(response.data);
+      } catch (error) {
+        console.log("Error:", error);
+        // Handle the error or display an error message
+      }
+    };
+
+    fetchArticle();
+  }, [id]);
+
   return (
     <div>
       <div className="flex  justify-center items-center h-screen w-full ">
@@ -12,10 +33,16 @@ function NewsDetails() {
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
             <SideBar />
           </div>
-          <div>this is page {id} </div>
+          {article ? (
+            <div>
+              <h2>{article.title}</h2>
+              <p>{article.description}</p>
+              {/* Render other article details as needed */}
+            </div>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
-
-        {/* <button className="fixed z-90 bottom-5  right-3 bg-g3 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-g2 duration-300"></button> */}
         <Bar />
       </div>
     </div>

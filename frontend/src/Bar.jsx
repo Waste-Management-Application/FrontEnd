@@ -1,6 +1,6 @@
 import { FaRegMap } from "react-icons/fa";
 import { FaRegNewspaper } from "react-icons/fa";
-import { BsCardChecklist } from "react-icons/bs";
+import { RiListCheck } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 // inset-x-0 bottom-0 absolute
 
@@ -21,8 +21,8 @@ function Bar() {
           </label>
         </NavLink>
 
-        <NavLink to="/CheckList">
-          <BsCardChecklist id="checklist" className="h-12 w-auto " />
+        <NavLink to="/CheckList" className="flex flex-col">
+          <RiListCheck id="checklist" className="h-12 w-auto " />
           <label htmlFor="checklist" className="text-g2">
             Checklist
           </label>

@@ -14,7 +14,7 @@ function Bar() {
           </label>
         </NavLink>
         <NavLink to="/News" className="flex flex-col" id="news">
-          <FaRegNewspaper className="hauto w-auto" />
+          <FaRegNewspaper className="h-12 w-auto" />
           <label htmlFor="news" className="text-g2">
             News
           </label>

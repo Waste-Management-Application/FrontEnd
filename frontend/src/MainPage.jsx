@@ -1,4 +1,3 @@
-//import { FaLocationArrow } from "react-icons/fa";
 import Bar from "./Bar";
 import SideBar from "./SideBar";
 import { useEffect, useRef } from "react";
@@ -14,6 +13,8 @@ function MainPage() {
   const [longitude, setLongitude] = useState(null);
 
   const [map, setMap] = useState({});
+  const [isAtDestination, setIsAtDestination] = useState(false);
+
   navigator.geolocation.watchPosition((position) => {
     const { latitude, longitude } = position.coords;
     setLatitude(latitude);
@@ -65,9 +66,10 @@ function MainPage() {
   };
 
   useEffect(() => {
+    console.log(latitude, longitude);
     const destinations = [
       { lng: -1.5665604513100675, lat: 6.668418037631255 },
-
+      { lng: -1.5682787, lat: 6.6688801 },
       { lng: -1.5666462819983735, lat: 6.666606471200865 },
       { lng: -1.56760360405886, lat: 6.669446982230852 },
       { lng: -1.566841291095102, lat: 6.672673497095971 },
@@ -166,6 +168,15 @@ function MainPage() {
       if (latitude !== null && longitude !== null) {
         sortDestinations(destinations).then((sorted) => {
           sorted.unshift(origin);
+
+          const isAtDestination = sorted.some(
+            (location) =>
+              location.lat === latitude && location.lng === longitude
+          );
+
+          setIsAtDestination(isAtDestination);
+          console.log(isAtDestination);
+
           ttapi.services
             .calculateRoute({
               key: "tGs7nOkNWSZKSWIBx3Ln2m7ZM4QN26ix",
@@ -188,6 +199,7 @@ function MainPage() {
     });
     return () => map.remove();
   }, [latitude, longitude]);
+
   return (
     <div>
       <div className="flex  justify-center items-center h-screen w-full ">
@@ -200,11 +212,15 @@ function MainPage() {
             {map && (
               <div>
                 <div ref={mapElement} className="h-[600px] z-10" />
+                {isAtDestination && (
+                  <div className="bg-white p-2 mt-4 rounded-md shadow-md">
+                    You are at a destination.
+                  </div>
+                )}
               </div>
             )}
-            <div></div>
           </div>
-          {/* <button className="fixed z-90 bottom-5  right-3 bg-g3 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-g2 duration-300"></button> */}
+
           <Bar />
         </div>
       </div>

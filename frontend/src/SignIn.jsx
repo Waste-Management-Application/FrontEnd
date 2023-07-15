@@ -12,7 +12,7 @@ function SignIn() {
             <div className="flex h-24 bg-gradient-to-r from-g2 to-g3 text-white text-3xl font-semibold justify-center items-center">
               <h1>BinBuddy</h1>
             </div>
-            <div className="flex flex-row bg-white p-4 text-g2 shadow-lg justify-between">
+            <div className="flex flex-row p-4 text-g2 shadow-lg justify-between">
               <NavLink to="/SignIn">Sign In</NavLink>
               <NavLink to="/SignUp">Get Started</NavLink>
             </div>
@@ -45,12 +45,12 @@ function SignIn() {
             >
               <button>Login</button>
             </NavLink>
-            <div className="m-8 flex w-fill items-center justify-center">
+            {/* <div className="m-8 flex w-fill items-center justify-center">
               <div className="border h-[1px] border-g1 w-[30%]"></div>
               <p>or</p>
               <div className="flex items-end border h-[1px] border-g1 w-[30%]"></div>
-            </div>
-            <div className=" h-auto w-fill m-8  grid grid-cols-2 gap-4">
+            </div> */}
+            {/* <div className=" h-auto w-fill m-8  grid grid-cols-2 gap-4">
               <div className="flex h-10 shadow-lg justify-center items-center  bg-white">
                 <button>Google</button>
               </div>
@@ -63,7 +63,7 @@ function SignIn() {
               <div className="flex h-10 shadow-lg justify-center items-center  bg-white ">
                 <button>Facebook</button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
