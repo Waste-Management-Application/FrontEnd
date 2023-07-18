@@ -50,7 +50,7 @@ function SignIn() {
             </div>
             <div className="flex flex-col scroll-smooth justify-center items-center p-4">
               <h1 className="text-black text-xl font-semibold">
-                Login in your account
+                Login Now
               </h1>
             </div>
             <form

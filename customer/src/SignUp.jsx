@@ -81,15 +81,14 @@ function SignUp() {
               className="h-9 shadow-md w-[90%] rounded-md text-center"
               placeholder="First Name"
               name="firstName"
-               
-              // required
+              required
             />
             <input
               type="text"
               className="h-9 shadow-md w-[95%]  rounded-md text-center"
               placeholder="Last Name"
               name="lastName"
-              // required
+              required
             />
           </div>
 
@@ -98,43 +97,47 @@ function SignUp() {
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Email"
             name="email"
-            // required
+            required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Contact"
             name="contact"
-            // required
+            required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Digital Address"
             name="digitalAddress"
-            // required
+            required
           />
           <input 
             type="password"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Create Password"
             name="password"
+            required
           />
           <input
             type="password"
             className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md "
             placeholder="Confirm Password"
             name="confirmPassword"
+            required
           />
 
           <select
             name="gender"
             id="gender "
             className="border h-[8%] shadow-md text-center w-[90%] my-2 rounded-md  "
+            required
           >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
+           <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
 
           {error && (
             <div className="text-red-500 mt-2">{error}</div>
