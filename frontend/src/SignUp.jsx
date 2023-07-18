@@ -2,17 +2,38 @@ import { NavLink } from "react-router-dom";
 import { useRef } from "react";
 
 function SignUp() {
-  const emailRef = useRef(null);
+  const [formInfo, setFormInfo] = useState({});
+  const form = useRef(null);
+  const navigate = useNavigate();
 
-  const FnameRef = useRef(null);
-  const LnameRef = useRef(null);
-  const digitalRef = useRef(null);
-  const phoneRef = useRef(null);
-
-  const handleSubmit = (e) => {
+  const handle = (e) => {
     e.preventDefault();
-    console.log(phoneRef);
+    const formData = new FormData(form.current);
+    const jsonData = Object.fromEntries(formData)
+    const email = formData.get("email");
+    const contact = formData.get("contact");
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    setFormInfo({
+      email,
+      contact,
+      firstName,
+      lastName,
+    });
+    console.log(jsonData)
+    client
+      .post("/driverSignUp/", jsonData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    navigate("/SignIn");
+
+  return false; // Prevent default form submission behavior
   };
+
   return (
     <div className="flex  justify-center items-center h-screen w-fill overflow-auto ">
       <div className="  h-screen w-full overflow-auto ">
@@ -36,35 +57,35 @@ function SignUp() {
             type="text"
             className="h-[8%] shadow-md w-[90%] rounded-md text-center"
             placeholder="First Name"
-            ref={FnameRef}
+            name="firstName"
             // required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Last Name"
-            ref={LnameRef}
+            name="lasttName"
             // required
           />
           <input
             type="email"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Email"
-            ref={emailRef}
+            name="email"
             // required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Contact"
-            ref={phoneRef}
+            name="contact"
             // required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Location"
-            ref={digitalRef}
+            placeholder="Where do you stay"
+            name="location"
             // required
           />
 
