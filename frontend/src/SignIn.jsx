@@ -15,9 +15,14 @@ function SignIn() {
     const email = formData.get("email");
     const password = formData.get("password");
     setFormInfo({ email, password });
+
+    const token = localStorage.getItem("token"); // Retrieve the token from storage
+
     client
             .post("/driverSignIn/", jsonData)
             .then((response) => {
+              const token = response.data.token;
+              localStorage.setItem("token", token); 
               console.log(response.data);
               navigate("/MainPage");
             })

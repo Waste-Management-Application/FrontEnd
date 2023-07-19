@@ -15,9 +15,12 @@ function SignIn() {
     const email = formData.get("email");
     const password = formData.get("password");
     setFormInfo({ email, password });
+    
     client
             .post("/customerSignIn/", jsonData)
             .then((response) => {
+              const token = response.data.token;
+              localStorage.setItem("token", token); 
               console.log(response.data);
               navigate("/MainPage");
             })

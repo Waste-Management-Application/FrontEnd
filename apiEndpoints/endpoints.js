@@ -10,18 +10,26 @@ const adminClient = axios.create({
   });
 
 // Function to include token in headers
-const includeToken = (config) => {
+client.interceptors.request.use((config) => {
   const token = localStorage.getItem("token"); // Retrieve the token from storage
 
   if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;
-};
+});
 
-client.interceptors.request.use(includeToken);
-adminClient.interceptors.request.use(includeToken);
+adminClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token"); // Retrieve the token from storage
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 
 
 export default  client;
