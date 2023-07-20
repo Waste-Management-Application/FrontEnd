@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import client from "../../apiEndpoints/endpoints.js";
 
 function SignIn() {
   const [formInfo, setFormInfo] = useState({});
@@ -10,11 +11,31 @@ function SignIn() {
   const handle = (e) => {
     e.preventDefault();
     const formData = new FormData(form.current);
+    const jsonData = Object.fromEntries(formData)
     const email = formData.get("email");
     const password = formData.get("password");
     setFormInfo({ email, password });
-    navigate("/MainPage");
-
+    
+    client
+            .post("/customerSignIn/", jsonData)
+            .then((response) => {
+              const token = response.data.token;
+              localStorage.setItem("token", token); 
+              console.log(response.data);
+              navigate("/MainPage");
+            })
+            .catch((error) => {
+              console.error(error);
+              if (
+                error.response &&
+                error.response.data &&
+                error.response.data.error
+              ) {
+                setError(error.response.data.error);
+              } else {
+                setError("An error occurred. Please try again later.");
+              }
+            });
     return false; // Prevent default form submission behavior
   };
 
@@ -32,7 +53,7 @@ function SignIn() {
             </div>
             <div className="flex flex-col scroll-smooth justify-center items-center p-4">
               <h1 className="text-black text-xl font-semibold">
-                Login in your account
+                Login Now
               </h1>
             </div>
             <form
@@ -59,26 +80,6 @@ function SignIn() {
                 <input type="submit" name="send" />
               </div>
             </form>
-
-            <div className="m-8 flex w-fill items-center justify-center">
-              <div className="border h-[1px] border-g1 w-[30%]"></div>
-              <p>or</p>
-              <div className="flex items-end border h-[1px] border-g1 w-[30%]"></div>
-            </div>
-            <div className=" h-auto w-fill m-8  grid grid-cols-2 gap-4">
-              <div className="flex h-10 shadow-lg justify-center items-center  bg-white">
-                <button>Google</button>
-              </div>
-              <div className="flex h-10 shadow-lg justify-center items-center bg-white ">
-                <button>Apple</button>
-              </div>
-              <div className="flex h-10 shadow-lg justify-center items-center  bg-white ">
-                <button>Twitter</button>
-              </div>
-              <div className="flex h-10 shadow-lg justify-center items-center  bg-white ">
-                <button>Facebook</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>

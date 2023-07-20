@@ -6,6 +6,7 @@ import MainPage from "./MainPage";
 import Complaint from "./Complaint";
 import PaymentPage from "./PaymentPage";
 import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword/";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NewsDetails from "./NewsDetails";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Feedback" element={<Feedback />} />
         <Route path="/Payment" element={<PaymentPage />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/ResetPassword/:token" element={<ResetPassword />} />
         <Route path="/News" element={<News />} />
         <Route path="News">
           <Route path=":id" element={<NewsDetails />} />

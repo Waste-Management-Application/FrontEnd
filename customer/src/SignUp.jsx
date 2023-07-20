@@ -1,7 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import client from "../../apiEndpoints/endpoints.js";
+
 
 function SignUp() {
+  const [error, setError] = useState(null);
   const [formInfo, setFormInfo] = useState({});
   const form = useRef(null);
   const navigate = useNavigate();
@@ -9,25 +12,47 @@ function SignUp() {
   const handle = (e) => {
     e.preventDefault();
     const formData = new FormData(form.current);
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const confirmPassword = formData.get("ConfirmPassword");
-    const contact = formData.get("contact");
-    const gender = formData.get("gender");
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
-    setFormInfo({
-      email,
-      password,
-      confirmPassword,
-      contact,
-      gender,
-      firstName,
-      lastName,
-    });
-    navigate("/MainPage");
+    const jsonData = Object.fromEntries(formData);
 
-    return false; // Prevent default form submission behavior
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const longitude = position.coords.longitude;
+          const latitude = position.coords.latitude;
+
+          const location = {
+            type: "Point",
+            coordinates: [longitude, latitude],
+            digitalAddress: jsonData.digitalAddress,
+          };
+
+          jsonData.location = location;
+
+          client
+            .post("/customerSignUp/", jsonData)
+            .then((response) => {
+              console.log(response.data);
+              navigate("/SignIn");
+            })
+            .catch((error) => {
+              console.error(error);
+              if (
+                error.response &&
+                error.response.data &&
+                error.response.data.error
+              ) {
+                setError(error.response.data.error);
+              } else {
+                setError("An error occurred. Please try again later.");
+              }
+            });
+        },
+        (error) => {
+          console.error("Error retrieving geolocation:", error);
+          // Handle error retrieving geolocation here
+        }
+      );
+    }
   };
 
   return (
@@ -55,15 +80,15 @@ function SignUp() {
               type="text"
               className="h-9 shadow-md w-[90%] rounded-md text-center"
               placeholder="First Name"
-
-              // required
+              name="firstName"
+              required
             />
             <input
               type="text"
               className="h-9 shadow-md w-[95%]  rounded-md text-center"
               placeholder="Last Name"
-              name=""
-              // required
+              name="lastName"
+              required
             />
           </div>
 
@@ -71,47 +96,58 @@ function SignUp() {
             type="email"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Email"
-            // required
+            name="email"
+            required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Contact"
-            // required
+            name="contact"
+            required
           />
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Digital Address"
-            // required
+            name="digitalAddress"
+            required
           />
-          <input
+          <input 
             type="password"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Create Password"
-            // required
+            name="password"
+            required
           />
           <input
             type="password"
             className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md "
             placeholder="Confirm Password"
+            name="confirmPassword"
+            required
           />
 
           <select
-            name="Gender"
-            id="cars "
+            name="gender"
+            id="gender "
             className="border h-[8%] shadow-md text-center w-[90%] my-2 rounded-md  "
+            required
           >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
+           <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
 
-          <NavLink
-            to="/MainPage"
+          {error && (
+            <div className="text-red-500 mt-2">{error}</div>
+          )}
+
+          <div
             className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "
           >
-            <button>Join The Community</button>
-          </NavLink>
+            <button >Join The Community</button>
+          </div>
         </form>
       </div>
     </div>

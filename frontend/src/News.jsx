@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
+
 function News() {
   const [news, setNews] = useState([]);
 
