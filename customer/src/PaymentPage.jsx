@@ -42,35 +42,36 @@ function PaymentPage() {
         </div>
         <div className="h-[600px]">
           <div className="m-4">
-            <h1>Please fill out the following fields</h1>
+            <h1>Please fill out the Payment form</h1>
           </div>
           <form
             className="flex flex-col items-center justify-start h-full p-2 my-4 w-fill overflow-auto rounded-md"
             onSubmit={handleSubmit}
           >
-            <label>Name</label>
+             
             <input
               className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md"
               type="text"
               id="metadata"
               value={metadata}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
             />
-            <label>Email</label>
             <input
               className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md"
               type="text"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
             />
-            <label>Amount</label>
             <input
               className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md"
               type="text"
               id="amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+              placeholder="Amount"
             />
             <button
               type="submit"
