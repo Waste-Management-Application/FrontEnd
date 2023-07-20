@@ -31,7 +31,6 @@ function MainPage() {
   };
 
   const drawRoute = (geoJson, map) => {
-    console.log("the line is drawn");
     if (map.getLayer("route")) {
       map.removeLayer("route");
       map.removeSource("route");
@@ -66,7 +65,6 @@ function MainPage() {
   };
 
   useEffect(() => {
-    console.log(latitude, longitude);
     const destinations = [
       { lng: -1.5665604513100675, lat: 6.668418037631255 },
       { lng: -1.5682787, lat: 6.6688801 },
@@ -175,7 +173,6 @@ function MainPage() {
           );
 
           setIsAtDestination(isAtDestination);
-          console.log(isAtDestination);
 
           ttapi.services
             .calculateRoute({
@@ -195,7 +192,6 @@ function MainPage() {
       destinations.push(e.lngLat);
       addLocationMarkers(destinations, map);
       recalculatedRoutes();
-      console.log(destinations);
     });
     return () => map.remove();
   }, [latitude, longitude]);
@@ -208,10 +204,10 @@ function MainPage() {
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
             <SideBar />
           </div>
-          <div className=" h-[600px] z-10">
+          <div className=" h-[700px] z-10">
             {map && (
               <div>
-                <div ref={mapElement} className="h-[600px] z-10" />
+                <div ref={mapElement} className="h-[650px] z-10" />
                 {isAtDestination && (
                   <div className="bg-white p-2 mt-4 rounded-md shadow-md">
                     You are at a destination.

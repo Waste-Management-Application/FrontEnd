@@ -14,6 +14,14 @@ function MainPage() {
   const [openModal, setOpenModal] = useState(false);
   const [request, setRequest] = useState(false);
   const [bin, setBin] = useState(false);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  navigator.geolocation.watchPosition((position) => {
+    const { latitude, longitude } = position.coords;
+    setLatitude(latitude);
+    setLongitude(longitude);
+  });
 
   return (
     <div>

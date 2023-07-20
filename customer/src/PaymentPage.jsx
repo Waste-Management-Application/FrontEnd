@@ -83,12 +83,13 @@ function PaymentPage() {
                 id="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <label>Phone</label>
+
               <input
                 className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md "
                 type="text"
                 id="phone"
                 onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone"
               />
               {/* <input
               type="submit"
