@@ -47,7 +47,7 @@ function News() {
                 news.map((info, i) => (
                   <div
                     key={i}
-                    className="flex h-20 border  w-fill m-4 shadow-md overflow-hidden"
+                    className="flex h-20 border mx-2 w-fill overflow-hidden"
                   >
                     <div className="h-fill w-[30%] border ">
                       <img src={info.urlToImage} className="fill" />

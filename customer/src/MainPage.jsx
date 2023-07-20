@@ -49,7 +49,7 @@ function MainPage() {
       setRequestConfirmed(false); // Update the state to indicate no request confirmation
     }
   };
-
+  
   return (
     <div>
       <div className="flex justify-center items-center h-screen w-full">
