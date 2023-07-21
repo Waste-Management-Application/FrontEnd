@@ -1,23 +1,21 @@
-import React, { useState } from "react";
 import Bar from "./Bar";
 import SideBar from "./SideBar";
-import client from '../../apiEndpoints/endpoints.js';
+import client from "../../apiEndpoints/endpoints.js";
+import { useState } from "react";
 
 function PaymentPage() {
   const [email, setEmail] = useState("");
   const [metadata, setName] = useState("");
   const [amount, setAmount] = useState("");
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Prepare the data to be sent to the backend
     const paymentData = {
-      amount, 
+      amount,
       email,
-      metadata
-       
+      metadata,
     };
 
     try {
@@ -32,7 +30,6 @@ function PaymentPage() {
     }
   };
 
-  
   return (
     <div className="flex justify-center items-center h-screen w-full">
       <div className="overflow-hidden h-screen w-full">
@@ -48,7 +45,6 @@ function PaymentPage() {
             className="flex flex-col items-center justify-start h-full p-2 my-4 w-fill overflow-auto rounded-md"
             onSubmit={handleSubmit}
           >
-             
             <input
               className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md"
               type="text"
@@ -63,7 +59,7 @@ function PaymentPage() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
+              placeholder="Email"
             />
             <input
               className="h-[8%] shadow-md text-center w-[90%] my-2 rounded-md"

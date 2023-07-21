@@ -11,6 +11,10 @@ function MainPage() {
   const mapElement = useRef();
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [open, setOpen] = useState(false);
+  const toggle = () => {
+    setOpen(!open);
+  };
 
   const [map, setMap] = useState({});
   const [isAtDestination, setIsAtDestination] = useState(false);
@@ -186,6 +190,7 @@ function MainPage() {
         });
       }
     };
+
     recalculatedRoutes();
 
     map.on("click", (e) => {
@@ -198,11 +203,12 @@ function MainPage() {
 
   return (
     <div>
+      {open && <div className="fixed inset-0  backdrop-blur-md z-50"></div>}
       <div className="flex  justify-center items-center h-screen w-full ">
         <div className=" overflow-hidden   h-screen w-full ">
           <div className="flex border rounded-b-xl h-20 p-4 justify-between text-xl shadow-sm bg-g3 text-white opacity-1 ">
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
-            <SideBar />
+            <SideBar toggle={toggle} open={open} />
           </div>
           <div className=" h-[700px] z-10">
             {map && (
