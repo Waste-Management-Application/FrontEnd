@@ -5,11 +5,11 @@ function Dashboard() {
   const [open, setOpen] = useState(true);
   const Menus = [
     { title: "homepage", src: "Chart_fill" },
-    { title: "customers", src: "User", gap: true },
+    { title: "customers", src: "User" },
     { title: "drivers", src: "Chart" },
     { title: "requests", src: "Chart" },
     { title: "Tracking", src: "Chart" },
-    { title: "scheduling", src: "Calendar", gap: true },
+    { title: "scheduling", src: "Calendar" },
     { title: "announcements", src: "Chat" },
     { title: "complaints", src: "Folder" },
     { title: "feedbacks", src: "Setting" },

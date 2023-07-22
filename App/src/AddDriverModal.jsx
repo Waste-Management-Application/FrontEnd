@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-function AddDriverModal({ isOpen, onClose }) {
+function AddDriverModal({ isOpen, onClose, user }) {
   const [formData, setFormData] = useState({
     name: "",
     location: "",
@@ -45,7 +45,7 @@ function AddDriverModal({ isOpen, onClose }) {
     >
       <div className="absolute inset-0 backdrop-blur-md" />
       <div className="z-10 bg-white p-6 rounded-md shadow-md relative">
-        <h2 className="text-xl font-semibold mb-4">Add New Driver</h2>
+        <h2 className="text-xl font-semibold mb-4">Add New {user}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -111,6 +111,7 @@ function AddDriverModal({ isOpen, onClose }) {
 AddDriverModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 export default AddDriverModal;

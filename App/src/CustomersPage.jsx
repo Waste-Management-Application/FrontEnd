@@ -8,6 +8,7 @@ function CustomersPage() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState("");
 
   const getData = async () => {
     await axios
@@ -59,6 +60,9 @@ function CustomersPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  useEffect(() => {
+    setUser("Customer");
+  }, []);
 
   return (
     <div className="flex flex-row h-screen w-full ">
@@ -88,7 +92,11 @@ function CustomersPage() {
           )}
         </div>
       </div>
-      <AddDriverModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <AddDriverModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        user={user}
+      />
     </div>
   );
 }

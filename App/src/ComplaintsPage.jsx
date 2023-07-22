@@ -1,6 +1,6 @@
 import Dashboard from "./Dashboard";
 
-function FeedbacksPage() {
+function ComplaintsPage() {
   const complaints = [
     {
       postId: 1,
@@ -79,7 +79,7 @@ function FeedbacksPage() {
       <Dashboard />
       <div className="h-screen overflow-auto w-full">
         <div className="flex justify-between p-4  w-full">
-          <h1 className="font-semibold text-3xl text-g4">Feedbacks</h1>
+          <h1 className="font-semibold text-3xl text-g4">Complaints</h1>
         </div>
         <div className=" flex flex-col border-none bg-gray-50 justify-center items-center">
           {complaints.map((complaint, i) => {
@@ -108,5 +108,5 @@ function FeedbacksPage() {
   );
 }
 
-export default FeedbacksPage;
+export default ComplaintsPage;
 //
