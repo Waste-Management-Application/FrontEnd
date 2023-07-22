@@ -4,11 +4,14 @@ function SignIn() {
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div className="relative w-1/2 h-full flex flex-col bg-gradient-to-r from-g2 to-g3">
-        <div className="absolute top-[20%] left-[10%] flex flex-col">
-          <h1 className="text-4xl text-white font-bold m-4">Welcome Buddy</h1>
-          <p className="text-white font-normal">
-            Lets make the environment clean together
-          </p>
+        <div className="flex justify-center items-center h-full w-full">
+          <div className="h-[300px] w-[300px] bg-white rounded-lg mt-10 ">
+            <img
+              src="./src/assets/splash2.png"
+              alt="Splash"
+              className="h-[300px] w-[300px] bg-white rounded-lg cursor-pointer"
+            />
+          </div>
         </div>
         <div className="bg-gradient-to-r from-g2 to-g3 w-full h-full object-cover"></div>
       </div>
@@ -34,7 +37,7 @@ function SignIn() {
           </div>
           <div className="w-full flex flex-col">
             <NavLink
-              to="homepage"
+              to="/homepage"
               className="w-full bg-g2 rounded-md p-4 my-2 text-center text-white flex items-center justify-center "
             >
               Log in

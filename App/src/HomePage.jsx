@@ -42,7 +42,7 @@ function HomePage() {
               <h1 className="font-bold text-g2 text-5xl">15</h1>
             </NavLink>
             <div className="grid grid-cols-2 col-span-3 gap-4 ">
-              <NavLink className="border col-span- shadow-lg">
+              <NavLink to="/feedbacks" className="border col-span- shadow-lg">
                 <CiUser className="h-8 w-8" />
                 <h1>Feedbacks</h1>
                 <h1 className="font-bold text-g2 text-5xl">15</h1>

@@ -12,7 +12,7 @@ function Dashboard() {
     { title: "scheduling", src: "Calendar", gap: true },
     { title: "announcements", src: "Chat" },
     { title: "complaints", src: "Folder" },
-    { title: "Setting", src: "Setting" },
+    { title: "feedbacks", src: "Setting" },
   ];
 
   return (
