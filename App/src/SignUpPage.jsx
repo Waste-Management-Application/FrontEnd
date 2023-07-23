@@ -77,14 +77,17 @@ function SignUpPage() {
               value={cPassword}
               onChange={(e) => setCPassword(e.target.value)}
             />
-            <div className="flex justify-center items-center w-full m-2">
+            <NavLink
+              to="/homepage"
+              className="flex justify-center items-center w-full m-2"
+            >
               <button
                 className="border w-full border-2-white p-2 rounded-lg bg-g3 text-white"
                 type="submit"
               >
                 submit
               </button>
-            </div>
+            </NavLink>
           </form>
         </div>
       </div>
