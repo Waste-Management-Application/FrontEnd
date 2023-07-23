@@ -1,6 +1,7 @@
 //import Adminstrator from "./Adminstrator";
 import "./App.css";
 import SignIn from "./SignIn";
+import SignUpPage from "./SignUpPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Scheduling from "./Scheduling";
 import Tracking from "./Tracking";
@@ -12,6 +13,7 @@ import FeedbacksPage from "./FeedbacksPage";
 import FirstPage from "./FirstPage";
 import ComplaintsPage from "./ComplaintsPage";
 import AnnouncementsPage from "./AnnouncementsPage";
+import ResetPasswordPage from "./ResetPasswordPage";
 function App() {
   return (
     <>
@@ -21,6 +23,7 @@ function App() {
             <Route path="/" element={<FirstPage />} />
             <Route path="homepage" element={<HomePage />} />
             <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUpPage />} />
 
             <Route path="announcements" element={<AnnouncementsPage />} />
             <Route path="scheduling" element={<Scheduling />} />
@@ -30,6 +33,7 @@ function App() {
             <Route path="requests" element={<RequestsPage />} />
             <Route path="feedbacks" element={<FeedbacksPage />} />
             <Route path="complaints" element={<ComplaintsPage />} />
+            <Route path="resetpassword" element={<ResetPasswordPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
