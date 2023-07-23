@@ -32,4 +32,4 @@ adminClient.interceptors.request.use((config) => {
 
 
 
-export default  client;
+export  {client,adminClient};

@@ -3,6 +3,7 @@ import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import AddDriverModal from "./AddDriverModal";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 function CustomersPage() {
   const [data, setData] = useState([]);
@@ -10,14 +11,19 @@ function CustomersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getData = async () => {
-    await axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    await client
+      .get("customers")
       .then((res) => {
-        setData(res.data);
-        setFilter(res.data); // Initialize filter with the fetched data
+        const rawData = res.data.data.customers; // Access the customers array correctly
+        const processedData = rawData.map((customer) => {
+          const { _id, role, __v, passwordChangedAt, DateRegistered, firstName, lastName, email, contact, gender, passwordResetExpires, passwordResetToken } = customer;
+          return {  id: _id,DateRegistered, contact,location, email, gender, name: `${firstName} ${lastName}` };
+        });
+        setData(processedData);
+        setFilter(processedData); // Initialize filter with the processed data
       });
   };
-
+  
   useEffect(() => {
     getData();
   }, []);
@@ -26,22 +32,45 @@ function CustomersPage() {
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 200,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 200,
     },
     {
-      field: "phone",
+      field: "contact",
       headerName: "Contact",
+      width: 120,
+    },
+    {
+      field: "location",
+      headerName: "Location",
       width: 150,
+      valueGetter: (params) => {
+        const customer = params.row.customer;
+        if (customer && customer.location) {
+          return customer.location.digitalAddress || "Unknown";
+        } else {
+          return "Unknown";
+        }
+      },
     },
     {
       field: "gender",
       headerName: "Gender",
-      width: 150,
+      width: 120,
+    },
+    {
+      field: "DateRegistered",
+      headerName: "Date Registered",
+      width: 200,
+      valueGetter: (params) => {
+        // Assuming the "requestDate" field is in ISO date format
+        const DateRegistered = new Date(params.row.DateRegistered);
+        return DateRegistered.toLocaleString(); // Format the date as per your requirements
+      },
     },
   ];
 

@@ -3,6 +3,7 @@ import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import AddDriverModal from "./AddDriverModal";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 function DriversPage() {
   const [data, setData] = useState([]);
@@ -10,11 +11,16 @@ function DriversPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getData = async () => {
-    await axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    await client
+      .get("drivers")
       .then((res) => {
-        setData(res.data);
-        setFilter(res.data); // Initialize filter with the fetched data
+        const rawData = res.data.data.drivers; // Access the customers array correctly
+        const processedData = rawData.map((driver) => {
+          const { _id, role, __v, DateRegistered, firstName, lastName, email, contact, gender } = driver;
+          return {  id: _id, DateRegistered, contact, email, gender, name: `${firstName} ${lastName}` };
+        });
+        setData(processedData);
+        setFilter(processedData); // Initialize filter with the processed data
       });
   };
 
@@ -26,22 +32,27 @@ function DriversPage() {
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 200,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 200,
     },
     {
-      field: "phone",
+      field: "contact",
       headerName: "Contact",
-      width: 150,
+      width: 120,
     },
     {
       field: "gender",
       headerName: "Gender",
-      width: 150,
+      width: 120,
+    },
+    {
+      field: "DateRegistered",
+      headerName: "Date Registered",
+      width: 200,
     },
   ];
 

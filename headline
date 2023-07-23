@@ -1,14 +1,4 @@
- const emailRef = useRef(null);
 
-  const FnameRef = useRef(null);
-  const LnameRef = useRef(null);
-  const digitalRef = useRef(null);
-  const phoneRef = useRef(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(phoneRef);
-  };
 
 
   

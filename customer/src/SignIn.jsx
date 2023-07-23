@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import client from "../../apiEndpoints/endpoints.js";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 function SignIn() {
   const [formInfo, setFormInfo] = useState({});

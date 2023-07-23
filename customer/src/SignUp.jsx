@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import client from "../../apiEndpoints/endpoints.js";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 
 function SignUp() {

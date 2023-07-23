@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import client from '../../apiEndpoints/endpoints.js';
+import {client} from '../../apiEndpoints/endpoints.js';
 
 function ResetPassword() {
   const { token } = useParams();
