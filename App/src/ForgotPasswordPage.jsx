@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function SignIn() {
+function ForgotPasswordPage() {
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div className="relative w-1/2 h-full flex flex-col bg-g2">
@@ -20,8 +20,10 @@ function SignIn() {
         <h1 className="text-x1 w-full  text-black font-semibold">BinBuddy</h1>
         <div className="w-full flex flex-col max-w-[500px] ">
           <div className="w-full flex flex-col mb-10">
-            <h3 className="text-3xl font-semibold mb-4">Login</h3>
-            <p className="text-sm mb-2">Welcome Please Enter your details</p>
+            <h3 className="text-3xl font-semibold mb-4">
+              Forgot your password?
+            </h3>
+            <p className="text-sm mb-2">Please Enter your Email</p>
           </div>
           <div className="w-full flex flex-col">
             <input
@@ -29,30 +31,13 @@ function SignIn() {
               placeholder="Email"
               className="w-full py-2 my-2 bg-transparent rounded-md text-black border-b border-g3 outline-none focus:outline-none"
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full py-2 my-2 rounded-md bg-transparent text-black border-b border-g3 outline-none focus:outline-none"
-            />
           </div>
           <div className="w-full flex flex-col">
             <NavLink
-              to="/homepage"
+              to=""
               className="w-full bg-g3 rounded-md p-4 my-2 text-center text-white flex items-center justify-center "
             >
-              Log in
-            </NavLink>
-            <NavLink
-              to="/signup"
-              className="w-full bg-white rounded-md cursor-pointer p-4 my-2 mb-6 text-center text-g2 border-2 border-g3 flex items-center justify-center "
-            >
-              Sign Up
-            </NavLink>
-            <NavLink
-              to="/forgotpassword"
-              className="flex justify-center items-center"
-            >
-              <h1 className="text-g2">forgot password?</h1>
+              Submit
             </NavLink>
           </div>
         </div>
@@ -61,4 +46,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default ForgotPasswordPage;

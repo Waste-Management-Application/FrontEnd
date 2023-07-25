@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function SignIn() {
+function ResetPasswordPage() {
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div className="relative w-1/2 h-full flex flex-col bg-g2">
@@ -36,7 +36,10 @@ function SignIn() {
             />
           </div>
           <div className="w-full flex flex-col">
-            <NavLink className="w-full bg-g3 rounded-md p-4 my-2 text-center text-white flex items-center justify-center ">
+            <NavLink
+              to="/signin"
+              className="w-full bg-g3 rounded-md p-4 my-2 text-center text-white flex items-center justify-center "
+            >
               Submit
             </NavLink>
           </div>
@@ -46,4 +49,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default ResetPasswordPage;
