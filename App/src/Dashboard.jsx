@@ -13,6 +13,7 @@ function Dashboard() {
     { title: "announcements", src: "Chat" },
     { title: "complaints", src: "Folder" },
     { title: "feedbacks", src: "Setting" },
+    { title: "registration", src: "Setting" },
   ];
 
   return (

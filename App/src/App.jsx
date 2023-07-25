@@ -14,6 +14,7 @@ import FirstPage from "./FirstPage";
 import ComplaintsPage from "./ComplaintsPage";
 import AnnouncementsPage from "./AnnouncementsPage";
 import ResetPasswordPage from "./ResetPasswordPage";
+import RegistrationPage from "./RegistrationPage";
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
             <Route path="homepage" element={<HomePage />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUpPage />} />
+            <Route path="registration" element={<RegistrationPage />} />
 
             <Route path="announcements" element={<AnnouncementsPage />} />
             <Route path="scheduling" element={<Scheduling />} />
