@@ -8,12 +8,13 @@ function Dashboard() {
     { title: "customers", src: "User" },
     { title: "drivers", src: "Chart" },
     { title: "requests", src: "Chart" },
-    { title: "Tracking", src: "Chart" },
-    { title: "scheduling", src: "Calendar" },
     { title: "announcements", src: "Chat" },
     { title: "complaints", src: "Folder" },
     { title: "feedbacks", src: "Setting" },
     { title: "registration", src: "Setting" },
+
+    { title: "Tracking", src: "Chart" },
+    { title: "scheduling", src: "Calendar" },
   ];
 
   return (

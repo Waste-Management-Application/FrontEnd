@@ -88,12 +88,12 @@ function ComplaintsPage() {
                 className=" flex flex-row mx-7 my-4 h-[100px] w-[600px]  overflow-clip"
                 key={i}
               >
-                <div className="h-full w-[100px] border-r-2 m-4">
+                <div className="h-full w-[100px] border-l-2 border-g1 rounded-l-lg m-4">
                   <p className="m-9 text-gray-300 text-sm">Today 3:00</p>
                 </div>
                 <div className="h-full w-full">
                   <div className="h-10 w-full">
-                    <h1 className="text-md font-bold">user</h1>
+                    <h1 className="text-md text-g5 font-bold">user</h1>
                   </div>
                   <div className="h-full w-full ">
                     <h1 className="text-gray-400">{complaint.body}</h1>
