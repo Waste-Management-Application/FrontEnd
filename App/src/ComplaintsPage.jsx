@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { client } from "../../apiEndpoints/endpoints.js";
-import Rating from "./Rating"; 
 
-function FeedbacksPage() {
+function ComplaintsPage() {
   const [complaints, setComplaints] = useState([]);// Initialize complaints state as an empty array
   const [loading, setLoading] = useState(true); 
 
@@ -16,7 +15,7 @@ function FeedbacksPage() {
   const fetchComplaints = async () => {
     try {
       // Replace 'your-api-endpoint' with the actual endpoint for fetching complaints
-      const response = await client.get("/feedback/");
+      const response = await client.get("/feedback/complaint");
       const responseData = response.data.data;
       const complaintsArray = Array.isArray(responseData) ? responseData : [responseData]; // Wrap the data in an array if not already an array
       setComplaints(complaintsArray);
@@ -35,7 +34,7 @@ function FeedbacksPage() {
       <Dashboard />
       <div className="h-screen overflow-auto w-full">
         <div className="flex justify-between p-4  w-full">
-          <h1 className="font-semibold text-3xl text-g4">Feedbacks</h1>
+          <h1 className="font-semibold text-3xl text-g4">Complaints</h1>
         </div>
         
     {loading ? (
@@ -55,8 +54,6 @@ function FeedbacksPage() {
               {/* Format and display the Datesent */}
               <h1 className="text-gray-400">{new Date(complaint.DateSent).toLocaleString()}</h1>
               {/* Or use another date formatting library if desired */}
-              {/* Display the starsNo as a rating using the Rating component */}
-              <Rating starsNo={complaint.starsNo} />
             </div>
                 <div className="h-full w-full">
                   <div className="h-10 w-full">
@@ -78,4 +75,4 @@ function FeedbacksPage() {
   );
 }
 
-export default FeedbacksPage;
+export default ComplaintsPage;

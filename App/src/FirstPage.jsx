@@ -13,11 +13,11 @@ function FirstPage() {
   }, [history]);
   return (
     <div className="flex justify-center items-center h-screen w-full bg-g3">
-      <div className="h-[200px] w-[200px] bg-white rounded-lg animate-spin-slow">
+      <div className="h-[200px]  bg-white rounded-full animate-spin-slow">
         <img
           src="./src/assets/splash2.png"
           alt="Splash"
-          className="h-[200px] w-[500px] bg-white rounded-lg cursor-pointer"
+          className="h-[200px] bg-white rounded-full cursor-pointer"
         />
       </div>
     </div>

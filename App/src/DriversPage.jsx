@@ -9,6 +9,7 @@ function DriversPage() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState("");
 
   const getData = async () => {
     await client
@@ -45,6 +46,11 @@ function DriversPage() {
       width: 120,
     },
     {
+      field: "vehicleNo",
+      headerName: "Vehicle No",
+      width: 100,
+    },
+    {
       field: "gender",
       headerName: "Gender",
       width: 120,
@@ -53,6 +59,11 @@ function DriversPage() {
       field: "DateRegistered",
       headerName: "Date Registered",
       width: 200,
+      valueGetter: (params) => {
+        // Assuming the "requestDate" field is in ISO date format
+        const DateRegistered = new Date(params.row.DateRegistered);
+        return DateRegistered.toLocaleString(); // Format the date as per your requirements
+      },
     },
   ];
 
@@ -70,6 +81,9 @@ function DriversPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  useEffect(() => {
+    setUser("Driver");
+  }, []);
 
   return (
     <div className="flex flex-row h-screen w-full ">
@@ -99,7 +113,11 @@ function DriversPage() {
           )}
         </div>
       </div>
-      <AddDriverModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <AddDriverModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        user={user}
+      />
     </div>
   );
 }

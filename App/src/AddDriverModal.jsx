@@ -1,14 +1,20 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-function AddDriverModal({ isOpen, onClose }) {
-  const [formData, setFormData] = useState({
+function AddDriverModal({ isOpen, onClose, user }) {
+  const initialFormData = {
     name: "",
     location: "",
     contact: "",
     email: "",
     gender: "",
-  });
+    password: "",
+    confirmPassword: "",
+    digitalAddress: "",
+    vehicleNo: "",
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,13 +31,7 @@ function AddDriverModal({ isOpen, onClose }) {
     console.log(formData);
 
     // Reset the form state after submission if needed
-    setFormData({
-      name: "",
-      location: "",
-      contact: "",
-      email: "",
-      gender: "",
-    });
+    setFormData(initialFormData);
 
     // Close the modal after successful form submission
     onClose();
@@ -43,50 +43,102 @@ function AddDriverModal({ isOpen, onClose }) {
         isOpen ? "" : "hidden"
       }`}
     >
-      <div className="absolute inset-0 backdrop-blur-md" />
-      <div className="z-10 bg-white p-6 rounded-md shadow-md relative">
-        <h2 className="text-xl font-semibold mb-4">Add New Driver</h2>
+      <div className="max-w-md w-full bg-white p-6 rounded-md shadow-md relative">
+        <h2 className="text-xl font-semibold mb-4">Add New {user}</h2>
         <form onSubmit={handleSubmit}>
+
+        <div className="flex">
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
-            placeholder="Name"
-            className="w-full border p-2 rounded-md mb-2"
+            placeholder="First Name"
+            className="w-full border p-2 rounded-md mb-2 mr-2"
           />
           <input
             type="text"
-            name="location"
-            value={formData.location}
+            name="lastName"
+            value={formData.lastName}
             onChange={handleChange}
-            placeholder="Location"
+            placeholder="Last Name"
+            className="w-full border p-2 rounded-md mb-2"
+          />
+        </div>
+      <input
+        type="text"
+        name="location"
+        value={formData.location}
+        onChange={handleChange}
+        placeholder="Location"
+        className="w-full border p-2 rounded-md mb-2"
+      />
+      <input
+        type="text"
+        name="contact"
+        value={formData.contact}
+        onChange={handleChange}
+        placeholder="Contact"
+        className="w-full border p-2 rounded-md mb-2"
+      />
+      <input
+        type="text"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+        className="w-full border p-2 rounded-md mb-2"
+      />
+      <input
+        type="text"
+        name="gender"
+        value={formData.gender}
+        onChange={handleChange}
+        placeholder="Gender"
+        className="w-full border p-2 rounded-md mb-2"
+      />
+
+      {user === "Customer" && (
+        <>
+         <input
+            type="text"
+            name="digitalAddress"
+            value={formData.digitalAddress}
+            onChange={handleChange}
+            placeholder="Digital Address"
             className="w-full border p-2 rounded-md mb-2"
           />
           <input
-            type="text"
-            name="contact"
-            value={formData.contact}
+            type="password"
+            name="password"
+            value={formData.password}
             onChange={handleChange}
-            placeholder="Contact"
+            placeholder="Password"
             className="w-full border p-2 rounded-md mb-2"
           />
           <input
-            type="text"
-            name="email"
-            value={formData.email}
+            type="password"
+            name="confirmPassword"
+            value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Email"
+            placeholder="Confirm Password"
             className="w-full border p-2 rounded-md mb-2"
           />
+        </>
+      )}
+
+      {user === "Driver" && (
+        <>
           <input
             type="text"
-            name="gender"
-            value={formData.gender}
+            name="vehicleNo"
+            value={formData.vehicleNo}
             onChange={handleChange}
-            placeholder="Gender"
+            placeholder="Vehicle No"
             className="w-full border p-2 rounded-md mb-2"
           />
+        </>
+      )}
 
           <div className="mt-4 flex justify-end">
             <button
@@ -111,6 +163,7 @@ function AddDriverModal({ isOpen, onClose }) {
 AddDriverModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 export default AddDriverModal;

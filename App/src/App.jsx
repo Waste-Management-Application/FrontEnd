@@ -1,17 +1,19 @@
 //import Adminstrator from "./Adminstrator";
 import "./App.css";
 import SignIn from "./SignIn";
+import SignUpPage from "./SignUpPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Scheduling from "./Scheduling";
 import Tracking from "./Tracking";
-import Announcements from "./Announcements";
 import HomePage from "./HomePage";
-import Adminstrator from "./Adminstrator";
 import DriversPage from "./DriversPage";
 import CustomersPage from "./CustomersPage";
 import RequestsPage from "./RequestsPage";
 import FeedbacksPage from "./FeedbacksPage";
 import FirstPage from "./FirstPage";
+import ComplaintsPage from "./ComplaintsPage";
+import AnnouncementsPage from "./AnnouncementsPage";
+import ResetPasswordPage from "./ResetPasswordPage";
 function App() {
   return (
     <>
@@ -21,15 +23,17 @@ function App() {
             <Route path="/" element={<FirstPage />} />
             <Route path="homepage" element={<HomePage />} />
             <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUpPage />} />
 
-            <Route path="home" element={<Adminstrator />} />
+            <Route path="announcements" element={<AnnouncementsPage />} />
             <Route path="scheduling" element={<Scheduling />} />
             <Route path="tracking" element={<Tracking />} />
-            <Route path="announcements" element={<Announcements />} />
             <Route path="drivers" element={<DriversPage />} />
             <Route path="customers" element={<CustomersPage />} />
             <Route path="requests" element={<RequestsPage />} />
             <Route path="feedbacks" element={<FeedbacksPage />} />
+            <Route path="complaints" element={<ComplaintsPage />} />
+            <Route path="resetpassword" element={<ResetPasswordPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

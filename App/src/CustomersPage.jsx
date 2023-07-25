@@ -3,27 +3,55 @@ import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import AddDriverModal from "./AddDriverModal";
-import {client} from "../../apiEndpoints/endpoints.js";
+import { client } from "../../apiEndpoints/endpoints.js";
 
 function CustomersPage() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState("");
 
   const getData = async () => {
-    await client
-      .get("customers")
-      .then((res) => {
-        const rawData = res.data.data.customers; // Access the customers array correctly
-        const processedData = rawData.map((customer) => {
-          const { _id, role, __v, passwordChangedAt, DateRegistered, firstName, lastName, email, contact, gender, passwordResetExpires, passwordResetToken } = customer;
-          return {  id: _id,DateRegistered, contact,location, email, gender, name: `${firstName} ${lastName}` };
-        });
-        setData(processedData);
-        setFilter(processedData); // Initialize filter with the processed data
+    try {
+      const response = await client.get("customers");
+      const rawData = response.data.data.customers;
+      const processedData = rawData.map((customer) => {
+        const {
+          _id,
+          role,
+          __v,
+          passwordChangedAt,
+          DateRegistered,
+          firstName,
+          lastName,
+          email,
+          contact,
+          gender,
+          passwordResetExpires,
+          passwordResetToken,
+          location, // The location object
+        } = customer;
+
+        const digitalAddress = location?.digitalAddress || "Unknown";
+
+        return {
+          id: _id,
+          DateRegistered,
+          contact,
+          email,
+          gender,
+          name: `${firstName} ${lastName}`,
+          location: digitalAddress, // Assign the digitalAddress to the location property
+        };
       });
+
+      setData(processedData);
+      setFilter(processedData);
+    } catch (error) {
+      console.error("Error fetching customer data:", error);
+    }
   };
-  
+
   useEffect(() => {
     getData();
   }, []);
@@ -48,14 +76,6 @@ function CustomersPage() {
       field: "location",
       headerName: "Location",
       width: 150,
-      valueGetter: (params) => {
-        const customer = params.row.customer;
-        if (customer && customer.location) {
-          return customer.location.digitalAddress || "Unknown";
-        } else {
-          return "Unknown";
-        }
-      },
     },
     {
       field: "gender",
@@ -67,9 +87,8 @@ function CustomersPage() {
       headerName: "Date Registered",
       width: 200,
       valueGetter: (params) => {
-        // Assuming the "requestDate" field is in ISO date format
         const DateRegistered = new Date(params.row.DateRegistered);
-        return DateRegistered.toLocaleString(); // Format the date as per your requirements
+        return DateRegistered.toLocaleString();
       },
     },
   ];
@@ -88,6 +107,10 @@ function CustomersPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    setUser("Customer");
+  }, []);
 
   return (
     <div className="flex flex-row h-screen w-full ">
@@ -110,14 +133,17 @@ function CustomersPage() {
             onChange={handleFilter}
           />
         </div>
-        {/* Conditional rendering: Render DataGrid only if data is available */}
         <div className="h-[500px]">
           {data.length > 0 && (
             <DataGrid columns={columns} rows={filter} pageSize={5} />
           )}
         </div>
       </div>
-      <AddDriverModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <AddDriverModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        user={user}
+      />
     </div>
   );
 }
