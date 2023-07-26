@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Dashboard from "./Dashboard";
-import { TfiAnnouncement } from "react-icons/tfi";
 
 function AnnouncementsPage() {
   const [announcement, setAnnouncement] = useState("");
@@ -29,9 +28,6 @@ function AnnouncementsPage() {
       <Dashboard />
       <div className="h-screen w-full overflow-hidden">
         <div className="bg-g1 h-[200px]">
-          <div>
-            <TfiAnnouncement className="text-5xl text-g4" />
-          </div>
           <div className="flex  justify-center p-4  w-full">
             <h1 className="font-semibold text-3xl text-g4">Announcements</h1>
           </div>

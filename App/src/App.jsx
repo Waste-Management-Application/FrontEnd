@@ -15,6 +15,8 @@ import ComplaintsPage from "./ComplaintsPage";
 import AnnouncementsPage from "./AnnouncementsPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import RegistrationPage from "./RegistrationPage";
+import ProfilePage from "./ProfilePage";
+
 function App() {
   return (
     <>
@@ -36,6 +38,7 @@ function App() {
             <Route path="feedbacks" element={<FeedbacksPage />} />
             <Route path="complaints" element={<ComplaintsPage />} />
             <Route path="forgotpassword" element={<ForgotPasswordPage />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Routes>
       </BrowserRouter>
