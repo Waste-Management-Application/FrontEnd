@@ -30,6 +30,27 @@ adminClient.interceptors.request.use((config) => {
   return config;
 });
 
+// Function to add a new driver
+export const addDriver = async (driverData) => {
+  try {
+    const response = await client.post("/drivers", driverData);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error adding driver: " + error.message);
+  }
+};
+
+// Function to add a new customer
+export const addCustomer = async (customerData) => {
+  try {
+    const response = await client.post("/customers", customerData);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error adding customer: " + error.message);
+  }
+};
 
 
 export  {client,adminClient};
+
+

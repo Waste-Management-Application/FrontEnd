@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import AddDriverModal from "./AddDriverModal";
 import { client } from "../../apiEndpoints/endpoints.js";
+import AddDriverModal from "./AddDriverModal";
 
 function CustomersPage() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState("");
+  const [locationStrings, setLocationStrings] = useState({});
+  const [locationStringsFetched, setLocationStringsFetched] = useState(false);
 
   const getData = async () => {
     try {
@@ -29,10 +31,12 @@ function CustomersPage() {
           gender,
           passwordResetExpires,
           passwordResetToken,
-          location, // The location object
+          location,
         } = customer;
 
-        const digitalAddress = location?.digitalAddress || "Unknown";
+        // Extract latitude and longitude from coordinates
+        const latitude = location?.coordinates[1] || 0;
+        const longitude = location?.coordinates[0] || 0;
 
         return {
           id: _id,
@@ -41,7 +45,10 @@ function CustomersPage() {
           email,
           gender,
           name: `${firstName} ${lastName}`,
-          location: digitalAddress, // Assign the digitalAddress to the location property
+          location: {
+            latitude,
+            longitude,
+          },
         };
       });
 
@@ -52,9 +59,64 @@ function CustomersPage() {
     }
   };
 
+  const fetchLocationStrings = async (rowData) => {
+    const newLocationStrings = {};
+    for (const customer of rowData) {
+      if (
+        customer.location &&
+        customer.location.latitude !== 0 &&
+        customer.location.longitude !== 0
+      ) {
+        try {
+          const locationString = await getLocationString(
+            customer.location.latitude,
+            customer.location.longitude
+          );
+          newLocationStrings[customer.id] = locationString;
+        } catch (error) {
+          console.error("Error fetching location data:", error.message);
+          newLocationStrings[customer.id] = "Unknown Location";
+        }
+      } else {
+        newLocationStrings[customer.id] = "Unknown Location";
+      }
+    }
+    setLocationStrings(newLocationStrings);
+    setLocationStringsFetched(true);
+  };
+
   useEffect(() => {
     getData();
+    setUser("Customer");
   }, []);
+
+  useEffect(() => {
+    if (!locationStringsFetched && data.length > 0) {
+      setLocationStringsFetched(true);
+      fetchLocationStrings(data);
+    }
+  }, [locationStringsFetched, data]);
+
+  const getLocationString = async (latitude, longitude) => {
+    const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg"; // Replace with your Mapbox API key
+    const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
+
+    try {
+      const response = await axios.get(apiUrl);
+      const data = response.data;
+      if (data.features && data.features.length > 0) {
+        // Return the location string if available
+        return data.features[0].place_name;
+      } else {
+        // If no location is found, return a default value
+        return "Unknown Location";
+      }
+    } catch (error) {
+      // Handle any errors during the API call and return a default value
+      console.error("Error fetching location data:", error.message);
+      return "Unknown Location";
+    }
+  };
 
   const columns = [
     {
@@ -75,7 +137,11 @@ function CustomersPage() {
     {
       field: "location",
       headerName: "Location",
-      width: 150,
+      width: 250,
+      valueGetter: (params) => {
+        const { latitude, longitude } = params.row.location;
+        return locationStrings[params.row.id] || "Unknown Location";
+      },
     },
     {
       field: "gender",
@@ -107,10 +173,6 @@ function CustomersPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    setUser("Customer");
-  }, []);
 
   return (
     <div className="flex flex-row h-screen w-full ">
