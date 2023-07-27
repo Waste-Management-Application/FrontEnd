@@ -11,6 +11,7 @@ function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [location, setLocation]= useState("")
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,6 +23,7 @@ function SignUpPage() {
         lastName,
         contact,
         email,
+        location,
         password,
         confirmPassword,
       };
@@ -39,6 +41,8 @@ function SignUpPage() {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+       setLocation("")
+
 
       // Redirect to SignIn page after successful registration
       navigate("/SignIn");

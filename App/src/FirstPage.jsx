@@ -7,7 +7,7 @@ function FirstPage() {
   useEffect(() => {
     const redirectTimer = setTimeout(() => {
       history("/signin");
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(redirectTimer);
   }, [history]);

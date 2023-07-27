@@ -89,7 +89,7 @@ function SignIn() {
               Sign Up
             </NavLink>
             <NavLink
-              to="/resetpassword"
+              to="/forgotpassword"
               className="flex justify-center items-center"
             >
               <h1 className="text-g2">forgot password?</h1>

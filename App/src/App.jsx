@@ -13,8 +13,11 @@ import FeedbacksPage from "./FeedbacksPage";
 import FirstPage from "./FirstPage";
 import ComplaintsPage from "./ComplaintsPage";
 import AnnouncementsPage from "./AnnouncementsPage";
-import ResetPasswordPage from "./ResetPasswordPage";
+import ForgotPasswordPage from "./ForgotPasswordPage";
 import RegistrationPage from "./RegistrationPage";
+import ProfilePage from "./ProfilePage";
+import ResetPasswordPage from "./ResetPasswordPage"
+
 function App() {
   return (
     <>
@@ -35,7 +38,9 @@ function App() {
             <Route path="requests" element={<RequestsPage />} />
             <Route path="feedbacks" element={<FeedbacksPage />} />
             <Route path="complaints" element={<ComplaintsPage />} />
-            <Route path="resetpassword" element={<ResetPasswordPage />} />
+            <Route path="forgotpassword" element={<ForgotPasswordPage />} />
+            <Route path="ResetPassword/:token" element={<ResetPasswordPage />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

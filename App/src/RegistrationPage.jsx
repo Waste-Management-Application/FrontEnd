@@ -9,20 +9,14 @@ function RegistrationPage() {
   const [filter, setFilter] = useState([]);
   const [isOn, setIsOn] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // Add the missing searchInput state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalData, setModalData] = useState({});
-
-  const handleToggle = () => {
-    setLoading(true);
-    setIsOn(!isOn);
-    setFilter(data); // Reset the filter to show all rows when toggle changes
-  };
+  const [user, setUser] = useState("");
 
   const getRequests = async (requestType) => {
     try {
-      const response = await client.get(`/${requestType}`);
-      const responseData = response.data.map((row) => ({
+      const response = await client.get(requestType);
+      const responseData = response.data.data.map((row) => ({
         id: row._id,
         number: isOn ? row.dustbinNo : row.vehicleNo,
         date: row.DateCreated,
@@ -30,16 +24,19 @@ function RegistrationPage() {
 
       setData(responseData);
       setFilter(responseData);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false);
     }
   };
 
   useEffect(() => {
+    setUser("Registration"); // Assuming you want to show "Registration" in the modal for this page
     setLoading(true);
-    getRequests(isOn ? "dustbins" : "vehicles");
+    if (isOn) {
+      getRequests("/dustbin");
+    } else {
+      getRequests("/vehicle");
+    }
   }, [isOn]);
 
   useEffect(() => {
@@ -97,7 +94,15 @@ function RegistrationPage() {
       <Dashboard />
       <div className="h-screen w-full bg-gray-100 overflow-hidden">
         <div className="flex justify-between p-4 m-4 w-full">
-          <h1 className="font-semibold text-3xl text-g4">Registration</h1>
+          <h1 className="font-semibold text-3xl text-g4">
+            {isOn ? "Dustbin" : "Vehicle"} Registration
+          </h1>
+          <button
+            onClick={handleOpenModal}
+            className="flex justify-center items-center bg-g3 rounded-full h-10 w-10 text-white"
+          >
+            +
+          </button>
         </div>
         <div className="flex justify-between m-4 ">
           <div className="flex items-center">
@@ -105,7 +110,10 @@ function RegistrationPage() {
               className={`w-12 h-6 rounded-full ${
                 isOn ? "bg-g2" : "bg-g3"
               }`}
-              onClick={handleToggle}
+              onClick={() => {
+                setLoading(true);
+                setIsOn((prevIsOn) => !prevIsOn);
+              }}
             >
               <span
                 className={`block w-4 h-4 rounded-full duration-500 ${
@@ -114,30 +122,20 @@ function RegistrationPage() {
               ></span>
             </button>
             <span className="ml-2">
-              {isOn ? "Dustbin" : "Vehicle"} Registration
+            {isOn ? "Bins" : "Vehicles"}
             </span>
           </div>
           <input
             type="text"
             className="border border-g2 rounded-lg"
-            placeholder="Search by number"
-            value={searchInput}
             onChange={handleFilter}
+            placeholder="Search by number"
           />
         </div>
+        {/* Conditional rendering: Render DataGrid only if data is available */}
         <div className="h-[500px]">
-          {loading ? (
-            <p>Loading...</p>
-          ) : filter.length > 0 ? (
-            <DataGrid
-              columns={columns}
-              rows={filter}
-              pageSize={5}
-              rowId="id"
-              onRowClick={handleRowClick}
-            />
-          ) : (
-            <p>No {isOn ? "dustbin" : "vehicle"} data available</p>
+          {data.length > 0 && (
+            <DataGrid columns={columns} rows={filter} pageSize={1} />
           )}
         </div>
       </div>
@@ -145,7 +143,7 @@ function RegistrationPage() {
       <RegistrationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        data={modalData}
+        user={user}
         isOn={isOn}
       />
     </div>
