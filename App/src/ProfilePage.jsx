@@ -32,13 +32,14 @@ function ProfilePage() {
                 src="./src/assets/man-avatar-profile-picture-vector-illustration_268834-538.avif"
                 className="rounded-full w-16 h-16  m-2"
               ></img>
+
               <div className="p-3">
                 <h1>Andrew Antwi Ababio</h1>
                 <p className="text-gray-500">Admin</p>
                 <p className="text-gray-500">Accra Ghana</p>
               </div>
             </div>
-            <div className="flex justify-between h-44 w-[70%] border-2 m-5 rounded-lg p-3">
+            <div className="flex justify-between h-56 w-[70%] border-2 m-5 rounded-lg p-3">
               <div>
                 <div>
                   <h1 className="font-bold">Personal Information</h1>

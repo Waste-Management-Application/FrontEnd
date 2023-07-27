@@ -30,7 +30,7 @@ function HomePage() {
           <h1 className="font-semibold text-3xl text-g4">Welcome Admin</h1>
 
           <GiExitDoor
-            className="flex justify-center items-center text-g4 rounded-full h-10 w-10  m-4"
+            className="flex justify-center items-center text-g4 rounded-full h-10 w-10  m-4 hover:cursor-pointer"
             onClick={handleOpenModal}
           />
         </div>
@@ -38,14 +38,17 @@ function HomePage() {
         <div className=" h-[90%] grid grid-cols-3 grid-rows-2 w-full gap-4">
           {/* container for the map */}
 
-          <div className=" m-4 rounded-md border shadow-lg col-span-1 row-span-1">
+          <NavLink
+            to="/tracking"
+            className=" m-4 rounded-md border shadow-lg col-span-1 row-span-1"
+          >
             <div className="w-full  border-b-2 h-[15%]">
               <h1 className="m-2">Real time Tracking</h1>
             </div>
             <div>
               <img src="./src/assets/Simple-Location-Picker.webp" />
             </div>
-          </div>
+          </NavLink>
           <div className="col-span-2  m-4 grid grid-cols-3 gap-4">
             <NavLink to="/drivers" className="border shadow-lg">
               <GrUserWorker className="h-8 w-8" />
