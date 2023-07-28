@@ -4,6 +4,10 @@ import SideBar from "./SideBar";
 import { BsCheck2 } from "react-icons/bs";
 
 function CheckList() {
+  const [open, setOpen] = useState(false);
+  const toggle = () => {
+    setOpen(!open);
+  };
   const [todos, setTodos] = useState([]);
   const putTodos = async (id) => {
     fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
@@ -50,7 +54,7 @@ function CheckList() {
         <div className={`overflow-scroll rounded-3xl  h-screen w-full  `}>
           <div className="flex  h-20 p-4 justify-between text-xl border shadow-sm bg-gray-100 text-g3 opacity-1 ">
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
-            <SideBar />
+            <SideBar toggle={toggle} open={open} />
           </div>
           <div className="flex justify-center items-center font-semibold text-lg text-g3">
             <h1>Tick when a task is completed</h1>

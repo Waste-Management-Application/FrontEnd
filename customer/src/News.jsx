@@ -1,4 +1,4 @@
-import { BiMenu } from "react-icons/bi";
+import SideBar from "./SideBar";
 import { TbSortAscending } from "react-icons/tb";
 import Bar from "./Bar";
 import imgnews from "./assets/news.jpeg";
@@ -8,6 +8,10 @@ import axios from "axios";
 
 function News() {
   const [news, setNews] = useState([]);
+  const [open, setOpen] = useState(false);
+  const toggle = () => {
+    setOpen(!open);
+  };
   const handleclick = (info) => {
     console.log(info.id);
   };
@@ -33,7 +37,7 @@ function News() {
                 <h1 className=" font-semibold justify-start text-2xl">
                   BinBuddy
                 </h1>
-                <BiMenu className="h-10 w-auto" />
+                <SideBar toggle={toggle} open={open} />
               </div>
               <div className="w-full h-40 border my-2 justify-between">
                 <img src={imgnews} className="h-full w-auto" />
