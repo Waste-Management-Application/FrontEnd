@@ -13,6 +13,7 @@ function Dashboard() {
     { title: "feedbacks", src: "Setting" },
     { title: "registration", src: "Setting" },
     { title: "profile", src: "Setting" },
+    { title: "tasks", src: "Setting" },
 
     { title: "Tracking", src: "Chart" },
     { title: "scheduling", src: "Calendar" },
