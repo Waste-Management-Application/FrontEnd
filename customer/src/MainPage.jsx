@@ -13,14 +13,19 @@ import {client} from "../../apiEndpoints/endpoints";
 
 function MainPage() {
   const [openModal, setOpenModal] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const [requestType, setRequestType] = useState(null);
+  const toggle = () => {
+    setOpen(!open);
+  };
   const [error, setError] = useState(null);
   const [requestConfirmed, setRequestConfirmed] = useState(false);
 
   const handleModalConfirm = () => {
-    if (requestType === 'pickup') {
+    if (requestType === "pickup") {
       client
-        .post('/pickupRequest')
+        .post("/pickupRequest")
         .then((response) => {
           console.log(response.data);
           // Handle successful new bin request
@@ -29,11 +34,11 @@ function MainPage() {
         })
         .catch((error) => {
           console.error(error);
-          setError('An error occurred. Please try again later.');
+          setError("An error occurred. Please try again later.");
         });
-    } else if (requestType === 'bin') {
+    } else if (requestType === "bin") {
       client
-        .post('/dustbinRequest')
+        .post("/dustbinRequest")
         .then((response) => {
           console.log(response.data);
           // Handle successful pickup request
@@ -42,21 +47,22 @@ function MainPage() {
         })
         .catch((error) => {
           console.error(error);
-          setError('An error occurred. Please try again later.');
+          setError("An error occurred. Please try again later.");
         });
     } else {
       setOpenModal(false);
       setRequestConfirmed(false); // Update the state to indicate no request confirmation
     }
   };
-  
+
   return (
     <div>
       <div className="flex justify-center items-center h-screen w-full">
+        {open && <div className="fixed inset-0  backdrop-blur-md z-50"></div>}
         <div className="overflow-auto h-screen w-full">
           <div className="flex border rounded-b-xl h-20 p-4 justify-between text-xl shadow-sm bg-g3 text-white opacity-1">
             <h1 className="font-semibold justify-start text-2xl">BinBuddy</h1>
-            <SideBar />
+            <SideBar toggle={toggle} open={open} />
           </div>
           <div className="h-[600px]">
             <div className="flex justify-center">
@@ -70,7 +76,7 @@ function MainPage() {
                 <BsTrash className="text-g3 h-8 w-8" />
                 <button
                   onClick={() => {
-                    setRequestType('bin');
+                    setRequestType("bin");
                     setOpenModal(true);
                   }}
                 >
@@ -81,7 +87,7 @@ function MainPage() {
                 <TfiTruck className="text-g3 h-8 w-8" />
                 <button
                   onClick={() => {
-                    setRequestType('pickup');
+                    setRequestType("pickup");
                     setOpenModal(true);
                   }}
                 >
@@ -109,11 +115,7 @@ function MainPage() {
           requestType={requestType}
         />
       )}
-      {requestConfirmed && (
-        <div>
-          {/* Render the request confirmation */}
-        </div>
-      )}
+      {requestConfirmed && <div>{/* Render the request confirmation */}</div>}
     </div>
   );
 }

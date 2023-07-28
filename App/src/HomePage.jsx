@@ -45,6 +45,7 @@ function HomePage() {
         if (feedbacksResponse.data.status === "success") {
           setFeedbacksCount(feedbacksResponse.data.results);
         }
+
         const complaintsResponse = await client.get("/feedback/complaint");
         if (complaintsResponse.data.status === "success") {
           setComplaintsCount(complaintsResponse.data.results);
@@ -52,11 +53,13 @@ function HomePage() {
 
         const dustbinRequestsResponse = await client.get("/dustbinRequest");
         if (dustbinRequestsResponse.data.status === "success") {
-    
+          const dustbinRequestsCount = dustbinRequestsResponse.data.results;
+
           const pickupRequestsResponse = await client.get("/pickupRequest");
           if (pickupRequestsResponse.data.status === "success") {
-           
-            const totalRequests = dustbinRequestsResponse.data.results + pickupRequestsResponse.data.results;
+            const pickupRequestsCount = pickupRequestsResponse.data.results;
+
+            const totalRequests = dustbinRequestsCount + pickupRequestsCount;
             setTotalRequestsCount(totalRequests);
           }
         }
@@ -83,13 +86,16 @@ function HomePage() {
         <div className="m-4 w-full flex justify-between">
           <h1 className="font-semibold text-3xl text-g4">Welcome Admin</h1>
           <GiExitDoor
-            className="flex justify-center items-center text-g4 rounded-full h-10 w-10 m-4"
+            className="flex justify-center items-center text-g4 rounded-full h-10 w-10 m-4 hover:cursor-pointer"
             onClick={handleOpenModal}
           />
         </div>
 
         <div className="h-[90%] grid grid-cols-3 grid-rows-2 w-full gap-4">
-          <div className="m-4 rounded-md border shadow-lg col-span-1 row-span-1">
+          <NavLink
+            to="/tracking"
+            className="m-4 rounded-md border shadow-lg col-span-1 row-span-1"
+          >
             <div className="w-full border-b-2 h-[15%]">
               <h1 className="m-2">Real time Tracking</h1>
             </div>
@@ -99,7 +105,7 @@ function HomePage() {
                 alt="Map"
               />
             </div>
-          </div>
+          </NavLink>
           <div className="col-span-2 m-4 grid grid-cols-3 gap-4">
             <NavLink to="/drivers" className="border shadow-lg">
               <GrUserWorker className="h-8 w-8" />
@@ -130,7 +136,6 @@ function HomePage() {
             </div>
           </div>
           <div className="col-span-3 grid grid-cols-2 gap-4">
-            {/* Your content for the scheduling */}
             <div className="border col-span-1 shadow-lg">
               <div className="w-full border-b-2 h-[10%]">
                 <h1 className="m-2">Scheduling</h1>
@@ -143,7 +148,6 @@ function HomePage() {
                 />
               </div>
             </div>
-            {/* Your content for the announcements */}
             <NavLink to="/announcements" className="border col-span-1 shadow-lg">
               <div className="w-full border-b-2 h-[10%]">
                 <h1 className="m-2">Announcements</h1>

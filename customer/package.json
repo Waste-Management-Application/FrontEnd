@@ -14,9 +14,12 @@
     "@tomtom-international/web-sdk-services": "^6.23.0",
     "axios": "^1.4.0",
     "icons": "^1.0.0",
+    "mapbox-gl": "^1.13.2",
+    "mapbox-gl-geocoder": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
+    "react-map-gl-geocoder": "^2.2.0",
     "react-paystack": "^4.0.3",
     "react-router-dom": "^6.14.2"
   },

@@ -58,7 +58,7 @@ function SignUpPage() {
   };
 
   return (
-    <div className="h-screen w-full bg-g1 flex flex-row">
+    <div className="h-screen w-full bg-g2 flex flex-row">
       <div className="h-screen w-full  rounded-full p-4 flex justify-center items-center">
         <img
           src="./src/assets/splash2.png"

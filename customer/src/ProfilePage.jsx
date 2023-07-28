@@ -1,30 +1,47 @@
-
 import { useEffect, useState } from "react";
-import EditProfileModal from "./editProfileModal";
+import EditProfileModal from "./EditProfileModal";
 import { client } from "../../apiEndpoints/endpoints.js";
 
+const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
+
 function ProfilePage() {
-  const [driver, setDriver] = useState(null);
+  const [customer, setCustomer] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [locationString, setLocationString] = useState("Loading...");
 
   useEffect(() => {
-    // Function to fetch customer data from the backend
     const fetchCustomerData = async () => {
       try {
-        // Decode the token and retrieve the customer ID
+        // Fetch customer data from the backend
         const token = localStorage.getItem("token");
-        
         if (!token) {
           console.error("Authentication token not found.");
           return;
         }
 
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const driverId = decodedToken.id;
+        const customerId = decodedToken.id;
 
-        // Fetch the customer data from the backend
-        const response = await client.get(`/drivers/${driverId}`);
-        setDriver(response.data.data.driver);
+        const response = await client.get(`/customers/${customerId}`);
+        const customerData = response.data?.data?.customer;
+        setCustomer(customerData);
+
+        console.log(customerData)
+
+        if (customerData && customerData.location) {
+          const { longitude, latitude } = customerData.location.coordinates;
+          console.log("Latitude:", latitude);
+          console.log("Longitude:", longitude);
+
+          if (latitude && longitude) {
+            fetchLocationString(latitude, longitude);
+          } else {
+            setLocationString("Unknown Location");
+          }
+        } else {
+          console.error("Invalid customer data format:", customerData);
+          setLocationString("Unknown Location");
+        }
       } catch (error) {
         console.error("Error fetching customer data:", error);
       }
@@ -33,14 +50,30 @@ function ProfilePage() {
     fetchCustomerData();
   }, []);
 
-  if (!driver) {
-    // Show loading or fallback UI while fetching customer data
+  const fetchLocationString = async (latitude, longitude) => {
+    try {
+      const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      if (data.features && data.features.length > 0) {
+        setLocationString(data.features[0].place_name);
+      } else {
+        setLocationString("Unknown Location");
+      }
+    } catch (error) {
+      console.error("Error fetching location data:", error.message);
+      setLocationString("Unknown Location");
+    }
+  };
+
+  if (!customer) {
     return <div>Loading...</div>;
   }
 
-  // Destructure firstName, lastName, email, contact, and location from customer object
-  const { firstName, lastName, email, contact, gender } = driver;
- 
+  // Destructure firstName, lastName, email, contact from customer object
+  const { firstName, lastName, email, contact,gender } = customer;
+  const { digitalAddress } = customer.location;
 
   return (
     <div>
@@ -57,6 +90,7 @@ function ProfilePage() {
             <div>
               <div>
                 <h1 className="text-3xl text-white">{`${firstName} ${lastName}`}</h1>
+                <h1 className="text-xl text-white">{locationString}</h1>
               </div>
             </div>
           </div>
@@ -72,9 +106,17 @@ function ProfilePage() {
             <h1 className="text-xl">{contact}</h1>
           </div>
           <div className="m-5">
+            <h1 className="text-gray-500">Digital Address</h1>
+            <h1 className="text-xl">{digitalAddress}</h1>
+          </div>
+          <div className="m-5">
             <h1 className="text-gray-500">Gender</h1>
             <h1 className="text-xl">{gender}</h1>
           </div>
+          {/* <div className="m-5">
+            <h1 className="text-gray-500">Location</h1>
+            <h1 className="text-xl">{locationString}</h1>
+          </div> */}
           <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
             <button onClick={() => setShowEditModal(true)}>Edit</button>
           </div>
@@ -84,7 +126,7 @@ function ProfilePage() {
       {/* Modal to edit the profile */}
       {showEditModal && (
         <EditProfileModal
-        driver={driver}
+          customer={customer}
           onClose={() => setShowEditModal(false)}
         />
       )}

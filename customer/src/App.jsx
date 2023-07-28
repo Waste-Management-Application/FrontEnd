@@ -7,6 +7,7 @@ import Complaint from "./Complaint";
 import PaymentPage from "./PaymentPage";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword/";
+import ProfilePage from "./ProfilePage";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NewsDetails from "./NewsDetails";
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         [<Route path="/" element={<FirstPage />} />]
         <Route path="/SignUP" element={<SignUp />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/MainPage" element={<MainPage />} />
         <Route path="/Complaint" element={<Complaint />} />

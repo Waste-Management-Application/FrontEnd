@@ -17,6 +17,7 @@ import ForgotPasswordPage from "./ForgotPasswordPage";
 import RegistrationPage from "./RegistrationPage";
 import ProfilePage from "./ProfilePage";
 import ResetPasswordPage from "./ResetPasswordPage"
+import "mapbox-gl/dist/mapbox-gl.css";
 
 function App() {
   return (
@@ -29,7 +30,6 @@ function App() {
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUpPage />} />
             <Route path="registration" element={<RegistrationPage />} />
-
             <Route path="announcements" element={<AnnouncementsPage />} />
             <Route path="scheduling" element={<Scheduling />} />
             <Route path="tracking" element={<Tracking />} />

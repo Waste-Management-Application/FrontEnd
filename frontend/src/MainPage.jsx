@@ -210,10 +210,10 @@ function MainPage() {
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
             <SideBar toggle={toggle} open={open} />
           </div>
-          <div className=" h-[700px] z-10">
+          <div className=" h-[500px] z-10">
             {map && (
               <div>
-                <div ref={mapElement} className="h-[650px] z-10" />
+                <div ref={mapElement} className="h-[500px] z-10" />
                 {isAtDestination && (
                   <div className="bg-white p-2 mt-4 rounded-md shadow-md">
                     You are at a destination.
