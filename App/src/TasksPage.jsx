@@ -6,7 +6,6 @@ import axios from "axios";
 function DriversPage() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [user, setUser] = useState("");
   const getData = async () => {
     await axios
       .get("https://jsonplaceholder.typicode.com/users")
