@@ -1,4 +1,15 @@
+import EditProfileModal from "./EditProfileModal";
+import { useState } from "react";
+
 function ProfilePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <div className="h-screen w-full overflow-clip">
@@ -42,9 +53,10 @@ function ProfilePage() {
             <h1 className="text-xl">Mankraso Estate</h1>
           </div>
           <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white ">
-            <button>Edit</button>
+            <button onClick={handleOpenModal}>Edit</button>
           </div>
         </div>
+        <EditProfileModal onClose={handleCloseModal} isOpen={isModalOpen} />
       </div>
     </div>
   );
