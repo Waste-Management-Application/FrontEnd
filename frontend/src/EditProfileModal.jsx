@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 function EditProfileModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
-    location: "",
     contact: "",
     email: "",
     gender: "",
@@ -54,14 +53,7 @@ function EditProfileModal({ isOpen, onClose }) {
             placeholder="Name"
             className="w-full border p-2 rounded-md mb-2"
           />
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Location"
-            className="w-full border p-2 rounded-md mb-2"
-          />
+
           <input
             type="text"
             name="contact"
