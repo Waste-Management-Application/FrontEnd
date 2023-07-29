@@ -2,6 +2,7 @@ import { BiMenu } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
+import { GiExitDoor } from "react-icons/gi";
 
 function SideBar({ open, toggle }) {
   return (
@@ -36,6 +37,13 @@ function SideBar({ open, toggle }) {
             >
               <FaUser className="text-g4" />
               <h1 className="mx-5 text-g4 text-2xl">Profile</h1>
+            </NavLink>
+            <NavLink
+              to="/signin"
+              className="flex items-center  bg-white h-20 w-full p-4 border border-y-g4"
+            >
+              <GiExitDoor className="text-g4" />
+              <h1 className="mx-5 text-g4 text-2xl">Log Out</h1>
             </NavLink>
           </div>
         </div>

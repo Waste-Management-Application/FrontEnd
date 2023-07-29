@@ -1,5 +1,6 @@
 import EditProfileModal from "./EditProfileModal";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function ProfilePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,9 +53,15 @@ function ProfilePage() {
             <h1 className="text-gray-500">Location</h1>
             <h1 className="text-xl">Mankraso Estate</h1>
           </div>
-          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white ">
+          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white ">
             <button onClick={handleOpenModal}>Edit</button>
           </div>
+          <NavLink
+            to="/MainPage"
+            className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g2 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white "
+          >
+            <button>Home</button>
+          </NavLink>
         </div>
         <EditProfileModal onClose={handleCloseModal} isOpen={isModalOpen} />
       </div>

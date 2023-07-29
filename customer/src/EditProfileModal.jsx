@@ -110,7 +110,6 @@ function EditProfileModal({ isOpen, onClose }) {
 EditProfileModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired,
 };
 
 export default EditProfileModal;

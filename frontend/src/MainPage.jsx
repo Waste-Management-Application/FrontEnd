@@ -17,7 +17,6 @@ function MainPage() {
   };
 
   const [map, setMap] = useState({});
-  const [isAtDestination, setIsAtDestination] = useState(false);
 
   navigator.geolocation.watchPosition((position) => {
     const { latitude, longitude } = position.coords;
@@ -55,15 +54,7 @@ function MainPage() {
     destinations.forEach((destination) => {
       const { lng, lat } = destination;
       const element = document.createElement("div");
-      element.classList.add(
-        "bg-cover",
-        "h-[8px]",
-        "w-[8px]",
-        "bg-[blue]",
-        "border",
-        "rounded-lg",
-        "border-solid-gray"
-      );
+      element.className = "marker";
       new tt.Marker({ element: element }).setLngLat([lng, lat]).addTo(map);
     });
   };
@@ -71,7 +62,7 @@ function MainPage() {
   useEffect(() => {
     const destinations = [
       { lng: -1.5665604513100675, lat: 6.668418037631255 },
-      { lng: -1.5682787, lat: 6.6688801 },
+      // { lng: -1.5682787, lat: 6.6688801 },
       { lng: -1.5666462819983735, lat: 6.666606471200865 },
       { lng: -1.56760360405886, lat: 6.669446982230852 },
       { lng: -1.566841291095102, lat: 6.672673497095971 },
@@ -88,30 +79,21 @@ function MainPage() {
       container: mapElement.current,
       stylesVisibility: { trafficIncidents: true, trafficFlow: true },
       center: [longitude, latitude],
-      zoom: 16,
+      zoom: 15,
       pitch: 45,
     });
 
     setMap(map);
 
     const addMarker = () => {
-      const popupOffset = {
-        bottom: [0, -25],
-      };
-      const popup = new tt.Popup({ offset: popupOffset }).setHTML(
-        "this is you"
-      );
+      // const popupOffset = {
+      //   bottom: [0, -25],
+      // };
+      // const popup = new tt.Popup({ offset: popupOffset }).setHTML(
+      //   "this is you"
+      // );
       const element = document.createElement("div");
-      element.classList.add(
-        "bg-cover",
-        "h-[22px]",
-        "w-[10px]",
-        "bg-[yellow]",
-        "border",
-        "rounded-2xl",
-        "border-solid-gray",
-        "shadow-3xl"
-      );
+      element.className = "driver";
       const marker = new tt.Marker({
         draggable: true,
         element: element,
@@ -123,7 +105,7 @@ function MainPage() {
         setLongitude(lnglat.lng);
         setLatitude(lnglat.lat);
       });
-      marker.setPopup(popup).togglePopup();
+      // marker.setPopup(popup).togglePopup();
     };
 
     addMarker();
@@ -171,13 +153,6 @@ function MainPage() {
         sortDestinations(destinations).then((sorted) => {
           sorted.unshift(origin);
 
-          const isAtDestination = sorted.some(
-            (location) =>
-              location.lat === latitude && location.lng === longitude
-          );
-
-          setIsAtDestination(isAtDestination);
-
           ttapi.services
             .calculateRoute({
               key: "tGs7nOkNWSZKSWIBx3Ln2m7ZM4QN26ix",
@@ -193,11 +168,6 @@ function MainPage() {
 
     recalculatedRoutes();
 
-    map.on("click", (e) => {
-      destinations.push(e.lngLat);
-      addLocationMarkers(destinations, map);
-      recalculatedRoutes();
-    });
     return () => map.remove();
   }, [latitude, longitude]);
 
@@ -210,15 +180,10 @@ function MainPage() {
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>
             <SideBar toggle={toggle} open={open} />
           </div>
-          <div className=" h-[500px] z-10">
+          <div className=" h-full z-10">
             {map && (
               <div>
-                <div ref={mapElement} className="h-[500px] z-10" />
-                {isAtDestination && (
-                  <div className="bg-white p-2 mt-4 rounded-md shadow-md">
-                    You are at a destination.
-                  </div>
-                )}
+                <div ref={mapElement} className="h-[600px] z-10" />
               </div>
             )}
           </div>
