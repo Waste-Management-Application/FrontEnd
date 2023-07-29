@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 import { client } from "../../apiEndpoints/endpoints.js";
-
 const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
+import { NavLink } from "react-router-dom";
 
 function ProfilePage() {
   const [customer, setCustomer] = useState(null);
@@ -115,18 +115,20 @@ function ProfilePage() {
             <h1 className="text-gray-500">Digital Address</h1>
             <h1 className="text-xl">{digitalAddress}</h1>
           </div>
-          <div className="m-5">
-            <h1 className="text-gray-500">Gender</h1>
-            <h1 className="text-xl">{gender}</h1>
-          </div>
-          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
+          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white ">
             <button onClick={handleOpenEditModal}>Edit</button>
           </div>
+          <NavLink
+            to="/MainPage"
+            className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g2 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white "
+          >
+            <button>Home</button>
+          </NavLink>
         </div>
       </div>
 
       {/* Modal to edit the profile */}
-      <EditProfileModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} user={customer} />
+      <EditProfileModal isOpen={showEditModal} onClose={handleCloseEditModal} user={customer} />
     </div>
   );
 }

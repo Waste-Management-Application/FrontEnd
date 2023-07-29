@@ -146,11 +146,6 @@ function RequestsPage() {
       },
     },
     {
-      field: "status",
-      headerName: "Status",
-      width: 150,
-    },
-    {
       field: "requestDate",
       headerName: "Date Requested",
       width: 200,
