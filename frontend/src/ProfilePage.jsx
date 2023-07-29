@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditProfileModal from "./editProfileModal";
 import { client } from "../../apiEndpoints/endpoints.js";
 
@@ -13,13 +12,13 @@ function ProfilePage() {
       try {
         // Decode the token and retrieve the customer ID
         const token = localStorage.getItem("token");
-        
+
         if (!token) {
           console.error("Authentication token not found.");
           return;
         }
 
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const driverId = decodedToken.id;
 
         // Fetch the customer data from the backend
@@ -38,9 +37,18 @@ function ProfilePage() {
     return <div>Loading...</div>;
   }
 
-  // Destructure firstName, lastName, email, contact, and location from customer object
+  // Destructure firstName, lastName, email, contact, and gender from driver object
   const { firstName, lastName, email, contact, gender } = driver;
- 
+
+  // Function to handle opening the edit modal
+  const handleOpenEditModal = () => {
+    setShowEditModal(true);
+  };
+
+  // Function to handle closing the edit modal
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
 
   return (
     <div>
@@ -76,18 +84,13 @@ function ProfilePage() {
             <h1 className="text-xl">{gender}</h1>
           </div>
           <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
-            <button onClick={() => setShowEditModal(true)}>Edit</button>
+            <button onClick={handleOpenEditModal}>Edit</button>
           </div>
         </div>
       </div>
 
-      {/* Modal to edit the profile */}
-      {showEditModal && (
-        <EditProfileModal
-        driver={driver}
-          onClose={() => setShowEditModal(false)}
-        />
-      )}
+      {/* Add the EditProfileModal component */}
+      <EditProfileModal isOpen={showEditModal} onClose={handleCloseEditModal} user={driver} />
     </div>
   );
 }

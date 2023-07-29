@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 import { client } from "../../apiEndpoints/endpoints.js";
 
@@ -26,12 +26,8 @@ function ProfilePage() {
         const customerData = response.data?.data?.customer;
         setCustomer(customerData);
 
-        console.log(customerData)
-
         if (customerData && customerData.location) {
           const { longitude, latitude } = customerData.location.coordinates;
-          console.log("Latitude:", latitude);
-          console.log("Longitude:", longitude);
 
           if (latitude && longitude) {
             fetchLocationString(latitude, longitude);
@@ -71,9 +67,19 @@ function ProfilePage() {
     return <div>Loading...</div>;
   }
 
-  // Destructure firstName, lastName, email, contact from customer object
-  const { firstName, lastName, email, contact,gender } = customer;
+  // Destructure firstName, lastName, email, contact, and gender from customer object
+  const { firstName, lastName, email, contact, gender } = customer;
   const { digitalAddress } = customer.location;
+
+   // Function to handle opening the edit modal
+   const handleOpenEditModal = () => {
+    setShowEditModal(true);
+  };
+
+  // Function to handle closing the edit modal
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
 
   return (
     <div>
@@ -113,23 +119,14 @@ function ProfilePage() {
             <h1 className="text-gray-500">Gender</h1>
             <h1 className="text-xl">{gender}</h1>
           </div>
-          {/* <div className="m-5">
-            <h1 className="text-gray-500">Location</h1>
-            <h1 className="text-xl">{locationString}</h1>
-          </div> */}
           <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
-            <button onClick={() => setShowEditModal(true)}>Edit</button>
+            <button onClick={handleOpenEditModal}>Edit</button>
           </div>
         </div>
       </div>
 
       {/* Modal to edit the profile */}
-      {showEditModal && (
-        <EditProfileModal
-          customer={customer}
-          onClose={() => setShowEditModal(false)}
-        />
-      )}
+      <EditProfileModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} user={customer} />
     </div>
   );
 }

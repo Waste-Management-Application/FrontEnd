@@ -17,6 +17,8 @@ import ForgotPasswordPage from "./ForgotPasswordPage";
 import RegistrationPage from "./RegistrationPage";
 import ProfilePage from "./ProfilePage";
 import ResetPasswordPage from "./ResetPasswordPage"
+import TasksPage from "./TasksPage";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
             <Route path="tracking" element={<Tracking />} />
             <Route path="drivers" element={<DriversPage />} />
             <Route path="customers" element={<CustomersPage />} />
+            <Route path="tasks" element={<TasksPage />} />
+
             <Route path="requests" element={<RequestsPage />} />
             <Route path="feedbacks" element={<FeedbacksPage />} />
             <Route path="complaints" element={<ComplaintsPage />} />
