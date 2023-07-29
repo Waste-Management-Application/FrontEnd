@@ -79,7 +79,7 @@ function MainPage() {
       container: mapElement.current,
       stylesVisibility: { trafficIncidents: true, trafficFlow: true },
       center: [longitude, latitude],
-      zoom: 15,
+      zoom: 16,
       pitch: 45,
     });
 

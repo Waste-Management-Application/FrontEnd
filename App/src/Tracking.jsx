@@ -20,6 +20,7 @@ function Tracking() {
     { lng: -1.566841291095102, lat: 6.672673497095971 },
     { lng: -1.5655972313527116, lat: 6.674723454182086 },
   ];
+
   const addMarkers = (destinations, map) => {
     destinations.forEach((destination) => {
       const { lng, lat } = destination;
