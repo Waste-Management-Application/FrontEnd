@@ -20,7 +20,7 @@ function Bar() {
           </label>
         </NavLink>
 
-        <NavLink to="/Payment" className="flex flex-col" id="Payment">
+        <NavLink to="/Payment" className="flex flex-col w-16" id="Payment">
           <AiOutlineSend className="h-12 w-auto" />
           <label htmlFor="Payment" className="text-g2">
             Payment

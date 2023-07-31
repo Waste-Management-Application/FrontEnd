@@ -3,7 +3,6 @@ import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { client } from "../../apiEndpoints/endpoints.js";
-import AddDriverModal from "./AddDriverModal";
 
 function CustomersPage() {
   const [data, setData] = useState([]);
@@ -98,7 +97,8 @@ function CustomersPage() {
   }, [locationStringsFetched, data]);
 
   const getLocationString = async (latitude, longitude) => {
-    const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg"; // Replace with your Mapbox API key
+    const mapboxApiKey =
+      "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg"; // Replace with your Mapbox API key
     const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
 
     try {
@@ -180,12 +180,6 @@ function CustomersPage() {
       <div className="h-screen w-full bg-gray-100 overflow-hidden">
         <div className="flex justify-between p-4 m-4 w-full">
           <h1 className="font-semibold text-3xl text-g4">Customers</h1>
-          <button
-            onClick={handleOpenModal}
-            className="flex justify-center items-center bg-g3 rounded-full h-10 w-10 text-white"
-          >
-            +
-          </button>
         </div>
         <div className="flex justify-end m-4 ">
           <input
@@ -201,11 +195,6 @@ function CustomersPage() {
           )}
         </div>
       </div>
-      <AddDriverModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        user={user}
-      />
     </div>
   );
 }

@@ -32,7 +32,7 @@ function CheckList() {
     fetchTodos();
   }, []);
 
-  const putTodoCompletedStatus = async (id, taskCompleted,driverId) => {
+  const putTodoCompletedStatus = async (id, taskCompleted, driverId) => {
     try {
       await client.post(`/Task/${id}`, { taskCompleted, driverId });
     } catch (error) {
@@ -58,14 +58,14 @@ function CheckList() {
 
       const token = localStorage.getItem("token");
 
-        if (!token) {
-          console.error("Authentication token not found.");
-          return;
-        }
+      if (!token) {
+        console.error("Authentication token not found.");
+        return;
+      }
 
-        // Decode the token to get the adminId
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const driverId = decodedToken.id;
+      // Decode the token to get the adminId
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      const driverId = decodedToken.id;
 
       // Send a PUT request to update the taskCompleted status on the backend
       await putTodoCompletedStatus(id, "Completed", driverId);
@@ -75,11 +75,11 @@ function CheckList() {
     }
   };
 
-
-
   return (
     <div>
       <div className="flex relative justify-center items-center h-screen w-full ">
+        {open && <div className="fixed inset-0  backdrop-blur-md z-50"></div>}
+
         <div className={`overflow-scroll rounded-3xl  h-screen w-full  `}>
           <div className="flex  h-20 p-4 justify-between text-xl border shadow-sm bg-gray-100 text-g3 opacity-1 ">
             <h1 className=" font-semibold justify-start text-2xl">BinBuddy</h1>

@@ -1,65 +1,74 @@
-import React, { useState } from 'react';
-import Bar from './Bar';
-import SideBar from './SideBar';
-import {client} from '../../apiEndpoints/endpoints';
+import React, { useState } from "react";
+import Bar from "./Bar";
+import SideBar from "./SideBar";
+import { client } from "../../apiEndpoints/endpoints";
 
 function Complaint() {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
-  
+  const toggle = () => {
+    setOpen(!open);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!message.trim()) {
-      setError('Please enter a message.');
-      setSuccessMessage('');
+      setError("Please enter a message.");
+      setSuccessMessage("");
       return;
     }
-  
+
     setError(null);
-    setSuccessMessage('');
-  
+    setSuccessMessage("");
+
     try {
-      const response = await client.post('/feedback/complaint', { message });
+      const response = await client.post("/feedback/complaint", { message });
       console.log(response.data);
-      setSuccessMessage('Complaint submitted successfully!');
-  
+      setSuccessMessage("Complaint submitted successfully!");
+
       // Clear the success message after 2 seconds
       setTimeout(() => {
-        setSuccessMessage('');
+        setSuccessMessage("");
       }, 2000);
-  
-      setMessage('');
+
+      setMessage("");
     } catch (error) {
       console.error(error);
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setError(error.response.data.message);
       } else {
-        setError('An error occurred. Please try again later.');
+        setError("An error occurred. Please try again later.");
       }
-  
+
       // Clear the error message after 2 seconds
       setTimeout(() => {
         setError(null);
       }, 2000);
     }
   };
-  
 
   return (
     <div>
       <div className="flex justify-center items-center h-screen w-full">
+        {open && <div className="fixed inset-0  backdrop-blur-md z-50"></div>}
+
         <div className="overflow-hidden h-screen w-full">
           <div className="flex border rounded-b-xl h-20 p-4 justify-between text-xl shadow-sm bg-g3 text-white opacity-1">
             <h1 className="font-semibold justify-start text-2xl">BinBuddy</h1>
-            <SideBar />
+            <SideBar toggle={toggle} open={open} />
           </div>
           <form className="h-[600px]" onSubmit={handleSubmit}>
-            <h1 className="flex font-semibold justify-center m-4">
-              We are sorry for any inconvenience caused. Kindly send us a message in the field below.
+            <h1 className="flex font-semibold justify-center m-4 text-xl">
+              We are sorry for any inconvenience caused. Kindly send us a
+              message in the field below.
             </h1>
             <div className="flex justify-center">
               <textarea

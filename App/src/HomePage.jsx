@@ -100,10 +100,7 @@ function HomePage() {
               <h1 className="m-2">Real time Tracking</h1>
             </div>
             <div>
-              <img
-                src="./src/assets/Simple-Location-Picker.webp"
-                alt="Map"
-              />
+              <img src="./src/assets/Simple-Location-Picker.webp" alt="Map" />
             </div>
           </NavLink>
           <div className="col-span-2 m-4 grid grid-cols-3 gap-4">
@@ -115,7 +112,9 @@ function HomePage() {
             <NavLink to="/requests" className="border shadow-lg">
               <MdOutlineUpcoming className="h-8 w-8" />
               <h1>Requests</h1>
-              <h1 className="font-bold text-g2 text-5xl">{totalRequestsCount}</h1>
+              <h1 className="font-bold text-g2 text-5xl">
+                {totalRequestsCount}
+              </h1>
             </NavLink>
             <NavLink to="/customers" className="border shadow-lg">
               <BsPeople className="h-8 w-8 text-2xl" />
@@ -131,7 +130,9 @@ function HomePage() {
               <NavLink to="/complaints" className="border col-span-1 shadow-lg">
                 <TfiAnnouncement className="h-8 w-8" />
                 <h1>Complaints</h1>
-                <h1 className="font-bold text-g2 text-5xl">{complaintsCount}</h1>
+                <h1 className="font-bold text-g2 text-5xl">
+                  {complaintsCount}
+                </h1>
               </NavLink>
             </div>
           </div>
@@ -140,15 +141,21 @@ function HomePage() {
               <div className="w-full border-b-2 h-[10%]">
                 <h1 className="m-2">Scheduling</h1>
               </div>
-              <div className="flex h-full justify-center items-center">
+              <NavLink
+                to="/schedules"
+                className="flex h-full justify-center items-center"
+              >
                 <img
                   className="w-auto h-56"
                   src="./src/assets/schedule.png"
                   alt="Scheduling"
                 />
-              </div>
+              </NavLink>
             </div>
-            <NavLink to="/announcements" className="border col-span-1 shadow-lg">
+            <NavLink
+              to="/announcements"
+              className="border col-span-1 shadow-lg"
+            >
               <div className="w-full border-b-2 h-[10%]">
                 <h1 className="m-2">Announcements</h1>
               </div>

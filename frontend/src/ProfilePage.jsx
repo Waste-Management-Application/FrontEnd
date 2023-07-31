@@ -39,7 +39,7 @@ function ProfilePage() {
   }
 
   // Destructure firstName, lastName, email, contact, and gender from driver object
-  const { firstName, lastName, email, contact, gender , vehicleNo} = driver;
+  const { firstName, lastName, email, contact, gender, vehicleNo } = driver;
 
   // Function to handle opening the edit modal
   const handleOpenEditModal = () => {
@@ -88,20 +88,29 @@ function ProfilePage() {
             <h1 className="text-gray-500">Vehicle No.</h1>
             <h1 className="text-xl">{vehicleNo}</h1>
           </div>
-          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
-        <button onClick={handleOpenEditModal}>Edit</button>
-      </div>
-      <NavLink
-        to="/MainPage"
-        className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g2 rounded-3xl m-3 justify-center items-center hover:bg-g3 hover:text-white "
-      >
-        <button>Home</button>
-      </NavLink>
+          <div
+            onClick={handleOpenEditModal}
+            className="w-full flex justify-center"
+          >
+            <button className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white w-[40%]">
+              Edit
+            </button>
+            <NavLink
+              to="/MainPage"
+              className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white w-[40%]"
+            >
+              <button>Home</button>
+            </NavLink>
+          </div>
         </div>
       </div>
 
       {/* Add the EditProfileModal component */}
-      <EditProfileModal isOpen={showEditModal} onClose={handleCloseEditModal} user={driver} />
+      <EditProfileModal
+        isOpen={showEditModal}
+        onClose={handleCloseEditModal}
+        user={driver}
+      />
     </div>
   );
 }

@@ -19,7 +19,7 @@ function ProfilePage() {
           return;
         }
 
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const customerId = decodedToken.id;
 
         const response = await client.get(`/customers/${customerId}`);
@@ -69,7 +69,7 @@ function ProfilePage() {
 
   // Destructure firstName, lastName, email, contact, and gender from customer object
   const { firstName, lastName, email, contact, gender } = customer;
-  const {city} = customer.location // Use default value if city is not available
+  const { city } = customer.location; // Use default value if city is not available
 
   // Function to handle opening the edit modal
   const handleOpenEditModal = () => {
@@ -118,20 +118,29 @@ function ProfilePage() {
             <h1 className="text-gray-500">Gender</h1>
             <h1 className="text-xl">{gender}</h1>
           </div>
-          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12 p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white ">
-            <button onClick={handleOpenEditModal}>Edit</button>
-          </div>
-          <NavLink
-            to="/MainPage"
-            className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12 p-4 bg-g2 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white "
+          <div
+            onClick={handleOpenEditModal}
+            className="w-full flex justify-center"
           >
-            <button>Home</button>
-          </NavLink>
+            <button className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white w-[40%]">
+              Edit
+            </button>
+            <NavLink
+              to="/MainPage"
+              className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white w-[40%]"
+            >
+              <button>Home</button>
+            </NavLink>
+          </div>
         </div>
       </div>
 
       {/* Modal to edit the profile */}
-      <EditProfileModal isOpen={showEditModal} onClose={handleCloseEditModal} user={customer} />
+      <EditProfileModal
+        isOpen={showEditModal}
+        onClose={handleCloseEditModal}
+        user={customer}
+      />
     </div>
   );
 }
