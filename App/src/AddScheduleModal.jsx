@@ -1,10 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { client } from "../../apiEndpoints/endpoints";
 
-function AddScheduleModal({ isOpen, onClose }) {
+function AddScheduleModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
-    driver: "",
-    task: "",
+    taskType: "",
     status: "",
   });
 
@@ -16,20 +16,30 @@ function AddScheduleModal({ isOpen, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here, you can add your form submission logic using the formData state
-    // For example, you can send the formData to the server via an API call
-    console.log(formData);
 
-    // Reset the form state after submission if needed
-    setFormData({
-      driver: "",
-      task: "",
-    });
+    try {
+      // Replace 'your-api-endpoint' with the actual endpoint to add a new task
+      const response = await client.post("/Task", formData);
+      console.log("New task added:", response.data);
 
-    // Close the modal after successful form submission
-    onClose();
+      // Reset the form state after successful form submission
+      setFormData({
+        taskType: "",
+        status: "",
+      });
+
+      // Call the onSuccess callback provided by the parent component
+      // to refresh the data after adding a new task
+      onSuccess();
+
+      // Close the modal after successful form submission
+      onClose();
+    } catch (error) {
+      console.error("Error adding new task:", error);
+      // Handle any error that occurred during the API call, if needed
+    }
   };
 
   return (
@@ -44,8 +54,8 @@ function AddScheduleModal({ isOpen, onClose }) {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="location"
-            value={formData.task}
+            name="taskType"
+            value={formData.taskType}
             onChange={handleChange}
             placeholder="Task"
             className="w-full border p-2 rounded-md mb-2"
@@ -59,10 +69,7 @@ function AddScheduleModal({ isOpen, onClose }) {
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-green-500 text-white rounded-md"
-            >
+            <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-md">
               Add
             </button>
           </div>
@@ -71,9 +78,11 @@ function AddScheduleModal({ isOpen, onClose }) {
     </div>
   );
 }
+
 AddScheduleModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };
 
 export default AddScheduleModal;

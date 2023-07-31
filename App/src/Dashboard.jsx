@@ -15,8 +15,9 @@ function Dashboard() {
 
     { title: "complaints", src: "Folder" },
     { title: "feedbacks", src: "Setting" },
-    { title: "profile", src: "Setting" },
     { title: "schedules", src: "Setting" },
+    { title: "profile", src: "Setting" },
+   
   ];
 
   return (

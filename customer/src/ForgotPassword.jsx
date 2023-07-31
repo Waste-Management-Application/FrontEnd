@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-import client from '../../apiEndpoints/endpoints.js';
+import {client} from '../../apiEndpoints/endpoints.js';
 
 function ForgotPassword() {
   const emailRef = useRef(null);

@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import client from "../../apiEndpoints/endpoints.js";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 function SignIn() {
-  const [formInfo, setFormInfo] = useState({});
+  const [formInfo, setFormInfo] = useState({ email: "", password: "" });
   const form = useRef(null);
   const navigate = useNavigate();
 
@@ -77,7 +76,7 @@ function SignIn() {
                 <h4 className="text-g2 ">Forgot Password?</h4>
               </NavLink>
               <div className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center ">
-                <input type="submit" name="send" />
+                <input type="submit" value="Log In" />
               </div>
             </form>
           </div>

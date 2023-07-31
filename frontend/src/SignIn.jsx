@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import client from "../../apiEndpoints/endpoints.js";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 function SignIn() {
-  const [formInfo, setFormInfo] = useState({});
+  const [formInfo, setFormInfo] = useState({ email: "", password: "" });
   const form = useRef(null);
   const navigate = useNavigate();
 
@@ -47,9 +46,8 @@ function SignIn() {
             <div className="flex h-24 bg-gradient-to-r from-g2 to-g3 text-white text-3xl font-semibold justify-center items-center">
               <h1>BinBuddy</h1>
             </div>
-            <div className="flex flex-row bg-white p-4 text-g2 shadow-lg justify-between">
+            <div className="flex flex-row bg-white p-4 text-g2 shadow-lg justify-center">
               <NavLink to="/SignIn">Sign In</NavLink>
-              <NavLink to="/SignUp">Get Started</NavLink>
             </div>
             <div className="flex flex-col scroll-smooth justify-center items-center p-4">
               <h1 className="text-black text-xl font-semibold">
@@ -75,7 +73,7 @@ function SignIn() {
               />
   
               <div className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center ">
-                <input type="submit" name="send" />
+                <input type="submit" value="Log In" />
               </div>
             </form>
           </div>

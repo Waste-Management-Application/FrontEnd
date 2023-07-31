@@ -1,14 +1,22 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { addCustomer, addDriver } from "../../apiEndpoints/endpoints";
 
 function AddDriverModal({ isOpen, onClose, user }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    location: "",
+  const initialFormData = {
+    firstName: "",
+    lastName: "",
     contact: "",
     email: "",
     gender: "",
-  });
+    password: "",
+    confirmPassword: "",
+    vehicleNo: "",
+    digitalAddress:""
+
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,23 +26,27 @@ function AddDriverModal({ isOpen, onClose, user }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here, you can add your form submission logic using the formData state
-    // For example, you can send the formData to the server via an API call
-    console.log(formData);
 
-    // Reset the form state after submission if needed
-    setFormData({
-      name: "",
-      location: "",
-      contact: "",
-      email: "",
-      gender: "",
-    });
+    try {
+      if (user === "Driver") {
+        // Call the API to add a new driver
+        await addDriver(formData);
+      } else if (user === "Customer") {
+        // Call the API to add a new customer
+        await addCustomer(formData);
+      }
 
-    // Close the modal after successful form submission
-    onClose();
+      // Reset the form state after successful form submission
+      setFormData(initialFormData);
+
+      // Close the modal after successful form submission
+      onClose();
+    } catch (error) {
+      console.error("Error adding user:", error);
+      // Handle the error and show an error message to the user if needed
+    }
   };
 
   return (
@@ -43,26 +55,27 @@ function AddDriverModal({ isOpen, onClose, user }) {
         isOpen ? "" : "hidden"
       }`}
     >
-      <div className="absolute inset-0 backdrop-blur-md" />
-      <div className="z-10 bg-white p-6 rounded-md shadow-md relative">
+      <div className="max-w-md w-full bg-white p-6 rounded-md shadow-md relative">
         <h2 className="text-xl font-semibold mb-4">Add New {user}</h2>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            className="w-full border p-2 rounded-md mb-2"
-          />
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Location"
-            className="w-full border p-2 rounded-md mb-2"
-          />
+          <div className="flex">
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First Name"
+              className="w-full border p-2 rounded-md mb-2 mr-2"
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last Name"
+              className="w-full border p-2 rounded-md mb-2"
+            />
+          </div>
           <input
             type="text"
             name="contact"
@@ -87,6 +100,48 @@ function AddDriverModal({ isOpen, onClose, user }) {
             placeholder="Gender"
             className="w-full border p-2 rounded-md mb-2"
           />
+
+          {user === "Customer" && (
+            <>
+              <input
+                type="text"
+                name="digitalAddress"
+                value={formData.digitalAddress}
+                onChange={handleChange}
+                placeholder="Digital Address"
+                className="w-full border p-2 rounded-md mb-2"
+              />
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                className="w-full border p-2 rounded-md mb-2"
+              />
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+                className="w-full border p-2 rounded-md mb-2"
+              />
+            </>
+          )}
+
+          {user === "Driver" && (
+            <>
+              <input
+                type="text"
+                name="vehicleNo"
+                value={formData.vehicleNo}
+                onChange={handleChange}
+                placeholder="Vehicle No"
+                className="w-full border p-2 rounded-md mb-2"
+              />
+            </>
+          )}
 
           <div className="mt-4 flex justify-end">
             <button

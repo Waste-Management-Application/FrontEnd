@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
 import AddDriverModal from "./AddDriverModal";
+import {client} from "../../apiEndpoints/endpoints.js";
 
 function DriversPage() {
   const [data, setData] = useState([]);
@@ -11,11 +11,16 @@ function DriversPage() {
   const [user, setUser] = useState("");
 
   const getData = async () => {
-    await axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    await client
+      .get("drivers")
       .then((res) => {
-        setData(res.data);
-        setFilter(res.data); // Initialize filter with the fetched data
+        const rawData = res.data.data.drivers; // Access the customers array correctly
+        const processedData = rawData.map((driver) => {
+          const { _id, role, __v, DateRegistered, firstName, lastName, email, contact, gender ,vehicleNo} = driver;
+          return {  id: _id, DateRegistered, contact, email,vehicleNo, gender, name: `${firstName} ${lastName}` };
+        });
+        setData(processedData);
+        setFilter(processedData); // Initialize filter with the processed data
       });
   };
 
@@ -27,22 +32,37 @@ function DriversPage() {
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 200,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 150,
+      width: 200,
     },
     {
-      field: "phone",
+      field: "contact",
       headerName: "Contact",
-      width: 150,
+      width: 130,
+    },
+    {
+      field: "vehicleNo",
+      headerName: "Vehicle No.",
+      width: 140,
     },
     {
       field: "gender",
       headerName: "Gender",
-      width: 150,
+      width: 120,
+    },
+    {
+      field: "DateRegistered",
+      headerName: "Date Registered",
+      width: 200,
+      valueGetter: (params) => {
+        // Assuming the "requestDate" field is in ISO date format
+        const DateRegistered = new Date(params.row.DateRegistered);
+        return DateRegistered.toLocaleString(); // Format the date as per your requirements
+      },
     },
   ];
 

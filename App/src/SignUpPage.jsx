@@ -1,25 +1,62 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate  } from "react-router-dom";
 import { useState } from "react";
+import { adminClient } from "../../apiEndpoints/endpoints.js";
+
 function SignUpPage() {
+  const navigate = useNavigate(); 
+  const [error, setError] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cPassword, setCPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [location, setLocation]= useState("")
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Form submitted!");
+    try {
+      // Create an object with the form data
+      const userData = {
+        firstName,
+        lastName,
+        contact,
+        email,
+        location,
+        password,
+        confirmPassword,
+      };
 
-    setFirstName("");
-    setLastName("");
-    setContact("");
-    setEmail("");
-    setPassword("");
-    setCPassword("");
+      // Send the user data to the backend API
+      const response = await adminClient.post("/adminSignUp", userData);
+
+      // Handle the response if needed (e.g., show a success message)
+      console.log("User successfully registered:", response.data);
+
+      // Clear the form after successful registration
+      setFirstName("");
+      setLastName("");
+      setContact("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+       setLocation("")
+
+
+      // Redirect to SignIn page after successful registration
+      navigate("/SignIn");
+    } catch (error) {
+      // Handle errors if any (e.g., show an error message)
+      console.error("Error during registration:", error);
+      if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        setError("An error occurred. Please try again later.");
+      }
+    }
   };
+
   return (
     <div className="h-screen w-full bg-g2 flex flex-row">
       <div className="h-screen w-full  rounded-full p-4 flex justify-center items-center">
@@ -41,6 +78,7 @@ function SignUpPage() {
               className="border-b-2 w-full m-1 h-10 rounded-lg text-center"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              required
             />
             <input
               type="text"
@@ -48,6 +86,7 @@ function SignUpPage() {
               className="border-b-2 w-full m-1 h-10 rounded-lg text-center"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
             />
             <input
               type="text"
@@ -55,6 +94,7 @@ function SignUpPage() {
               className="border-b-2 w-full m-1 h-10 rounded-lg text-center"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
+              required
             />
             <input
               type="text"
@@ -62,32 +102,30 @@ function SignUpPage() {
               className="border-b-2 w-full m-1 h-10 rounded-lg text-center"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               className="border-b-2 w-full m-1 h-10 rounded-lg text-center"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <input
-              type="text"
+              type="password"
               placeholder="Confirm Password"
               className="border-b-2 w-full m-1 h-10 rounded-lg text-center"
-              value={cPassword}
-              onChange={(e) => setCPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
-            <NavLink
-              to="/homepage"
-              className="flex justify-center items-center w-full m-2"
+            <button
+              className="border w-full border-2-white p-2 rounded-lg bg-g3 text-white"
+              type="submit"
             >
-              <button
-                className="border w-full border-2-white p-2 rounded-lg bg-g3 text-white"
-                type="submit"
-              >
-                submit
-              </button>
-            </NavLink>
+              Submit
+            </button>
           </form>
         </div>
       </div>

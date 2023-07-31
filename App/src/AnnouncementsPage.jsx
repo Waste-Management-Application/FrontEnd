@@ -1,11 +1,15 @@
 import { useState } from "react";
 import Dashboard from "./Dashboard";
+import { TfiAnnouncement } from "react-icons/tfi";
+import { client } from "../../apiEndpoints/endpoints.js";
+
 
 function AnnouncementsPage() {
   const [announcement, setAnnouncement] = useState("");
   const [announcementsList, setAnnouncementsList] = useState([]);
+  const [targetAudience, setTargetAudience] = useState("customers");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the announcement to the announcementsList state
     setAnnouncementsList((prevAnnouncements) => [
@@ -14,6 +18,17 @@ function AnnouncementsPage() {
     ]);
     // Clear the input field after submitting
     setAnnouncement("");
+
+    // Make a POST request to the backend API using 'client.post'
+    try {
+      await client.post("/SendMessage", {
+        message: announcement,
+        targetAudience: targetAudience,
+      });
+      console.log("Announcement sent successfully!");
+    } catch (error) {
+      console.error("Error sending the announcement:", error);
+    }
   };
 
   const handleDelete = (index) => {
@@ -42,6 +57,30 @@ function AnnouncementsPage() {
               placeholder="Announcements"
               className="rounded-none w-[400px] text-center h-10"
             />
+            <div className="flex items-center">
+              <label htmlFor="customers" className="mr-2">
+                Customers
+              </label>
+              <input
+                type="radio"
+                name="targetAudience"
+                value="customers"
+                checked={targetAudience === "customers"}
+                onChange={() => setTargetAudience("customers")}
+                className="mr-4"
+              />
+              <label htmlFor="drivers" className="mr-2">
+                Drivers
+              </label>
+              <input
+                type="radio"
+                name="targetAudience"
+                value="drivers"
+                checked={targetAudience === "drivers"}
+                onChange={() => setTargetAudience("drivers")}
+                className="mr-4"
+              />
+            </div>
             <button
               type="submit"
               className="px-4 py-2 bg-g3 text-white rounded-md"

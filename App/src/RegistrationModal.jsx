@@ -1,9 +1,20 @@
 import PropTypes from "prop-types";
+import { client } from "../../apiEndpoints/endpoints.js";
 
 function RegistrationModal({ isOpen, onClose, isOn }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onClose();
+  const handleSubmit = async () => {
+    try {
+      const endpoint = isOn ? "/dustbin" : "/vehicle";
+     
+      // Make the API request to add the data
+      const response = await client.post(endpoint);
+      console.log(response.data)
+
+      // Close the modal after successful addition
+      onClose();
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
   };
 
   return (
@@ -12,12 +23,10 @@ function RegistrationModal({ isOpen, onClose, isOn }) {
         isOpen ? "" : "hidden"
       }`}
     >
-      <div className="absolute inset-0 backdrop-blur-md" />
-      <div className="z-10 bg-white p-6 rounded-md shadow-md relative ">
+      <div className="z-10 bg-white p-6 rounded-md shadow-md relative">
         <h2 className="text-xl font-semibold mb-4">
-          Add New {isOn ? "Bin" : "Vehicle"}
+          Add New {isOn ? "Dustbin" : "Vehicle"}
         </h2>
-
         <div className="mt-4 flex justify-between w-[200px]">
           <button
             type="button"
@@ -27,8 +36,9 @@ function RegistrationModal({ isOpen, onClose, isOn }) {
             Cancel
           </button>
           <button
+            type="button"
+            onClick={handleSubmit} // Call handleSubmit when "Add" button is clicked
             className="px-4 py-2 bg-green-500 text-white rounded-md"
-            onClick={handleSubmit}
           >
             Add
           </button>
@@ -37,6 +47,7 @@ function RegistrationModal({ isOpen, onClose, isOn }) {
     </div>
   );
 }
+
 RegistrationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   isOn: PropTypes.bool.isRequired,

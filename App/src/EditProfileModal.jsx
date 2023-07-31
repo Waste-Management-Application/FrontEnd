@@ -1,12 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { adminClient } from "../../apiEndpoints/endpoints";
 
-function EditProfileModal({ isOpen, onClose }) {
+function EditProfileModal({ isOpen, onClose, user }) {
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    contact: "",
-    email: "",
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
+    contact: user.contact || "",
+    email: user.email || "",
   });
 
   const handleChange = (e) => {
@@ -17,20 +18,25 @@ function EditProfileModal({ isOpen, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      // Send the updated data to the backend
+      const response = await adminClient.patch(`updateAdmin/${user._id}`, formData);
 
-    setFormData({
-      firtsname: "",
-      lastname: "",
-      contact: "",
-      email: "",
-    });
-
-    onClose();
+      // Handle successful update (e.g., show a success message or update the user data)
+      console.log("Profile updated successfully!");
+      console.log("Updated admin data:", response.data); // The updated admin data from the server
+      console.log(formData)
+      onClose();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Handle errors (e.g., show an error message)
+    }
   };
+
+
 
   return (
     <div
@@ -39,21 +45,23 @@ function EditProfileModal({ isOpen, onClose }) {
       }`}
     >
       <div className="absolute inset-0 backdrop-blur-md" />
-      <div className="z-10 bg-white p-6 rounded-md shadow-md relative">
+      <div className="z-10 bg-white p-6 rounded-md shadow-md relative w-96">
+        {/* Here, we added 'w-96' to limit the width of the modal to 24rem (96 * 0.25rem). 
+        You can adjust this value based on your desired width. */}
         <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="firstname"
-            value={formData.firstname}
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
             placeholder="First Name"
             className="w-full border p-2 rounded-md mb-2"
           />
           <input
             type="text"
-            name="lastname"
-            value={formData.lastname}
+            name="lastName"
+            value={formData.lastName}
             onChange={handleChange}
             placeholder="Last Name"
             className="w-full border p-2 rounded-md mb-2"
@@ -95,9 +103,17 @@ function EditProfileModal({ isOpen, onClose }) {
     </div>
   );
 }
+
 EditProfileModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    contact: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
 };
 
 export default EditProfileModal;

@@ -1,10 +1,41 @@
 import { BiMenu } from "react-icons/bi";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { GiExitDoor } from "react-icons/gi";
+import { client } from "../../apiEndpoints/endpoints";
 
 function SideBar({ open, toggle }) {
+  const [customer, setCustomer] = useState("");
+
+  useEffect(() => {
+    // Function to fetch customer data from the backend
+    const fetchCustomerData = async () => {
+      try {
+        // Decode the token and retrieve the customer ID
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.error("Authentication token not found.");
+          return;
+        }
+
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        const customerId = decodedToken.id;
+
+        // Fetch the customer data from the backend
+        const response = await client.get(`/customers/${customerId}`);
+        setCustomer(response.data.data.customer);
+      } catch (error) {
+        console.error("Error fetching customer data:", error);
+      }
+    };
+
+    fetchCustomerData();
+  }, []);
+
+
   return (
     <div className="z-[9999]">
       <div className="h-screen flex items-start justify-end z-20 ">
@@ -24,7 +55,7 @@ function SideBar({ open, toggle }) {
             }`}
           >
             <div className="flex justify-center items-center  bg-g3 h-28 w-full">
-              <h2 className="text-white font-semibold">Andrew Antwi</h2>
+              <h2 className="text-white font-semibold">{`${customer.firstName} ${customer.lastName}`}</h2>
               <div className=" flex items-start h-full">
                 <h1
                   onClick={toggle}

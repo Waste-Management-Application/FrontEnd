@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import css from "vite-plugin-css";
 
 export default defineConfig({
-  plugins: [react(), css()],
-});
+  plugins: [react()],
+  server: {
+    port: 3002, // Change this to your desired port
+  },
+})

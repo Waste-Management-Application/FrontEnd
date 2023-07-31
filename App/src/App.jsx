@@ -15,6 +15,7 @@ import AnnouncementsPage from "./AnnouncementsPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import RegistrationPage from "./RegistrationPage";
 import ProfilePage from "./ProfilePage";
+import ResetPasswordPage from "./ResetPasswordPage"
 import SchedulingPage from "./SchedulingPage";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -40,6 +41,7 @@ function App() {
             <Route path="feedbacks" element={<FeedbacksPage />} />
             <Route path="complaints" element={<ComplaintsPage />} />
             <Route path="forgotpassword" element={<ForgotPasswordPage />} />
+            <Route path="ResetPassword/:token" element={<ResetPasswordPage />} />
             <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Routes>

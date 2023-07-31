@@ -1,11 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import client from "../../apiEndpoints/endpoints.js";
-
+import { client } from "../../apiEndpoints/endpoints.js";
 
 function SignUp() {
   const [error, setError] = useState(null);
-  const [formInfo, setFormInfo] = useState({});
   const form = useRef(null);
   const navigate = useNavigate();
 
@@ -14,45 +12,68 @@ function SignUp() {
     const formData = new FormData(form.current);
     const jsonData = Object.fromEntries(formData);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const longitude = position.coords.longitude;
-          const latitude = position.coords.latitude;
+    const city = jsonData.city;
+    const allowLocation = jsonData.allowLocation === "Yes";
 
-          const location = {
-            type: "Point",
-            coordinates: [longitude, latitude],
-            digitalAddress: jsonData.digitalAddress,
-          };
+    if (city) {
+      if (allowLocation && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
 
-          jsonData.location = location;
+            const location = {
+              type: "Point",
+              coordinates: [longitude, latitude],
+              city: jsonData.city,
+            };
 
-          client
-            .post("/customerSignUp/", jsonData)
-            .then((response) => {
-              console.log(response.data);
-              navigate("/SignIn");
-            })
-            .catch((error) => {
-              console.error(error);
-              if (
-                error.response &&
-                error.response.data &&
-                error.response.data.error
-              ) {
-                setError(error.response.data.error);
-              } else {
-                setError("An error occurred. Please try again later.");
-              }
-            });
-        },
-        (error) => {
-          console.error("Error retrieving geolocation:", error);
-          // Handle error retrieving geolocation here
-        }
-      );
+            jsonData.location = location;
+
+            signUpUser(jsonData);
+          },
+          (error) => {
+            console.error("Error retrieving geolocation:", error);
+            // If there was an error retrieving geolocation, proceed with sign-up without location
+            signUpUser(jsonData);
+          }
+        );
+      } else {
+        // If location is not allowed or geolocation is not supported, proceed with sign-up without location
+      
+        const location = {
+          type: "Point",
+          coordinates: [0, 0],
+          city:"Unknown",
+        }; 
+        jsonData.location = location;
+        signUpUser(jsonData);
+      }
+    } else {
+      // If city is not provided, proceed with sign-up without location
+      signUpUser(jsonData);
     }
+  };
+
+  const signUpUser = (jsonData) => {
+    client
+      .post("/customerSignUp/", jsonData)
+      .then((response) => {
+        console.log(response.data);
+        navigate("/SignIn");
+      })
+      .catch((error) => {
+        console.error(error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          setError(error.response.data.error);
+        } else {
+          setError("An error occurred. Please try again later.");
+        }
+      });
   };
 
   return (
@@ -109,9 +130,8 @@ function SignUp() {
           <input
             type="text"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
-            placeholder="Digital Address"
-            name="digitalAddress"
-            required
+            placeholder="City/Town"
+            name="city"
           />
           <input 
             type="password"
@@ -134,19 +154,27 @@ function SignUp() {
             className="border h-[8%] shadow-md text-center w-[90%] my-2 rounded-md  "
             required
           >
-           <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
 
-          {error && (
-            <div className="text-red-500 mt-2">{error}</div>
-          )}
+          <select
+            name="allowLocation"
+            id="allowLocation"
+            className="border h-[8%] shadow-md text-center w-[90%] my-2 rounded-md"
+            required
+          >
+            <option value="Yes">Allow Location</option>
+            <option value="No">Do Not Allow Location</option>
+          </select>
+
+          {error && <div className="text-red-500 mt-2">{error}</div>}
 
           <div
             className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "
           >
-            <button >Join The Community</button>
+            <button>Join The Community</button>
           </div>
         </form>
       </div>

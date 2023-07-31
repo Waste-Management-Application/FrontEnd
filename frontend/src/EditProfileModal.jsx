@@ -1,12 +1,14 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { client } from "../../apiEndpoints/endpoints";
 
-function EditProfileModal({ isOpen, onClose }) {
+function EditProfileModal({ isOpen, onClose , user}) {
   const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
-    email: "",
-    gender: "",
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
+    contact: user.contact ||"",
+    email: user.email || "",
+    vehicleNo: user.vehicleNo || "", 
   });
 
   const handleChange = (e) => {
@@ -17,23 +19,24 @@ function EditProfileModal({ isOpen, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      // Send the updated data to the backend
+      const response = await client.patch(`drivers/${user._id}`, formData);
 
-    // Reset the form state after submission if needed
-    setFormData({
-      name: "",
-      location: "",
-      contact: "",
-      email: "",
-      gender: "",
-    });
-
-    // Close the modal after successful form submission
-    onClose();
+      // Handle successful update (e.g., show a success message or update the user data)
+      console.log("Profile updated successfully!");
+      console.log("Updated admin data:", response.data); // The updated admin data from the server
+      console.log(formData)
+      onClose();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Handle errors (e.g., show an error message)
+    }
   };
+
 
   return (
     <div
@@ -47,10 +50,19 @@ function EditProfileModal({ isOpen, onClose }) {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
-            placeholder="Name"
+            placeholder="First Name"
+            className="w-full border p-2 rounded-md mb-2"
+          />
+
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
             className="w-full border p-2 rounded-md mb-2"
           />
 
@@ -70,15 +82,14 @@ function EditProfileModal({ isOpen, onClose }) {
             placeholder="Email"
             className="w-full border p-2 rounded-md mb-2"
           />
-          <input
+           <input
             type="text"
-            name="gender"
-            value={formData.gender}
+            name="vehicleNo"
+            value={formData.vehicleNo}
             onChange={handleChange}
-            placeholder="Gender"
+            placeholder="Vehicle No."
             className="w-full border p-2 rounded-md mb-2"
           />
-
           <div className="mt-4 flex justify-end">
             <button
               type="button"
@@ -102,6 +113,13 @@ function EditProfileModal({ isOpen, onClose }) {
 EditProfileModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    contact: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
 };
 
 export default EditProfileModal;
