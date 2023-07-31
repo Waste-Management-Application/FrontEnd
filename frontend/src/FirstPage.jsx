@@ -13,12 +13,6 @@ function FirstPage() {
             </div>
           </div>
           <NavLink
-            to="/SignUp"
-            className="flex border text-white  shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "
-          >
-            <button>Get Started</button>
-          </NavLink>
-          <NavLink
             to="/SignIn"
             className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12 p-4 bg-white rounded-3xl m-8 justify-center items-center hover:bg-g3 hover:text-white "
           >

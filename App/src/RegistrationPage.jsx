@@ -3,15 +3,17 @@ import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import { client } from "../../apiEndpoints/endpoints.js";
 import RegistrationModal from "./RegistrationModal";
+import EditModal from "./UpdateVehicleModal"
 
 function RegistrationPage() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
   const [isOn, setIsOn] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [searchInput, setSearchInput] = useState(""); // Add the missing searchInput state
+  const [searchInput, setSearchInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState(null); // State to store the selected vehicle for editing
 
   const getRequests = async (requestType) => {
     try {
@@ -20,6 +22,7 @@ function RegistrationPage() {
         id: row._id,
         number: isOn ? row.dustbinNo : row.vehicleNo,
         date: row.DateCreated,
+        driver: isOn? null : row.driver, // Add driverName to the data for "Vehicle"
       }));
 
       setData(responseData);
@@ -30,7 +33,7 @@ function RegistrationPage() {
   };
 
   useEffect(() => {
-    setUser("Registration"); // Assuming you want to show "Registration" in the modal for this page
+    setUser("Registration");
     setLoading(true);
     if (isOn) {
       getRequests("/dustbin");
@@ -40,12 +43,9 @@ function RegistrationPage() {
   }, [isOn]);
 
   useEffect(() => {
-    // Apply filter based on the search input
     if (searchInput.trim() === "") {
-      // If search input is empty, reset filter to the original data
       setFilter(data);
     } else {
-      // Apply filter based on the search input
       const filteredData = data.filter((row) =>
         row.number.toString().includes(searchInput)
       );
@@ -70,6 +70,15 @@ function RegistrationPage() {
     },
   ];
 
+  // Conditionally add the "Driver" column based on isOn state
+if (!isOn) {
+  columns.push({
+    field: "driver",
+    headerName: "Driver",
+    width: 200,
+  });
+}
+
   const handleFilter = (e) => {
     setSearchInput(e.target.value);
   };
@@ -82,11 +91,13 @@ function RegistrationPage() {
     setIsModalOpen(false);
   };
 
-  const handleRowClick = (params) => {
-    // Get the full data of the clicked row
-    const selectedRow = data.find((row) => row.id === params.id);
-    setModalData(selectedRow);
-    handleOpenModal();
+  // Function to handle opening the edit modal and passing the selected vehicle data
+  const handleEditModalOpen = (vehicle) => {
+    setSelectedVehicle(vehicle);
+  };
+
+  const handleEditModalClose = () => {
+    setSelectedVehicle(null);
   };
 
   return (
@@ -122,7 +133,7 @@ function RegistrationPage() {
               ></span>
             </button>
             <span className="ml-2">
-            {isOn ? "Bins" : "Vehicles"}
+              {isOn ? "Bins" : "Vehicles"}
             </span>
           </div>
           <input
@@ -132,20 +143,34 @@ function RegistrationPage() {
             placeholder="Search by number"
           />
         </div>
-        {/* Conditional rendering: Render DataGrid only if data is available */}
         <div className="h-[500px]">
           {data.length > 0 && (
-            <DataGrid columns={columns} rows={filter} pageSize={1} />
+            <DataGrid
+              columns={columns}
+              rows={filter}
+              pageSize={1}
+              onRowClick={(params) => handleEditModalOpen(params.row)} // Handle row click to open the edit modal with selected vehicle data
+            />
           )}
         </div>
       </div>
+
       {/* Render RegistrationModal component */}
       <RegistrationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        user={user}
         isOn={isOn}
       />
+
+      {/* Render EditModal if selectedVehicle has data */}
+      {selectedVehicle && (
+        <EditModal
+          isOpen={true} // Show the modal when selectedVehicle has data
+          onClose={handleEditModalClose}
+          vehicleData={selectedVehicle}
+          isOn={isOn} // Pass the isOn prop to EditModal
+        />
+      )}
     </div>
   );
 }

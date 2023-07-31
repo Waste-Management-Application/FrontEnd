@@ -3,7 +3,6 @@ import "./App.css";
 import SignIn from "./SignIn";
 import SignUpPage from "./SignUpPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Scheduling from "./Scheduling";
 import Tracking from "./Tracking";
 import HomePage from "./HomePage";
 import DriversPage from "./DriversPage";
@@ -17,7 +16,7 @@ import ForgotPasswordPage from "./ForgotPasswordPage";
 import RegistrationPage from "./RegistrationPage";
 import ProfilePage from "./ProfilePage";
 import ResetPasswordPage from "./ResetPasswordPage"
-import TasksPage from "./TasksPage";
+import SchedulingPage from "./SchedulingPage";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -33,11 +32,10 @@ function App() {
             <Route path="signup" element={<SignUpPage />} />
             <Route path="registration" element={<RegistrationPage />} />
             <Route path="announcements" element={<AnnouncementsPage />} />
-            <Route path="scheduling" element={<Scheduling />} />
             <Route path="tracking" element={<Tracking />} />
             <Route path="drivers" element={<DriversPage />} />
             <Route path="customers" element={<CustomersPage />} />
-            <Route path="tasks" element={<TasksPage />} />
+            <Route path="schedules" element={<SchedulingPage />} />
 
             <Route path="requests" element={<RequestsPage />} />
             <Route path="feedbacks" element={<FeedbacksPage />} />

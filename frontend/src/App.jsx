@@ -1,6 +1,5 @@
 import FirstPage from "./FirstPage";
 import News from "./News";
-import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MainPage from "./MainPage";
@@ -14,7 +13,6 @@ function App() {
       <Routes>
         [<Route path="/" element={<FirstPage />} />]
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/SignUP" element={<SignUp />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/MainPage" element={<MainPage />} />
         <Route path="/News" element={<News />} />

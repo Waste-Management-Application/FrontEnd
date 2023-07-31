@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
 import AddDriverModal from "./AddDriverModal";
 import {client} from "../../apiEndpoints/endpoints.js";
 
@@ -17,8 +16,8 @@ function DriversPage() {
       .then((res) => {
         const rawData = res.data.data.drivers; // Access the customers array correctly
         const processedData = rawData.map((driver) => {
-          const { _id, role, __v, DateRegistered, firstName, lastName, email, contact, gender } = driver;
-          return {  id: _id, DateRegistered, contact, email, gender, name: `${firstName} ${lastName}` };
+          const { _id, role, __v, DateRegistered, firstName, lastName, email, contact, gender ,vehicleNo} = driver;
+          return {  id: _id, DateRegistered, contact, email,vehicleNo, gender, name: `${firstName} ${lastName}` };
         });
         setData(processedData);
         setFilter(processedData); // Initialize filter with the processed data
@@ -43,12 +42,12 @@ function DriversPage() {
     {
       field: "contact",
       headerName: "Contact",
-      width: 120,
+      width: 130,
     },
     {
       field: "vehicleNo",
-      headerName: "Vehicle No",
-      width: 100,
+      headerName: "Vehicle No.",
+      width: 140,
     },
     {
       field: "gender",

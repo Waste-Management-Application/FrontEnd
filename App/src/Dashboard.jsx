@@ -6,19 +6,18 @@ function Dashboard() {
   const Menus = [
     { title: "homepage", src: "Chart_fill" },
     { title: "Tracking", src: "Chart" },
+    { title: "announcements", src: "Chat" },
 
-    { title: "customers", src: "User" },
+    { title: "customers", src: "User", gap: true },
     { title: "drivers", src: "Chart" },
     { title: "requests", src: "Chart" },
-    { title: "announcements", src: "Chat" },
+    { title: "registration", src: "Setting" },
+
     { title: "complaints", src: "Folder" },
     { title: "feedbacks", src: "Setting" },
-    { title: "registration", src: "Setting" },
-    { title: "tasks", src: "Setting" },
+    { title: "schedules", src: "Setting" },
     { title: "profile", src: "Setting" },
    
-
-    { title: "scheduling", src: "Calendar" },
   ];
 
   return (
@@ -56,8 +55,8 @@ function Dashboard() {
               <li
                 key={index}
                 className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer hover:bg-light-white p-2 rounded-md ${
-                  Menu.gap ? "mt-9" : "mt-2"
-                } ${index === 0 ? "bg-light-white" : ""}`}
+                  Menu.gap ? "mt-5" : "mt-2"
+                }  `}
               >
                 <NavLink to={`/${Menu.title}`} className="flex">
                   <img src={`./src/assets/${Menu.src}.png`} />

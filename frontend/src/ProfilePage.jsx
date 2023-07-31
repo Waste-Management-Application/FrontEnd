@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditProfileModal from "./editProfileModal";
 import { client } from "../../apiEndpoints/endpoints.js";
+import { NavLink } from "react-router-dom";
 
 function ProfilePage() {
   const [driver, setDriver] = useState(null);
@@ -38,7 +39,7 @@ function ProfilePage() {
   }
 
   // Destructure firstName, lastName, email, contact, and gender from driver object
-  const { firstName, lastName, email, contact, gender } = driver;
+  const { firstName, lastName, email, contact, gender , vehicleNo} = driver;
 
   // Function to handle opening the edit modal
   const handleOpenEditModal = () => {
@@ -70,22 +71,32 @@ function ProfilePage() {
           </div>
         </div>
         <div className="h-10 rounded-b-full bg-g3 border-b-none opacity-90 shadow-xl mb-5"></div>
-        <div className="flex flex-col h-screen p-4 ">
-          <div className="m-5">
+        <div className="flex flex-col h-screen p-2 ">
+          <div className="m-3">
             <h1 className="text-gray-500">Email</h1>
             <h1 className="text-xl">{email}</h1>
           </div>
-          <div className="m-5">
+          <div className="m-3">
             <h1 className="text-gray-500">Contact</h1>
             <h1 className="text-xl">{contact}</h1>
           </div>
-          <div className="m-5">
+          <div className="m-3">
             <h1 className="text-gray-500">Gender</h1>
             <h1 className="text-xl">{gender}</h1>
           </div>
-          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
-            <button onClick={handleOpenEditModal}>Edit</button>
+          <div className="m-3">
+            <h1 className="text-gray-500">Vehicle No.</h1>
+            <h1 className="text-xl">{vehicleNo}</h1>
           </div>
+          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-16 justify-center items-center hover:bg-g3 hover:text-white">
+        <button onClick={handleOpenEditModal}>Edit</button>
+      </div>
+      <NavLink
+        to="/MainPage"
+        className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g2 rounded-3xl m-3 justify-center items-center hover:bg-g3 hover:text-white "
+      >
+        <button>Home</button>
+      </NavLink>
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { client } from "../../apiEndpoints/endpoints";
 
 function EditProfileModal({ isOpen, onClose , user}) {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ function EditProfileModal({ isOpen, onClose , user}) {
     lastName: user.lastName || "",
     contact: user.contact ||"",
     email: user.email || "",
+    vehicleNo: user.vehicleNo || "", 
   });
 
   const handleChange = (e) => {
@@ -17,22 +19,24 @@ function EditProfileModal({ isOpen, onClose , user}) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      // Send the updated data to the backend
+      const response = await client.patch(`drivers/${user._id}`, formData);
 
-    // Reset the form state after submission if needed
-    setFormData({
-      name: "",
-      contact: "",
-      email: "",
-      gender: "",
-    });
-
-    // Close the modal after successful form submission
-    onClose();
+      // Handle successful update (e.g., show a success message or update the user data)
+      console.log("Profile updated successfully!");
+      console.log("Updated admin data:", response.data); // The updated admin data from the server
+      console.log(formData)
+      onClose();
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Handle errors (e.g., show an error message)
+    }
   };
+
 
   return (
     <div
@@ -76,6 +80,14 @@ function EditProfileModal({ isOpen, onClose , user}) {
             value={formData.email}
             onChange={handleChange}
             placeholder="Email"
+            className="w-full border p-2 rounded-md mb-2"
+          />
+           <input
+            type="text"
+            name="vehicleNo"
+            value={formData.vehicleNo}
+            onChange={handleChange}
+            placeholder="Vehicle No."
             className="w-full border p-2 rounded-md mb-2"
           />
           <div className="mt-4 flex justify-end">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 import { client } from "../../apiEndpoints/endpoints.js";
-const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
+//const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
 import { NavLink } from "react-router-dom";
 
 function ProfilePage() {
@@ -46,22 +46,22 @@ function ProfilePage() {
     fetchCustomerData();
   }, []);
 
-  const fetchLocationString = async (latitude, longitude) => {
-    try {
-      const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
-      const response = await fetch(apiUrl);
-      const data = await response.json();
+  // const fetchLocationString = async (latitude, longitude) => {
+  //   try {
+  //     const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
+  //     const response = await fetch(apiUrl);
+  //     const data = await response.json();
 
-      if (data.features && data.features.length > 0) {
-        setLocationString(data.features[0].place_name);
-      } else {
-        setLocationString("Unknown Location");
-      }
-    } catch (error) {
-      console.error("Error fetching location data:", error.message);
-      setLocationString("Unknown Location");
-    }
-  };
+  //     if (data.features && data.features.length > 0) {
+  //       setLocationString(data.features[0].place_name);
+  //     } else {
+  //       setLocationString("Unknown Location");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching location data:", error.message);
+  //     setLocationString("Unknown Location");
+  //   }
+  // };
 
   if (!customer) {
     return <div>Loading...</div>;
@@ -69,10 +69,10 @@ function ProfilePage() {
 
   // Destructure firstName, lastName, email, contact, and gender from customer object
   const { firstName, lastName, email, contact, gender } = customer;
-  const { digitalAddress } = customer.location;
+  const {city} = customer.location // Use default value if city is not available
 
-   // Function to handle opening the edit modal
-   const handleOpenEditModal = () => {
+  // Function to handle opening the edit modal
+  const handleOpenEditModal = () => {
     setShowEditModal(true);
   };
 
@@ -89,38 +89,41 @@ function ProfilePage() {
             <div>
               <img
                 src="./src/assets/man-avatar-profile-picture-vector-illustration_268834-538.avif"
-                className="rounded-full w-24 h-24  m-2"
+                className="rounded-full w-24 h-24 m-2"
                 alt="Profile Picture"
               />
             </div>
             <div>
               <div>
                 <h1 className="text-3xl text-white">{`${firstName} ${lastName}`}</h1>
-                <h1 className="text-xl text-white">{locationString}</h1>
               </div>
             </div>
           </div>
         </div>
         <div className="h-10 rounded-b-full bg-g3 border-b-none opacity-90 shadow-xl mb-5"></div>
         <div className="flex flex-col h-screen p-4 ">
-          <div className="m-5">
+          <div className="m-3">
             <h1 className="text-gray-500">Email</h1>
             <h1 className="text-xl">{email}</h1>
           </div>
-          <div className="m-5">
+          <div className="m-3">
             <h1 className="text-gray-500">Contact</h1>
             <h1 className="text-xl">{contact}</h1>
           </div>
-          <div className="m-5">
-            <h1 className="text-gray-500">Digital Address</h1>
-            <h1 className="text-xl">{digitalAddress}</h1>
+          <div className="m-3">
+            <h1 className="text-gray-500">City/Town</h1>
+            <h1 className="text-xl">{city}</h1>
           </div>
-          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12  p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white ">
+          <div className="m-3">
+            <h1 className="text-gray-500">Gender</h1>
+            <h1 className="text-xl">{gender}</h1>
+          </div>
+          <div className="flex border-[2px] shadow-xl border-g2 text-g2 font-semibold h-12 p-4 bg-white rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white ">
             <button onClick={handleOpenEditModal}>Edit</button>
           </div>
           <NavLink
             to="/MainPage"
-            className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12  p-4 bg-g2 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white "
+            className="flex border-[2px] shadow-xl border-white text-white font-semibold h-12 p-4 bg-g2 rounded-3xl m-4 justify-center items-center hover:bg-g3 hover:text-white "
           >
             <button>Home</button>
           </NavLink>

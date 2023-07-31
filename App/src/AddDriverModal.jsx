@@ -4,13 +4,16 @@ import { addCustomer, addDriver } from "../../apiEndpoints/endpoints";
 
 function AddDriverModal({ isOpen, onClose, user }) {
   const initialFormData = {
-    name: "",
+    firstName: "",
+    lastName: "",
     contact: "",
     email: "",
     gender: "",
     password: "",
     confirmPassword: "",
     vehicleNo: "",
+    digitalAddress:""
+
   };
 
   const [formData, setFormData] = useState(initialFormData);

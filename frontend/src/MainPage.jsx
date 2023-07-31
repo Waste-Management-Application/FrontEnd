@@ -6,12 +6,15 @@ import { useState } from "react";
 import tt from "@tomtom-international/web-sdk-maps";
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
 import ttapi from "@tomtom-international/web-sdk-services";
+import {client} from "../../apiEndpoints/endpoints"
+
 
 function MainPage() {
   const mapElement = useRef();
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [open, setOpen] = useState(false);
+  const [destinations, setDestinations] = useState([]);
   const toggle = () => {
     setOpen(!open);
   };
@@ -60,14 +63,65 @@ function MainPage() {
   };
 
   useEffect(() => {
-    const destinations = [
-      { lng: -1.5665604513100675, lat: 6.668418037631255 },
-      // { lng: -1.5682787, lat: 6.6688801 },
-      { lng: -1.5666462819983735, lat: 6.666606471200865 },
-      { lng: -1.56760360405886, lat: 6.669446982230852 },
-      { lng: -1.566841291095102, lat: 6.672673497095971 },
-      { lng: -1.5655972313527116, lat: 6.674723454182086 },
-    ];
+    // Decode the token to get the user ID
+    try {
+      const token = localStorage.getItem("token");
+  
+      if (!token) {
+        console.error("Authentication token not found.");
+        return;
+      }
+  
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      const userId = decodedToken.id;
+  
+      // Call a function to update the driver's location in the backend
+      if (latitude !== null && longitude !== null) {
+        saveDriverLocation(userId, latitude, longitude);
+      }
+  
+      // Rest of your useEffect logic...
+    } catch (error) {
+      console.error("Error decoding token:", error);
+    }
+  }, [latitude, longitude]);
+
+
+  const saveDriverLocation = async (userId, lat, lng) => {
+  try {
+    // Make an HTTP POST request to your backend endpoint
+    const response = await client.post("/UpdateDriverLocation", {
+      id: userId, // Pass the user ID to the backend API
+      latitude: lat,
+      longitude: lng,
+    });
+
+    // Check the response status and handle accordingly
+    if (response.status === 200) {
+      console.log("Driver location saved successfully");
+    } else {
+      console.error("Error saving driver location:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error saving driver location:", error);
+  }
+};
+
+  useEffect(() => {
+
+    const fetchCustomers = async () => {
+      try {
+        const response = await client.get("/customers");
+        const customersFromBackend = response.data.data.customers;
+        const destinationsFromBackend = customersFromBackend.map((customer) => {
+          const { coordinates } = customer.location;
+          return { lng: coordinates[0], lat: coordinates[1] };
+        });
+        setDestinations(destinationsFromBackend);
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+      }
+    };
 
     const origin = {
       lat: latitude,
@@ -79,7 +133,7 @@ function MainPage() {
       container: mapElement.current,
       stylesVisibility: { trafficIncidents: true, trafficFlow: true },
       center: [longitude, latitude],
-      zoom: 15,
+      zoom: 16,
       pitch: 45,
     });
 
@@ -104,13 +158,20 @@ function MainPage() {
         const lnglat = marker.getLngLat();
         setLongitude(lnglat.lng);
         setLatitude(lnglat.lat);
+
+         // Send the driver's location to the backend API
+         saveDriverLocation(lnglat.lat, lnglat.lng);
+
       });
       // marker.setPopup(popup).togglePopup();
+
+       
     };
 
     addMarker();
 
     addLocationMarkers(destinations, map);
+    fetchCustomers();
 
     const sortDestinations = (locations) => {
       const pointsForDestinations = locations.map((destination) => {
@@ -170,6 +231,7 @@ function MainPage() {
 
     return () => map.remove();
   }, [latitude, longitude]);
+
 
   return (
     <div>
