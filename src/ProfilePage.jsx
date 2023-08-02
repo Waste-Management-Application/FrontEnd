@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EditProfileModal from "./editProfileModal";
+import EditProfileModal from "./EditProfileModal";
 import { client } from "../apiEndpoints/endpoints.js";
 import { NavLink } from "react-router-dom";
 
