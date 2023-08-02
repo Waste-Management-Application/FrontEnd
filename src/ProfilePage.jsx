@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 import { client } from "../apiEndpoints/endpoints.js";
-//const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
 import { NavLink } from "react-router-dom";
 
 function ProfilePage() {
+  const mapboxApiKey =
+    "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
+
   const [customer, setCustomer] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [locationString, setLocationString] = useState("Loading...");
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCustomerData = async () => {
@@ -41,29 +43,29 @@ function ProfilePage() {
         }
       } catch (error) {
         console.error("Error fetching customer data:", error);
-        setError(error.message);
+        // setError(error.message);
       }
     };
 
     fetchCustomerData();
   }, []);
 
-  // const fetchLocationString = async (latitude, longitude) => {
-  //   try {
-  //     const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
-  //     const response = await fetch(apiUrl);
-  //     const data = await response.json();
+  const fetchLocationString = async (latitude, longitude) => {
+    try {
+      const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
 
-  //     if (data.features && data.features.length > 0) {
-  //       setLocationString(data.features[0].place_name);
-  //     } else {
-  //       setLocationString("Unknown Location");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching location data:", error.message);
-  //     setLocationString("Unknown Location");
-  //   }
-  // };
+      if (data.features && data.features.length > 0) {
+        setLocationString(data.features[0].place_name);
+      } else {
+        setLocationString("Unknown Location");
+      }
+    } catch (error) {
+      console.error("Error fetching location data:", error.message);
+      setLocationString("Unknown Location");
+    }
+  };
 
   if (!customer) {
     return <div>Loading...</div>;
@@ -92,7 +94,7 @@ function ProfilePage() {
               <img
                 src="./src/assets/man-avatar-profile-picture-vector-illustration_268834-538.avif"
                 className="rounded-full w-24 h-24 m-2"
-                alt="Profile Picture"
+                alt="Profile"
               />
             </div>
             <div>
@@ -133,7 +135,7 @@ function ProfilePage() {
             >
               <button>Home</button>
             </NavLink>
-            {error && (
+            {/* {error && (
               <div className="text-red-500 mt-2">
                 {error}
                 <button
@@ -143,7 +145,7 @@ function ProfilePage() {
                   Dismiss
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
