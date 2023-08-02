@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { client } from "../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function EditProfileModal({ isOpen, onClose, user }) {
   const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ function EditProfileModal({ isOpen, onClose, user }) {
     try {
       // Send the updated data to the backend
       const response = await client.patch(`drivers/${user._id}`, formData);
-
+      console.log(response);
       // Handle successful update (e.g., show a success message or update the user data)
       console.log("Profile updated successfully!");
       console.log("Updated admin data:", response.data); // The updated admin data from the server
