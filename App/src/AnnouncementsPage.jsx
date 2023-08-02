@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Dashboard from "./Dashboard";
-import { TfiAnnouncement } from "react-icons/tfi";
-import { client } from "../../apiEndpoints/endpoints.js";
-
+import { client } from "../apiEndpoints/endpoints";
 
 function AnnouncementsPage() {
   const [announcement, setAnnouncement] = useState("");

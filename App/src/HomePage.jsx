@@ -8,7 +8,7 @@ import { BiMessageDetail } from "react-icons/bi";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { GiExitDoor } from "react-icons/gi";
 import LogOutModal from "./LogOutModal";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

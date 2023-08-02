@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import { BiEdit } from "react-icons/bi";
 import EditProfileModal from "./EditProfileModal";
-import axios from 'axios';
-import { adminClient } from "../../apiEndpoints/endpoints.js";
+import axios from "axios";
+import { adminClient } from "../apiEndpoints/endpoints.js";
 import DeleteAdminModal from "./DeleteAdminModal";
 
 function ProfilePage() {
@@ -25,7 +25,7 @@ function ProfilePage() {
         }
 
         // Decode the token to get the adminId
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const adminId = decodedToken.id;
 
         // Make the API call to get the logged-in admin data
@@ -87,7 +87,9 @@ function ProfilePage() {
                   alt="Profile Avatar"
                 />
                 <div className="p-3">
-                  <h1>{adminData.firstName} {adminData.lastName}</h1>
+                  <h1>
+                    {adminData.firstName} {adminData.lastName}
+                  </h1>
                   <p className="text-gray-500">Admin</p>
                 </div>
               </div>

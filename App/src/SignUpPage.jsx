@@ -1,9 +1,9 @@
-import { NavLink, useNavigate  } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { adminClient } from "../../apiEndpoints/endpoints.js";
+import { adminClient } from "../apiEndpoints/endpoints.js";
 
 function SignUpPage() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -11,7 +11,7 @@ function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [location, setLocation]= useState("")
+  const [location, setLocation] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,8 +41,7 @@ function SignUpPage() {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-       setLocation("")
-
+      setLocation("");
 
       // Redirect to SignIn page after successful registration
       navigate("/SignIn");

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { adminClient } from "../../apiEndpoints/endpoints";
+import { adminClient } from "../apiEndpoints/endpoints";
 
 function ForgotPasswordPage() {
   const emailRef = useRef(null);
@@ -28,7 +28,11 @@ function ForgotPasswordPage() {
       }, 3000);
     } catch (error) {
       console.error(error);
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setError(error.response.data.message);
       } else {
         setError("An error occurred. Please try again later.");
@@ -55,7 +59,9 @@ function ForgotPasswordPage() {
         <h1 className="text-x1 w-full  text-black font-semibold">BinBuddy</h1>
         <div className="w-full flex flex-col max-w-[500px] ">
           <div className="w-full flex flex-col mb-10">
-            <h3 className="text-3xl font-semibold mb-4">Forgot your password?</h3>
+            <h3 className="text-3xl font-semibold mb-4">
+              Forgot your password?
+            </h3>
             <p className="text-sm mb-2">Please enter your Email</p>
           </div>
           <div className="w-full flex flex-col">

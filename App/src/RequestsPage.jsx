@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function RequestsPage() {
   const [dustbinData, setDustbinData] = useState([]);
@@ -55,7 +55,10 @@ function RequestsPage() {
   }, [isOn]);
 
   useEffect(() => {
-    if ((!locationStringsFetched && dustbinData.length > 0) || (!locationStringsFetched && pickupData.length > 0)) {
+    if (
+      (!locationStringsFetched && dustbinData.length > 0) ||
+      (!locationStringsFetched && pickupData.length > 0)
+    ) {
       setLocationStringsFetched(true);
       fetchLocationStrings(isOn ? dustbinData : pickupData);
     }
@@ -64,7 +67,11 @@ function RequestsPage() {
   const fetchLocationStrings = async (rowData) => {
     const newLocationStrings = {};
     for (const row of rowData) {
-      if (row.customer && row.customer.location && row.customer.location.coordinates) {
+      if (
+        row.customer &&
+        row.customer.location &&
+        row.customer.location.coordinates
+      ) {
         const locationString = await getLocationString(
           row.customer.location.coordinates[1],
           row.customer.location.coordinates[0]
@@ -79,7 +86,8 @@ function RequestsPage() {
   };
 
   const getLocationString = async (latitude, longitude) => {
-    const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
+    const mapboxApiKey =
+      "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
     const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxApiKey}`;
 
     try {
@@ -98,14 +106,19 @@ function RequestsPage() {
 
   useEffect(() => {
     // Apply filter based on the search input
-    if (searchInput.trim() === '') {
+    if (searchInput.trim() === "") {
       // If search input is empty, reset filter to the original data
       setFilter(data);
     } else {
       // Apply filter based on the search input
-      const filteredData = data.filter((row) =>
-        row.customer.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-        row.customer.lastName.toLowerCase().includes(searchInput.toLowerCase())
+      const filteredData = data.filter(
+        (row) =>
+          row.customer.firstName
+            .toLowerCase()
+            .includes(searchInput.toLowerCase()) ||
+          row.customer.lastName
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
       );
       setFilter(filteredData);
     }
@@ -179,7 +192,9 @@ function RequestsPage() {
                 }`}
               ></span>
             </button>
-            <span className="ml-2">{isOn ? "Dustbin" : "Pickups"} Requests</span>
+            <span className="ml-2">
+              {isOn ? "Dustbin" : "Pickups"} Requests
+            </span>
           </div>
           <input
             type="text"
@@ -193,7 +208,12 @@ function RequestsPage() {
           {loading ? (
             <p>Loading...</p>
           ) : filter.length > 0 ? (
-            <DataGrid columns={columns} rows={filter} pageSize={5} rowId="_id" />
+            <DataGrid
+              columns={columns}
+              rows={filter}
+              pageSize={5}
+              rowId="_id"
+            />
           ) : (
             <p>No {isOn ? "dustbin" : "pickup"} data available</p>
           )}

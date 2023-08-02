@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import AddDriverModal from "./AddDriverModal";
-import {client} from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function DriversPage() {
   const [data, setData] = useState([]);
@@ -11,17 +11,34 @@ function DriversPage() {
   const [user, setUser] = useState("");
 
   const getData = async () => {
-    await client
-      .get("drivers")
-      .then((res) => {
-        const rawData = res.data.data.drivers; // Access the customers array correctly
-        const processedData = rawData.map((driver) => {
-          const { _id, role, __v, DateRegistered, firstName, lastName, email, contact, gender ,vehicleNo} = driver;
-          return {  id: _id, DateRegistered, contact, email,vehicleNo, gender, name: `${firstName} ${lastName}` };
-        });
-        setData(processedData);
-        setFilter(processedData); // Initialize filter with the processed data
+    await client.get("drivers").then((res) => {
+      const rawData = res.data.data.drivers; // Access the customers array correctly
+      const processedData = rawData.map((driver) => {
+        const {
+          _id,
+          role,
+          __v,
+          DateRegistered,
+          firstName,
+          lastName,
+          email,
+          contact,
+          gender,
+          vehicleNo,
+        } = driver;
+        return {
+          id: _id,
+          DateRegistered,
+          contact,
+          email,
+          vehicleNo,
+          gender,
+          name: `${firstName} ${lastName}`,
+        };
       });
+      setData(processedData);
+      setFilter(processedData); // Initialize filter with the processed data
+    });
   };
 
   useEffect(() => {

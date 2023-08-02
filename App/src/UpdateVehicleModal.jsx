@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 import { useState } from "react";
 
 function EditModal({ isOpen, onClose, vehicleData, isOn }) {
@@ -7,7 +7,7 @@ function EditModal({ isOpen, onClose, vehicleData, isOn }) {
 
   const handleUpdate = async () => {
     try {
-      // Make the API request to update the data
+      // Make the API request to update the dat
       const response = await client.patch(`/vehicle/${vehicleData.id}`, {
         // Use the appropriate endpoint to update the vehicle data based on the vehicle's ID
         driverName: driverName,
@@ -22,7 +22,7 @@ function EditModal({ isOpen, onClose, vehicleData, isOn }) {
   };
 
   // Check if the modal is open and if it's the vehicle side (!isOn)
-  if (!isOpen ||  isOn) {
+  if (!isOpen || isOn) {
     // If the modal is not open or isOn is true (Dustbin side), do not render the modal
     return null;
   }

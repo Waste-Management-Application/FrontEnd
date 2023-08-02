@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import Dashboard from "./Dashboard";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints";
 
 function Tracking() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [destinations, setDestinations] = useState([]);
-  const [locations, setLocations] = useState([]); 
+  const [locations, setLocations] = useState([]);
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -25,31 +25,31 @@ function Tracking() {
       }
     };
 
-      const fetchDrivers = async () => {
-        try {
-          const response = await client.get("/drivers");
-          const driversFromBackend = response.data.data.drivers;
-          const locationFromBackend = driversFromBackend.map((driver) => {
-            const { coordinates } = driver.location;
-            return { lng: coordinates[0], lat: coordinates[1] };
-          });
-          setLocations(locationFromBackend);
-        } catch (error) {
-          console.error("Error fetching Drivers:", error);
-        }
-      };
-  
+    const fetchDrivers = async () => {
+      try {
+        const response = await client.get("/drivers");
+        const driversFromBackend = response.data.data.drivers;
+        const locationFromBackend = driversFromBackend.map((driver) => {
+          const { coordinates } = driver.location;
+          return { lng: coordinates[0], lat: coordinates[1] };
+        });
+        setLocations(locationFromBackend);
+      } catch (error) {
+        console.error("Error fetching Drivers:", error);
+      }
+    };
+
     // Watch user's geolocation for updates
     const watchId = navigator.geolocation.watchPosition((position) => {
       const { latitude, longitude } = position.coords;
       setLatitude(latitude);
       setLongitude(longitude);
     });
-  
+
     // Fetch customer data and set destinations
     fetchCustomers();
     fetchDrivers();
-  
+
     // Clean up watch when component unmounts
     return () => {
       navigator.geolocation.clearWatch(watchId);
@@ -57,7 +57,8 @@ function Tracking() {
   }, []);
 
   useEffect(() => {
-    const mapboxToken = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
+    const mapboxToken =
+      "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
     mapboxgl.accessToken = mapboxToken;
 
     if (latitude !== null && longitude !== null) {
@@ -74,13 +75,17 @@ function Tracking() {
       // Add markers for customer destinations
       destinations.forEach((destination) => {
         const { lng, lat } = destination;
-        new mapboxgl.Marker({ color: 'red' }).setLngLat([lng, lat]).addTo(mapInstance);
+        new mapboxgl.Marker({ color: "red" })
+          .setLngLat([lng, lat])
+          .addTo(mapInstance);
       });
 
       // Add markers for driver locations
       locations.forEach((location) => {
         const { lng, lat } = location;
-        new mapboxgl.Marker({ color: 'yellow' }).setLngLat([lng, lat]).addTo(mapInstance);
+        new mapboxgl.Marker({ color: "yellow" })
+          .setLngLat([lng, lat])
+          .addTo(mapInstance);
       });
 
       setMap(mapInstance);

@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
-import {adminClient} from "../../apiEndpoints/endpoints.js";
+import { adminClient } from "../apiEndpoints/endpoints";
 
 function SignIn() {
   const [error, setError] = useState("");
@@ -25,7 +25,11 @@ function SignIn() {
       })
       .catch((error) => {
         console.error(error);
-        if (error.response && error.response.data && error.response.data.error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
           setError(error.response.data.error);
         } else {
           setError("An error occurred. Please try again later.");

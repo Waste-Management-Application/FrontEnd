@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function CustomersPage() {
   const [data, setData] = useState([]);

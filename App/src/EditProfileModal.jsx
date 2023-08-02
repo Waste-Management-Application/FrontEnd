@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { adminClient } from "../../apiEndpoints/endpoints";
+import { adminClient } from "../apiEndpoints/endpoints";
 
 function EditProfileModal({ isOpen, onClose, user }) {
   const [formData, setFormData] = useState({
@@ -23,20 +23,21 @@ function EditProfileModal({ isOpen, onClose, user }) {
 
     try {
       // Send the updated data to the backend
-      const response = await adminClient.patch(`updateAdmin/${user._id}`, formData);
+      const response = await adminClient.patch(
+        `updateAdmin/${user._id}`,
+        formData
+      );
 
       // Handle successful update (e.g., show a success message or update the user data)
       console.log("Profile updated successfully!");
       console.log("Updated admin data:", response.data); // The updated admin data from the server
-      console.log(formData)
+      console.log(formData);
       onClose();
     } catch (error) {
       console.error("Error updating profile:", error);
       // Handle errors (e.g., show an error message)
     }
   };
-
-
 
   return (
     <div

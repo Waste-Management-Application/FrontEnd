@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
 import AddScheduleModal from "./AddScheduleModal";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function SchedulingPage() {
   const [data, setData] = useState([]);
@@ -69,9 +69,11 @@ function SchedulingPage() {
   const rowsWithIds = data.map((row) => ({
     ...row,
     id: row._id,
-    driverFullName: row.driver ? `${row.driver.firstName} ${row.driver.lastName}` : "", // Conditional check for driver object
+    driverFullName: row.driver
+      ? `${row.driver.firstName} ${row.driver.lastName}`
+      : "", // Conditional check for driver object
   }));
-  
+
   const handleFilter = (e) => {
     const filterText = e.target.value.toLowerCase();
     const newData = data.filter((row) => {
@@ -123,12 +125,20 @@ function SchedulingPage() {
         {/* Conditional rendering: Render DataGrid only if data is available */}
         <div className="h-[500px]">
           {data.length > 0 ? (
-            <DataGrid columns={columns} rows={filter.length > 0 ? filter : rowsWithIds} pageSize={10} />
+            <DataGrid
+              columns={columns}
+              rows={filter.length > 0 ? filter : rowsWithIds}
+              pageSize={10}
+            />
           ) : (
             <p>Loading data...</p>
           )}
         </div>
-        <AddScheduleModal isOpen={isModalOpen} onClose={handleCloseModal} onSuccess={handleAddSuccess} />
+        <AddScheduleModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onSuccess={handleAddSuccess}
+        />
       </div>
     </div>
   );

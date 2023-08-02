@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { addCustomer, addDriver } from "../../apiEndpoints/endpoints";
+import { addCustomer, addDriver } from "../apiEndpoints/endpoints";
 
 function AddDriverModal({ isOpen, onClose, user }) {
   const initialFormData = {
@@ -12,8 +12,7 @@ function AddDriverModal({ isOpen, onClose, user }) {
     password: "",
     confirmPassword: "",
     vehicleNo: "",
-    digitalAddress:""
-
+    digitalAddress: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);

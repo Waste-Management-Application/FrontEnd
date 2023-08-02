@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints";
 
 function AddScheduleModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -69,7 +69,10 @@ function AddScheduleModal({ isOpen, onClose, onSuccess }) {
             >
               Cancel
             </button>
-            <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-md">
+            <button
+              type="submit"
+              className="px-4 py-2 bg-green-500 text-white rounded-md"
+            >
               Add
             </button>
           </div>

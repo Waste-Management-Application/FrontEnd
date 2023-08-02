@@ -1,14 +1,14 @@
 import { NavLink } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { adminClient } from '../../apiEndpoints/endpoints.js';
+import { adminClient } from "../apiEndpoints/endpoints.js";
 
 function ResetPasswordPage() {
   const { token } = useParams();
   const CpasswordRef = useRef(null);
   const passwordRef = useRef(null);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,8 +17,10 @@ function ResetPasswordPage() {
     const confirmPassword = CpasswordRef.current.value;
 
     if (newPassword !== confirmPassword) {
-      setError("Passwords do not match. Please make sure both passwords are the same.");
-      setSuccessMessage('');
+      setError(
+        "Passwords do not match. Please make sure both passwords are the same."
+      );
+      setSuccessMessage("");
       return;
     }
 
@@ -29,16 +31,16 @@ function ResetPasswordPage() {
       });
 
       console.log(response.data);
-      setSuccessMessage('Password reset successful! Redirecting to Sign In...');
+      setSuccessMessage("Password reset successful! Redirecting to Sign In...");
       setError(null);
 
       setTimeout(() => {
-        window.location.href = '/SignIn';
+        window.location.href = "/SignIn";
       }, 3000);
     } catch (error) {
       console.error(error);
       setError("An error occurred during password reset. Please try again.");
-      setSuccessMessage('');
+      setSuccessMessage("");
     }
   };
 

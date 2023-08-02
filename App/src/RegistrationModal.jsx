@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 
 function RegistrationModal({ isOpen, onClose, isOn }) {
   const handleSubmit = async () => {
     try {
       const endpoint = isOn ? "/dustbin" : "/vehicle";
-     
+
       // Make the API request to add the data
       const response = await client.post(endpoint);
-      console.log(response.data)
+      console.log(response.data);
 
       // Close the modal after successful addition
       onClose();

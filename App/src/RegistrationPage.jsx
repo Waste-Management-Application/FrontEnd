@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Dashboard from "./Dashboard";
 import { DataGrid } from "@mui/x-data-grid";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints";
 import RegistrationModal from "./RegistrationModal";
-import EditModal from "./UpdateVehicleModal"
+import EditModal from "./UpdateVehicleModal";
 
 function RegistrationPage() {
   const [data, setData] = useState([]);
@@ -22,7 +22,7 @@ function RegistrationPage() {
         id: row._id,
         number: isOn ? row.dustbinNo : row.vehicleNo,
         date: row.DateCreated,
-        driver: isOn? null : row.driver, // Add driverName to the data for "Vehicle"
+        driver: isOn ? null : row.driver, // Add driverName to the data for "Vehicle"
       }));
 
       setData(responseData);
@@ -71,13 +71,13 @@ function RegistrationPage() {
   ];
 
   // Conditionally add the "Driver" column based on isOn state
-if (!isOn) {
-  columns.push({
-    field: "driver",
-    headerName: "Driver",
-    width: 200,
-  });
-}
+  if (!isOn) {
+    columns.push({
+      field: "driver",
+      headerName: "Driver",
+      width: 200,
+    });
+  }
 
   const handleFilter = (e) => {
     setSearchInput(e.target.value);
@@ -118,9 +118,7 @@ if (!isOn) {
         <div className="flex justify-between m-4 ">
           <div className="flex items-center">
             <button
-              className={`w-12 h-6 rounded-full ${
-                isOn ? "bg-g2" : "bg-g3"
-              }`}
+              className={`w-12 h-6 rounded-full ${isOn ? "bg-g2" : "bg-g3"}`}
               onClick={() => {
                 setLoading(true);
                 setIsOn((prevIsOn) => !prevIsOn);
@@ -132,9 +130,7 @@ if (!isOn) {
                 }`}
               ></span>
             </button>
-            <span className="ml-2">
-              {isOn ? "Bins" : "Vehicles"}
-            </span>
+            <span className="ml-2">{isOn ? "Bins" : "Vehicles"}</span>
           </div>
           <input
             type="text"
