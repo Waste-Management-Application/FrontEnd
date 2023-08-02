@@ -91,11 +91,9 @@ function ProfilePage() {
         <div className="h-52 bg-g3 border-none opacity-90 flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
             <div>
-              <img
-                src="./src/assets/man-avatar-profile-picture-vector-illustration_268834-538.avif"
-                className="rounded-full w-24 h-24 m-2"
-                alt="Profile"
-              />
+              <div className="flex justify-center items-center bg-white h-16 w-16 rounded-full m-4">
+                <div className="flex justify-center items-center bg-g2 h-12 w-12 rounded-full"></div>
+              </div>
             </div>
             <div>
               <div>
