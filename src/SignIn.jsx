@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import axios from "axios";
 import { adminClient } from "../apiEndpoints/endpoints";
 
 function SignIn() {

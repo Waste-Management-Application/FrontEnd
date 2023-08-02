@@ -1,11 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const tailwindConfig = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-
     extend: {
       colors: {
         transparent: 'transparent',
@@ -16,10 +15,10 @@ export default {
         g3: '#588157',
         g4: '#3a5a40',
         g5: '#344e41'
-
       }
     },
   },
   plugins: [],
-}
+};
 
+export default tailwindConfig;
