@@ -62,7 +62,7 @@ function ProfilePage() {
           <div className="flex flex-col justify-center items-center">
             <div>
               <img
-                src="./src/assets/man-avatar-profile-picture-vector-illustration_268834-538.avif"
+                src="./src/assets/user44.png"
                 className="rounded-full w-24 h-24  m-2"
                 alt="profile"
               />
