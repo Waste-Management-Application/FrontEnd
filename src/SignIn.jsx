@@ -4,6 +4,7 @@ import { client } from "../apiEndpoints/endpoints.js";
 
 function SignIn() {
   const [formInfo, setFormInfo] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const form = useRef(null);
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ function SignIn() {
         const token = response.data.token;
         localStorage.setItem("token", token);
         console.log(response.data);
-        navigate("/MainPage");
+        navigate("/Payment");
       })
       .catch((error) => {
         console.error(error);
