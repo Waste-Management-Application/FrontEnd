@@ -61,11 +61,9 @@ function ProfilePage() {
         <div className="h-52 bg-g3 border-none opacity-90 flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
             <div>
-              <img
-                src="./src/assets/user44.png"
-                className="rounded-full w-24 h-24  m-2"
-                alt="profile"
-              />
+              <div className=" flex justify-center items-center h-16 rounded-full bg-white w-16 m-4">
+                <div className="h-12 rounded-full bg-g2 w-12 "></div>
+              </div>
             </div>
             <div>
               <div>
