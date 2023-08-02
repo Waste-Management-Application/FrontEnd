@@ -64,7 +64,7 @@ function ProfilePage() {
               <img
                 src="./src/assets/man-avatar-profile-picture-vector-illustration_268834-538.avif"
                 className="rounded-full w-24 h-24  m-2"
-                alt="Profile Picture"
+                alt="profile"
               />
             </div>
             <div>
