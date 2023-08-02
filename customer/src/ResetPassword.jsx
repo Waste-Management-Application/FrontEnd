@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import {client} from '../../apiEndpoints/endpoints.js';
+import { client } from "../apiEndpoints/endpoints.js";
 
 function ResetPassword() {
   const { token } = useParams();
   const CpasswordRef = useRef(null);
   const passwordRef = useRef(null);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,20 +22,19 @@ function ResetPassword() {
       });
 
       console.log(response.data);
-      setSuccessMessage('Password reset successful! Redirecting to Sign In...');
+      setSuccessMessage("Password reset successful! Redirecting to Sign In...");
       setError(null);
 
       setTimeout(() => {
-        window.location.href = '/SignIn';
+        window.location.href = "/SignIn";
       }, 3000);
     } catch (error) {
       console.error(error);
       setError("An error occurred during password reset. Please try again.");
-      setSuccessMessage('');
+      setSuccessMessage("");
     }
   };
 
-  
   return (
     <div>
       <div className="flex  justify-center items-center h-screen  overflow-auto ">
@@ -51,31 +50,31 @@ function ResetPassword() {
               </h1>
             </div>
             <form
-          className="flex flex-col items-center h-auto p-2 m-2 w-fill overflow-auto rounded-md"
-          onSubmit={handleSubmit}
-        >
-          <input
-            type="password"
-            className="h-12 shadow-md w-[90%] my-4 rounded-md"
-            placeholder="Password"
-            ref={CpasswordRef}
-          />
-          <input
-            type="Password"
-            className="h-12 shadow-md w-[90%] my-4 rounded-md"
-            placeholder="Confirm Password"
-            ref={passwordRef}
-          />
+              className="flex flex-col items-center h-auto p-2 m-2 w-fill overflow-auto rounded-md"
+              onSubmit={handleSubmit}
+            >
+              <input
+                type="password"
+                className="h-12 shadow-md w-[90%] my-4 rounded-md"
+                placeholder="Password"
+                ref={CpasswordRef}
+              />
+              <input
+                type="Password"
+                className="h-12 shadow-md w-[90%] my-4 rounded-md"
+                placeholder="Confirm Password"
+                ref={passwordRef}
+              />
 
-          <button
-            type="submit"
-            className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center "
-          >
-            Submit
-          </button>
-        </form>
-        
-        {error && (
+              <button
+                type="submit"
+                className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center "
+              >
+                Submit
+              </button>
+            </form>
+
+            {error && (
               <div className="flex justify-center text-red-500">
                 <p>{error}</p>
               </div>
@@ -85,9 +84,9 @@ function ResetPassword() {
                 <p>{successMessage}</p>
               </div>
             )}
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 }

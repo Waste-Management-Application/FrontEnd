@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function EditProfileModal({ isOpen, onClose, user }) {
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ function EditProfileModal({ isOpen, onClose, user }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       // Update the location field with city and coordinates
       const updatedLocation = {
@@ -30,13 +30,13 @@ function EditProfileModal({ isOpen, onClose, user }) {
         coordinates: formData.coordinates,
         city: formData.city,
       };
-  
+
       // Send the updated data to the backend
       const response = await client.patch(`customers/${user._id}`, {
         ...formData,
         location: updatedLocation,
       });
-  
+
       // Handle successful update (e.g., show a success message or update the user data)
       console.log("Profile updated successfully!");
       console.log("Updated admin data:", response.data); // The updated admin data from the server
@@ -141,18 +141,20 @@ function EditProfileModal({ isOpen, onClose, user }) {
             </button>
             <button
               type="submit"
-              className="px-2 py-2 bg-g4 text-white rounded-full m-2" onClick={onClose}
+              className="px-2 py-2 bg-g4 text-white rounded-full m-2"
+              onClick={onClose}
             >
               cancel
             </button>
             <button
               type="submit"
-              disabled={formData.city === "Unknown" || formData.coordinates[0] === 0}
+              disabled={
+                formData.city === "Unknown" || formData.coordinates[0] === 0
+              }
               className="px-2 py-2 bg-g3 text-white rounded-full m-2"
             >
               Update Profile
             </button>
-           
           </div>
         </form>
       </div>

@@ -1,6 +1,6 @@
 import Bar from "./Bar";
 import SideBar from "./SideBar";
-import {client} from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints.js";
 import { useState } from "react";
 
 function PaymentPage() {

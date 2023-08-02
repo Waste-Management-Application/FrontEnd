@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
-import {client} from '../../apiEndpoints/endpoints.js';
+import { client } from "../apiEndpoints/endpoints.js";
 
 function ForgotPassword() {
   const emailRef = useRef(null);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,28 +14,31 @@ function ForgotPassword() {
     const email = emailRef.current.value;
 
     try {
-      const response = await client.post('/forgotPassword', { email });
+      const response = await client.post("/forgotPassword", { email });
       console.log(response.data);
-      setSuccessMessage('Password reset token sent to your email.');
+      setSuccessMessage("Password reset token sent to your email.");
       setError(null);
-      emailRef.current.value = '';
+      emailRef.current.value = "";
 
       // Hide success message and redirect after 3 seconds (3000 milliseconds)
       setTimeout(() => {
-        setSuccessMessage('');
+        setSuccessMessage("");
         // Redirect to the signin page
-        window.location.href = '/signin';
+        window.location.href = "/signin";
       }, 3000);
     } catch (error) {
       console.error(error);
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setError(error.response.data.message);
       } else {
-        setError('An error occurred. Please try again later.');
+        setError("An error occurred. Please try again later.");
       }
     }
   };
-
 
   return (
     <div>
@@ -47,7 +50,9 @@ function ForgotPassword() {
             </div>
             <div className="flex flex-row p-4 text-g2 shadow-lg justify-between"></div>
             <div className="flex flex-col scroll-smooth justify-center items-center p-4">
-              <h1 className="text-black text-xl font-semibold">Provide Your Email</h1>
+              <h1 className="text-black text-xl font-semibold">
+                Provide Your Email
+              </h1>
             </div>
             <form
               className="flex flex-col items-center h-auto p-2 m-2 w-fill overflow-auto rounded-md"

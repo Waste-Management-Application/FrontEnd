@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Bar from "./Bar";
 import SideBar from "./SideBar";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function Feedback() {
   const [message, setMessage] = useState("");

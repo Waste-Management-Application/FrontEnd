@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { GiExitDoor } from "react-icons/gi";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function SideBar({ open, toggle }) {
   const [customer, setCustomer] = useState("");
@@ -34,7 +34,6 @@ function SideBar({ open, toggle }) {
 
     fetchCustomerData();
   }, []);
-
 
   return (
     <div className="z-[9999]">

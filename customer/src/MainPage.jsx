@@ -9,7 +9,7 @@ import { RiFeedbackLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Modal from "./Modal";
-import {client} from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function MainPage() {
   const [openModal, setOpenModal] = useState(false);

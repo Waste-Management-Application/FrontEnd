@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EditProfileModal from "./EditProfileModal";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints.js";
 //const mapboxApiKey = "pk.eyJ1IjoiZGFiYXJkZW4iLCJhIjoiY2xrZmQzY3MyMGMzbTNzbzVydWM0d3ZueCJ9.BtD3WGO5D3C8fbfCDyDlhg";
 import { NavLink } from "react-router-dom";
 
@@ -8,6 +8,7 @@ function ProfilePage() {
   const [customer, setCustomer] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [locationString, setLocationString] = useState("Loading...");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCustomerData = async () => {
@@ -40,6 +41,7 @@ function ProfilePage() {
         }
       } catch (error) {
         console.error("Error fetching customer data:", error);
+        setError(error.message);
       }
     };
 
@@ -131,6 +133,17 @@ function ProfilePage() {
             >
               <button>Home</button>
             </NavLink>
+            {error && (
+              <div className="text-red-500 mt-2">
+                {error}
+                <button
+                  className="ml-2 text-sm underline"
+                  onClick={handleDismissError}
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

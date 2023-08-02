@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function SignUp() {
   const [error, setError] = useState(null);
@@ -40,12 +40,12 @@ function SignUp() {
         );
       } else {
         // If location is not allowed or geolocation is not supported, proceed with sign-up without location
-      
+
         const location = {
           type: "Point",
           coordinates: [0, 0],
-          city:"Unknown",
-        }; 
+          city: "Unknown",
+        };
         jsonData.location = location;
         signUpUser(jsonData);
       }
@@ -133,7 +133,7 @@ function SignUp() {
             placeholder="City/Town"
             name="city"
           />
-          <input 
+          <input
             type="password"
             className="h-[8%] shadow-md w-[90%] my-2 rounded-md text-center"
             placeholder="Create Password"
@@ -171,9 +171,7 @@ function SignUp() {
 
           {error && <div className="text-red-500 mt-2">{error}</div>}
 
-          <div
-            className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 "
-          >
+          <div className="flex border text-white my-12 shadow-xl font-semibold h-12 p-4 bg-g3 rounded-3xl m-4 justify-center items-center hover:bg-white hover:text-g3 hover:border-g3 ">
             <button>Join The Community</button>
           </div>
         </form>
