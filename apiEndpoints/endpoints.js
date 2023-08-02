@@ -1,13 +1,14 @@
-import axios from "axios"; 
+import axios from "axios";
 
 
+const uri = "https://binbuddy-ecd3765f4bc9.herokuapp.com";
 const client = axios.create({
-    baseURL: "http://localhost:4000/api/BinBuddy"  
-  });
+  baseURL: `${uri}/api/BinBuddy`
+});
 
 const adminClient = axios.create({
-    baseURL: "http://localhost:4000/api/BinBuddyAdmin" 
-  });
+  baseURL: `${uri}/api/BinBuddyAdmin`
+});
 
 // Function to include token in headers
 client.interceptors.request.use((config) => {
@@ -51,6 +52,6 @@ export const addCustomer = async (customerData) => {
 };
 
 
-export  {client,adminClient};
+export { client, adminClient };
 
 
