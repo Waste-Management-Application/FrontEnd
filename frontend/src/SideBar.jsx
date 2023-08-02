@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { GiExitDoor } from "react-icons/gi";
 import React, { useEffect, useState } from "react";
-import {client} from "../../apiEndpoints/endpoints"
+import { client } from "../apiEndpoints/endpoints.js";
 
 function SideBar({ open, toggle }) {
   const [driver, setDriver] = useState("");
@@ -34,7 +34,6 @@ function SideBar({ open, toggle }) {
 
     fetchCustomerData();
   }, []);
-
 
   return (
     <div className="z-[9999]">

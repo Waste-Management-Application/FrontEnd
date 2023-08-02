@@ -1,40 +1,41 @@
 import { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import {client} from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function SignIn() {
   const [formInfo, setFormInfo] = useState({ email: "", password: "" });
   const form = useRef(null);
   const navigate = useNavigate();
+  const [error, setError] = useState();
 
   const handle = (e) => {
     e.preventDefault();
     const formData = new FormData(form.current);
-    const jsonData = Object.fromEntries(formData)
+    const jsonData = Object.fromEntries(formData);
     const email = formData.get("email");
     const password = formData.get("password");
     setFormInfo({ email, password });
 
     client
-            .post("/driverSignIn/", jsonData)
-            .then((response) => {
-              const token = response.data.token;
-              localStorage.setItem("token", token); 
-              console.log(response.data);
-              navigate("/MainPage");
-            })
-            .catch((error) => {
-              console.error(error);
-              if (
-                error.response &&
-                error.response.data &&
-                error.response.data.error
-              ) {
-                setError(error.response.data.error);
-              } else {
-                setError("An error occurred. Please try again later.");
-              }
-            });
+      .post("/driverSignIn/", jsonData)
+      .then((response) => {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        console.log(response.data);
+        navigate("/MainPage");
+      })
+      .catch((error) => {
+        console.error(error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          setError(error.response.data.error);
+        } else {
+          setError("An error occurred. Please try again later.");
+        }
+      });
     return false; // Prevent default form submission behavior
   };
 
@@ -50,9 +51,7 @@ function SignIn() {
               <NavLink to="/SignIn">Sign In</NavLink>
             </div>
             <div className="flex flex-col scroll-smooth justify-center items-center p-4">
-              <h1 className="text-black text-xl font-semibold">
-                Login Now
-              </h1>
+              <h1 className="text-black text-xl font-semibold">Login Now</h1>
             </div>
             <form
               ref={form}
@@ -71,11 +70,12 @@ function SignIn() {
                 className="h-12 shadow-md w-[90%] my-4 rounded-md text-center"
                 placeholder="Password"
               />
-  
+
               <div className="flex border-[2px] shadow-xl  text-white font-semibold h-12 p-4 bg-g3 rounded-3xl m-8 justify-center items-center ">
                 <input type="submit" value="Log In" />
               </div>
             </form>
+            {error && <div className="text-red-500 mt-2">{error}</div>}
           </div>
         </div>
       </div>

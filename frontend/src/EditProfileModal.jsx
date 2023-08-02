@@ -1,14 +1,14 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints.js";
 
-function EditProfileModal({ isOpen, onClose , user}) {
+function EditProfileModal({ isOpen, onClose, user }) {
   const [formData, setFormData] = useState({
     firstName: user.firstName || "",
     lastName: user.lastName || "",
-    contact: user.contact ||"",
+    contact: user.contact || "",
     email: user.email || "",
-    vehicleNo: user.vehicleNo || "", 
+    vehicleNo: user.vehicleNo || "",
   });
 
   const handleChange = (e) => {
@@ -29,14 +29,13 @@ function EditProfileModal({ isOpen, onClose , user}) {
       // Handle successful update (e.g., show a success message or update the user data)
       console.log("Profile updated successfully!");
       console.log("Updated admin data:", response.data); // The updated admin data from the server
-      console.log(formData)
+      console.log(formData);
       onClose();
     } catch (error) {
       console.error("Error updating profile:", error);
       // Handle errors (e.g., show an error message)
     }
   };
-
 
   return (
     <div
@@ -82,7 +81,7 @@ function EditProfileModal({ isOpen, onClose , user}) {
             placeholder="Email"
             className="w-full border p-2 rounded-md mb-2"
           />
-           <input
+          <input
             type="text"
             name="vehicleNo"
             value={formData.vehicleNo}

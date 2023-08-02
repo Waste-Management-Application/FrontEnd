@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Bar from "./Bar";
 import SideBar from "./SideBar";
 import { BsCheck2 } from "react-icons/bs";
-import { client } from "../../apiEndpoints/endpoints";
+import { client } from "../apiEndpoints/endpoints.js";
 
 function CheckList() {
   const [open, setOpen] = useState(false);

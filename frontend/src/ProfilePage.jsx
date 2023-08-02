@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import EditProfileModal from "./editProfileModal";
-import { client } from "../../apiEndpoints/endpoints.js";
+import { client } from "../apiEndpoints/endpoints.js";
 import { NavLink } from "react-router-dom";
 
 function ProfilePage() {
   const [driver, setDriver] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [error, setError] = useState(null);
+  const handleDismissError = () => {
+    setError(null); // Reset the error state to null
+  };
 
   useEffect(() => {
     // Function to fetch customer data from the backend
@@ -15,8 +19,7 @@ function ProfilePage() {
         const token = localStorage.getItem("token");
 
         if (!token) {
-          console.error("Authentication token not found.");
-          return;
+          throw new Error("Authentication token not found.");
         }
 
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
@@ -27,6 +30,7 @@ function ProfilePage() {
         setDriver(response.data.data.driver);
       } catch (error) {
         console.error("Error fetching customer data:", error);
+        setError(error.message);
       }
     };
 
@@ -103,6 +107,17 @@ function ProfilePage() {
             </NavLink>
           </div>
         </div>
+        {error && (
+          <div className="text-red-500 mt-2">
+            {error}
+            <button
+              className="ml-2 text-sm underline"
+              onClick={handleDismissError}
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Add the EditProfileModal component */}

@@ -6,8 +6,7 @@ import { useState } from "react";
 import tt from "@tomtom-international/web-sdk-maps";
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
 import ttapi from "@tomtom-international/web-sdk-services";
-import {client} from "../../apiEndpoints/endpoints"
-
+import { client } from "../apiEndpoints/endpoints.js";
 
 function MainPage() {
   const mapElement = useRef();
@@ -66,49 +65,47 @@ function MainPage() {
     // Decode the token to get the user ID
     try {
       const token = localStorage.getItem("token");
-  
+
       if (!token) {
         console.error("Authentication token not found.");
         return;
       }
-  
+
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
       const userId = decodedToken.id;
-  
+
       // Call a function to update the driver's location in the backend
       if (latitude !== null && longitude !== null) {
         saveDriverLocation(userId, latitude, longitude);
       }
-  
+
       // Rest of your useEffect logic...
     } catch (error) {
       console.error("Error decoding token:", error);
     }
   }, [latitude, longitude]);
 
-
   const saveDriverLocation = async (userId, lat, lng) => {
-  try {
-    // Make an HTTP POST request to your backend endpoint
-    const response = await client.post("/UpdateDriverLocation", {
-      id: userId, // Pass the user ID to the backend API
-      latitude: lat,
-      longitude: lng,
-    });
+    try {
+      // Make an HTTP POST request to your backend endpoint
+      const response = await client.post("/UpdateDriverLocation", {
+        id: userId, // Pass the user ID to the backend API
+        latitude: lat,
+        longitude: lng,
+      });
 
-    // Check the response status and handle accordingly
-    if (response.status === 200) {
-      console.log("Driver location saved successfully");
-    } else {
-      console.error("Error saving driver location:", response.statusText);
+      // Check the response status and handle accordingly
+      if (response.status === 200) {
+        console.log("Driver location saved successfully");
+      } else {
+        console.error("Error saving driver location:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error saving driver location:", error);
     }
-  } catch (error) {
-    console.error("Error saving driver location:", error);
-  }
-};
+  };
 
   useEffect(() => {
-
     const fetchCustomers = async () => {
       try {
         const response = await client.get("/customers");
@@ -149,23 +146,21 @@ function MainPage() {
       const element = document.createElement("div");
       element.className = "driver";
       const marker = new tt.Marker({
-        draggable: true,
+        draggable: false,
         element: element,
       })
         .setLngLat([longitude, latitude])
         .addTo(map);
-      marker.on("dragend", () => {
-        const lnglat = marker.getLngLat();
-        setLongitude(lnglat.lng);
-        setLatitude(lnglat.lat);
+      // marker.on("dragend", () => {
+      //   const lnglat = marker.getLngLat();
+      //   setLongitude(lnglat.lng);
+      //   setLatitude(lnglat.lat);
 
-         // Send the driver's location to the backend API
-         saveDriverLocation(lnglat.lat, lnglat.lng);
+      //    // Send the driver's location to the backend API
+      //    saveDriverLocation(lnglat.lat, lnglat.lng);
 
-      });
+      // });
       // marker.setPopup(popup).togglePopup();
-
-       
     };
 
     addMarker();
@@ -231,7 +226,6 @@ function MainPage() {
 
     return () => map.remove();
   }, [latitude, longitude]);
-
 
   return (
     <div>
