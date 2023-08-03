@@ -44,7 +44,7 @@ function MainPage() {
       id: "route",
       type: "line",
       source: { type: "geojson", data: geoJson },
-      paint: { "line-color": "gray", "line-width": 2 },
+      paint: { "line-color": "gray", "line-width": 3 },
     });
   };
 
@@ -59,6 +59,7 @@ function MainPage() {
       element.className = "marker";
       new tt.Marker({ element: element }).setLngLat([lng, lat]).addTo(map);
     });
+    console.log("draw oo draw");
   };
 
   useEffect(() => {
@@ -126,7 +127,7 @@ function MainPage() {
     };
 
     let map = tt.map({
-      key: "tGs7nOkNWSZKSWIBx3Ln2m7ZM4QN26ix",
+      key: "MCEKBjYS2ACuQ0bkutF2APuW8mMv2sCi",
       container: mapElement.current,
       stylesVisibility: { trafficIncidents: true, trafficFlow: true },
       center: [longitude, latitude],
@@ -174,7 +175,7 @@ function MainPage() {
       });
 
       const callParameters = {
-        key: "tGs7nOkNWSZKSWIBx3Ln2m7ZM4QN26ix",
+        key: "MCEKBjYS2ACuQ0bkutF2APuW8mMv2sCi",
         destinations: pointsForDestinations,
         origins: [convertToPoints(origin)],
       };
@@ -211,7 +212,7 @@ function MainPage() {
 
           ttapi.services
             .calculateRoute({
-              key: "tGs7nOkNWSZKSWIBx3Ln2m7ZM4QN26ix",
+              key: "MCEKBjYS2ACuQ0bkutF2APuW8mMv2sCi",
               locations: sorted,
             })
             .then((routeData) => {
