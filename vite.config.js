@@ -17,24 +17,24 @@ export default defineConfig({
       },
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
       manifest: {
-        name: "BinBuddy-customer",
-        short_name: "BinBuddy",
+        name: "BinBuddy",
+        short_name: "BinBuddy-customer",
         description: "a waste management app ",
         theme_color: "#ffffff",
         start_url: "/",
         icons: [
           {
-            src: "splash2.png",
+            src: "logo-2.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "splash2.png",
+            src: "logo-2.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "splash2.png",
+            src: "logo-2.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
