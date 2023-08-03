@@ -17,24 +17,24 @@ export default defineConfig({
       },
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
       manifest: {
-        name: "Youvote",
-        short_name: "Youvote",
-        description: "Voting web app for youvote ",
+        name: "BinBuddy-customer",
+        short_name: "BinBuddy",
+        description: "a waste management app ",
         theme_color: "#ffffff",
         start_url: "/",
         icons: [
           {
-            src: "logo192.png",
+            src: "splash2.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "logo512.png",
+            src: "splash2.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "logo512.png",
+            src: "splash2.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
