@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const uri = "https://binbuddy-ecd3765f4bc9.herokuapp.com";
+const uri = "https://binbuddy.onrender.com";
 const client = axios.create({
   baseURL: `${uri}/api/BinBuddy`
 });
