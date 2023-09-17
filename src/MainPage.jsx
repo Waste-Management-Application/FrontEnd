@@ -95,7 +95,6 @@ function MainPage() {
         longitude: lng,
       });
 
-      // Check the response status and handle accordingly
       if (response.status === 200) {
         console.log("Driver location saved successfully");
       } else {
@@ -127,7 +126,7 @@ function MainPage() {
     };
 
     let map = tt.map({
-      key: "MCEKBjYS2ACuQ0bkutF2APuW8mMv2sCi",
+      key: "LdO0R5XScisfVip7XCzxZcIr6U56LCSc",
       container: mapElement.current,
       stylesVisibility: { trafficIncidents: true, trafficFlow: true },
       center: [longitude, latitude],
