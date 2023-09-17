@@ -174,7 +174,7 @@ function MainPage() {
       });
 
       const callParameters = {
-        key: "MCEKBjYS2ACuQ0bkutF2APuW8mMv2sCi",
+        key: "LdO0R5XScisfVip7XCzxZcIr6U56LCSc",
         destinations: pointsForDestinations,
         origins: [convertToPoints(origin)],
       };
@@ -211,7 +211,7 @@ function MainPage() {
 
           ttapi.services
             .calculateRoute({
-              key: "MCEKBjYS2ACuQ0bkutF2APuW8mMv2sCi",
+              key: "LdO0R5XScisfVip7XCzxZcIr6U56LCSc",
               locations: sorted,
             })
             .then((routeData) => {
